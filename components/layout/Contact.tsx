@@ -2,10 +2,13 @@
 import { motion } from "motion/react";
 import { Separator } from "../ui/separator";
 import Image from "next/image";
+import { Meteors } from "../ui/meteors";
 export default function Contact() {
   return (
-    <section className="flex justify-center items-center flex-row py-20  scroll-mt-20">
+    <section className="relative w-full overflow-hidden flex justify-center items-center flex-row py-20  scroll-mt-20">
+      
       <section id="contact" className="w-1/3 m-20  px-4 py-16">
+      
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -97,7 +100,8 @@ export default function Contact() {
           </motion.a>
         </div>
       </section>
-      <section id="about" className="w-2/3 scroll-mt-20 m-20 px-4 py-16">
+      <section id="about" className="relative overflow-hidden w-2/3 scroll-mt-20 m-20 px-4 py-16">
+      {/* <Meteors number={30} /> */}
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
