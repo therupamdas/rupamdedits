@@ -10,7 +10,7 @@ export default function Hero() {
     <section className="ml-8 px-5 sm:px-7  mb-6 sm:mb-9 p-4 sm:p-5 md:mb-14 overflow-hidden">
       <Badge
         variant="secondary"
-        className="rounded-full mb-4 sm:mb-6 flex bg-white p-3 items-center gap-1 text-xs sm:text-sm"
+        className="rounded-full drop-shadow-2xl mb-4 sm:mb-6 flex bg-white p-3 items-center gap-1 text-xs sm:text-sm"
       >
         <Sparkles className="h-3 w-3 sm:h-3.5 sm:w-3.5" /> Minimal. Precise.
         On-brand.
@@ -20,10 +20,15 @@ export default function Hero() {
         <span>Creators and Brands</span>
       </h1>
 
-      <p className="hidden md:flex mt-4 sm:mt-6 text-neutral-600 max-w-full sm:max-w-xl text-sm sm:text-base">
-        I craft tight, story-first edits that boost watch time, clicks, and
-        conversions. Short-form, YouTube, ads, and event highlights delivered
-        with agency-level polish.
+      <p className="flex flex-col md:flex mt-4 sm:mt-6 text-neutral-600 max-w-full sm:max-w-xl text-sm sm:text-base">
+        <span>
+          I craft tight, story-first edits that boost watch time, clicks, and
+          conversions.
+        </span>
+        <span>
+          Short-form, YouTube, ads, and event highlights delivered with
+          agency-level polish.
+        </span>
       </p>
       <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-3">
         <Button
