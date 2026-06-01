@@ -22,14 +22,14 @@ export default function Navbar() {
           </a>
           <nav className="hidden md:flex items-center gap-6 text-sm">
             <a
-              href="#about"
+              href="#work"
               className="cursor-none px-6 py-2 rounded-sm text-lg font-semibold text-neutral-800 hover:bg-neutral-100 transition-colors duration-200"
             >
               Work
             </a>
 
             <a
-              href="#about"
+              href="#services"
               className="cursor-none px-6 py-2 rounded-sm text-lg font-semibold text-neutral-800 hover:bg-neutral-100 transition-colors duration-200"
             >
               Services

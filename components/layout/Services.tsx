@@ -67,21 +67,82 @@ export default function Services() {
             initial="hidden"
             whileInView="show"
             viewport={{ once: true }}
-            className="group relative block border border-neutral-200 overflow-hidden rounded-lg bg-white"
+            whileHover={{ y: -4 }}
+            className="
+    group
+    relative
+    overflow-hidden
+    rounded-xl
+    border
+    border-neutral-200
+    bg-white
+    transition-all
+    duration-100
+    hover:shadow-xl
+    hover:border-neutral-300
+  "
           >
-            <div className="p-6 rounded-md text-black dark:text-white border-neutral-200 dark:border-slate-800">
-              <h3 className="text-lg font-medium">{s.title}</h3>
-              <p className="text-sm text-neutral-600 mt-2">{s.description}</p>
+            <div className="relative p-6">
+              {/* Price */}
+              <div className="mb-4 flex items-center justify-between">
+                <span className="text-xs uppercase tracking-widest text-neutral-500">
+                  Starting at
+                </span>
+
+                <span className="text-lg font-semibold text-black">
+                  ₹4,999+
+                </span>
+              </div>
+
+              {/* Service */}
+              <h3 className="text-xl font-semibold tracking-tight text-black">
+                {s.title}
+              </h3>
+
+              {/* Description */}
+              <p className="mt-3 text-sm leading-relaxed text-neutral-600">
+                {s.description}
+              </p>
+
+              {/* Deliverables */}
+              <ul className="mt-5 space-y-2 text-sm text-neutral-700">
+                <li>✓ Professional editing</li>
+                <li>✓ Color grading</li>
+                <li>✓ Sound design</li>
+                <li>✓ Fast turnaround</li>
+              </ul>
+
+              {/* CTA */}
+              <div className="mt-6 flex items-center justify-between">
+                <span className="text-xs text-neutral-500">
+                  Custom pricing available
+                </span>
+
+                <span
+                  className="
+          text-sm
+          font-medium
+          transition-transform
+          duration-300
+          group-hover:translate-x-1
+        "
+                >
+                  Learn more →
+                </span>
+              </div>
+
+              {/* Border Beams */}
               <BorderBeam
                 duration={6}
                 size={150}
-                className="from-transparent via-red-500 to-transparent"
+                className="from-transparent via-emerald-500 to-transparent"
               />
+
               <BorderBeam
                 duration={6}
                 delay={3}
                 size={150}
-                className="from-transparent via-blue-500 to-transparent"
+                className="from-transparent via-cyan-500 to-transparent"
               />
             </div>
           </motion.div>

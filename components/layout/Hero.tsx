@@ -72,6 +72,15 @@ export default function Hero() {
         + Videos made till now.
       </p>
       </div>
+      <div className="flex flex-rows"><NumberTicker
+        value={17}
+        startValue={7}
+        className="text-5xl font-medium tracking-tighter whitespace-pre-wrap text-black dark:text-white"
+      />
+      <p className="text-5xl font-medium tracking-tighter whitespace-pre-wrap text-black dark:text-white">
+        + Brands.
+      </p>
+      </div>
     </section>
   );
 }
