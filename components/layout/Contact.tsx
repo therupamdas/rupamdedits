@@ -1,0 +1,154 @@
+"use client";
+import { motion } from "motion/react";
+import { Separator } from "../ui/separator";
+import Image from "next/image";
+export default function Contact() {
+  return (
+    <section className="flex justify-center items-center flex-row py-20  scroll-mt-20">
+      <section id="contact" className="w-1/3 m-20  px-4 py-16">
+        <motion.h2
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          className="text-2xl md:text-3xl text-neutral-800 font-bebas uppercase font-bold text-center"
+        >
+          Get in Touch
+        </motion.h2>
+        <motion.p
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          viewport={{ once: true }}
+          className="text-neutral-500 text-center mt-2"
+        >
+          Let us talk about your project or idea
+        </motion.p>
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.8, delay: 0.3 }}
+          viewport={{ once: true }}
+          className="my-8"
+        >
+          <Separator className="max-w-md mx-auto" />
+        </motion.div>
+
+        <div className="flex flex-col gap-4 justify-center items-center max-w-4xl mx-auto px-4">
+          {/* WhatsApp Button preload */}
+          <motion.a
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            viewport={{ once: true }}
+            href="https://wa.me/918348890844"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex justify-center items-center gap-3 rounded-xl border p-4 hover:bg-green-50 transition max-w-xs mx-auto w-64 border-white shadow-md"
+          >
+            <Image
+              width="10"
+              height="10"
+              src="https://cdn-icons-png.flaticon.com/512/733/733585.png"
+              alt="WhatsApp"
+              className="w-6 h-6"
+            />
+            <span className="font-medium">Chat on WhatsApp</span>
+          </motion.a>
+
+          {/* Phone Button */}
+          <motion.a
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.5 }}
+            viewport={{ once: true }}
+            href="tel:+918348890844"
+            className="flex justify-center items-center gap-3 rounded-xl border p-4 hover:bg-blue-50 transition max-w-xs mx-auto w-64 border-white shadow-md"
+          >
+            <Image
+              width="10"
+              height="10"
+              src="https://cdn-icons-png.flaticon.com/512/724/724664.png"
+              alt="Phone"
+              className="w-6 h-6"
+            />
+            <span className="font-medium">Call Now</span>
+          </motion.a>
+
+          {/* Email Button */}
+          <motion.a
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.6 }}
+            viewport={{ once: true }}
+            href="https://mail.google.com/mail/?view=cm&fs=1&to=rupam1624@gmail.com&su=Project%20Inquiry&body=Hi%20Rupam,%20I%20would%20like%20to%20discuss%20a%20project%20with%20you."
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex justify-center items-center gap-3 rounded-xl border p-4 hover:bg-purple-50 transition max-w-xs mx-auto w-64 border-white shadow-md"
+          >
+            <Image
+              width="10"
+              height="10"
+              src="https://cdn-icons-png.flaticon.com/512/732/732200.png"
+              alt="Email"
+              className="w-6 h-6"
+            />
+            <span className="font-medium">Send an Email</span>
+          </motion.a>
+        </div>
+      </section>
+      <section id="about" className="w-2/3 scroll-mt-20 m-20 px-4 py-16">
+        <motion.h2
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          className="text-2xl md:text-3xl text-neutral-800 font-bebas uppercase font-bold text-center"
+        >
+          About
+        </motion.h2>
+        <motion.p
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          viewport={{ once: true }}
+          className="text-neutral-500 text-center mt-2"
+        >
+          Hi, I am Rupam
+        </motion.p>
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          viewport={{ once: true }}
+          className="my-6"
+        >
+          <Separator className="max-w-md mx-auto" />
+        </motion.div>
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.3 }}
+          viewport={{ once: true }}
+          className="prose prose-neutral max-w-3xl mx-auto text-left"
+        >
+          <p>
+            I am Rupam, a dedicated video editor who thrives on transforming raw
+            footage into compelling visual stories. With a strong background in
+            crafting high-end commercials, capturing the energy of live events,
+            and designing highly engaging short-form content, I help brands and
+            individuals bring their boldest ideas to life. My editing approach
+            seamlessly blends imaginative creativity with deep technical
+            expertise, ensuring that every single frame serves the larger
+            narrative. I focus heavily on pacing, rhythm, and precision to
+            guarantee that every project feels incredibly polished. Whether you
+            are looking to launch a dynamic social media campaign or need a
+            cinematic touch for your next brand documentary, my goal is to
+            elevate your vision, connect deeply with your audience, and make
+            your content completely unforgettable.
+          </p>
+        </motion.div>
+      </section>
+    </section>
+  );
+}
