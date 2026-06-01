@@ -98,8 +98,6 @@ export default function Home() {
       <main id="home">
         <Hero />
         <FeaturedWork/>
-
-        {/* Services Section */}
         <section
           id="services"
           className="ml-8 scroll-mt-20 px-4 py-10"
