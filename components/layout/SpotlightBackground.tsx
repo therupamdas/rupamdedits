@@ -67,6 +67,7 @@ export default function SpotlightBackground() {
           rounded-full
           bg-emerald-500/15
           blur-[220px]
+          opacity-50
         "
       />
 
@@ -96,6 +97,7 @@ export default function SpotlightBackground() {
           rounded-full
           bg-cyan-500/15
           blur-[200px]
+          opacity-50
         "
       />
 
@@ -126,6 +128,7 @@ export default function SpotlightBackground() {
           rounded-full
           bg-green-300/10
           blur-[180px]
+          opacity-50
         "
       />
 
@@ -154,6 +157,7 @@ export default function SpotlightBackground() {
           rounded-full
           bg-emerald-300/10
           blur-[220px]
+          opacity-50
         "
       />
 
@@ -164,7 +168,7 @@ export default function SpotlightBackground() {
           Change 24px → spacing.
       ======================================================= */}
 
-      <div className="absolute inset-0 opacity-80">
+      <div className="absolute inset-0">
         <div
           className="absolute inset-0"
           style={{
@@ -195,7 +199,7 @@ export default function SpotlightBackground() {
           background: useMotionTemplate`
             radial-gradient(
               700px circle at ${mouseX}px ${mouseY}px,
-              rgb(0 0 0 / 4%),
+              rgb(0 0 0 / 8%),
               transparent 80%
             )
           `,

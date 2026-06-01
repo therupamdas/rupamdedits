@@ -10,23 +10,6 @@ import {
 import { Menu } from "lucide-react";
 import { motion } from "framer-motion";
 
-const ITEMS = [
-  "Creator",
-  "Brand",
-  "Campaign",
-  "Commercial",
-  "Social",
-  "Documentary",
-];
-
-function CarouselItem({ text }: { text: string }) {
-  return (
-    <div className="flex items-center justify-center text-sm font-medium font-bebas text-neutral-800 px-8 whitespace-nowrap">
-      {text}
-      <span className="ml-8 text-neutral-300">·</span>
-    </div>
-  );
-}
 
 export default function Navbar() {
   return (
@@ -34,34 +17,34 @@ export default function Navbar() {
       <header className="sticky top-0 z-50 bg-white border-b">
         <div className="ml-10 px-4 py-3 flex items-center justify-between">
           {/* Logo */}
-          <a href="#home" className="font-semibold tracking-tight text-xl">
+          <a href="#home" className="cursor-none font-semibold tracking-tight text-xl">
             rupamedits<span className="text-neutral-400">.com</span>
           </a>
           <nav className="hidden md:flex items-center gap-6 text-sm">
             <a
               href="#about"
-              className="px-6 py-2 rounded-sm text-lg font-semibold text-neutral-800 hover:bg-neutral-100 transition-colors duration-200"
+              className="cursor-none px-6 py-2 rounded-sm text-lg font-semibold text-neutral-800 hover:bg-neutral-100 transition-colors duration-200"
             >
               Work
             </a>
 
             <a
               href="#about"
-              className="px-6 py-2 rounded-sm text-lg font-semibold text-neutral-800 hover:bg-neutral-100 transition-colors duration-200"
+              className="cursor-none px-6 py-2 rounded-sm text-lg font-semibold text-neutral-800 hover:bg-neutral-100 transition-colors duration-200"
             >
               Services
             </a>
 
             <a
               href="#about"
-              className="px-6 py-2 rounded-sm text-lg font-semibold text-neutral-800 hover:bg-neutral-100 transition-colors duration-200"
+              className=" cursor-none px-6 py-2 rounded-sm text-lg font-semibold text-neutral-800 hover:bg-neutral-100 transition-colors duration-200"
             >
               About
             </a>
 
             <a
               href="#contact"
-              className="px-6 py-2 rounded-sm text-lg font-semibold text-neutral-800 hover:bg-neutral-100 transition-colors duration-200"
+              className=" cursor-none px-6 py-2 rounded-sm text-lg font-semibold text-neutral-800 hover:bg-neutral-100 transition-colors duration-200"
             >
               Book a Call
             </a>
@@ -114,27 +97,7 @@ export default function Navbar() {
         </div>
       </header>
 
-      <div className="w-full border-b pb-0.5 bg-white overflow-hidden">
-        <div className="relative w-full mx-auto overflow-hidden">
-          <div
-            className="flex w-max gap-30 pr-8"
-            style={{ animation: "marquee 36s linear infinite" }}
-          >
-            {[...Array(4)].flatMap((_, ci) =>
-              ITEMS.map((item, i) => (
-                <CarouselItem key={`${ci}-${i}`} text={item} />
-              )),
-            )}
-          </div>
-        </div>
-      </div>
-
-      <style>{`
-        @keyframes marquee {
-          0%   { transform: translateX(0); }
-          100% { transform: translateX(-50%); }
-        }
-      `}</style>
+      
     </>
   );
 }

@@ -4,13 +4,16 @@ import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { ArrowRight } from "lucide-react";
 import { Separator } from "../ui/separator";
+import { TextAnimate } from "../ui/text-animate";
 
 export default function FeaturedWork() {
   return (
-    <section id="work" className="scroll-mt-20 ml-8 px-4 py-10">
+    <section id="work" className="scroll-mt-20 mx-15 px-4 py-10">
       <div className="flex items-end justify-between">
         <h2 className="text-2xl md:text-5xl text-neutral-800 font-bebas uppercase font-bold">
-          Featured Work
+          <TextAnimate animation="blurInUp" by="character" once>
+            Featured Work
+          </TextAnimate>
         </h2>
         <a
           href="#contact"

@@ -1,6 +1,8 @@
 "use client";
 
 import Image from "next/image";
+import { RetroGrid } from "../ui/retro-grid";
+import { TextAnimate } from "../ui/text-animate";
 
 const brands = [
   "/ok (1).png",
@@ -10,39 +12,55 @@ const brands = [
   "/ok (5).png",
 ];
 
-function CarouselItem({ text }: { text: string }) {
-  return (
-    <Image src={text} width={200} height={200} alt="Picture of the author" />
-  );
-}
-
 export default function BrandMarquee() {
   return (
-    <>
-    <h2 className="ml-8 px-4 text-2xl md:text-5xl text-neutral-800 font-bebas uppercase font-bold">
-              Brands I've worked with
-            </h2>
-      <div className="w-full pb-0.5 overflow-hidden">
-        <div className="relative w-full mx-auto overflow-hidden">
-          <div
-            className="flex w-max gap-20 pr-20"
-            style={{ animation: "marquee 16s linear infinite" }}
-          >
-            {[...Array(4)].flatMap((_, ci) =>
-              brands.map((item, i) => (
-                <CarouselItem key={`${ci}-${i}`} text={item} />
-              )),
-            )}
-          </div>
+    <section
+      className="relative w-full min-h-100 overflow-hidden"
+      style={{
+        maskImage:
+          "linear-gradient(to bottom, black 0%, black 75%, transparent 100%)",
+        WebkitMaskImage:
+          "linear-gradient(to bottom, black 0%, black 75%, transparent 100%)",
+      }}
+    >
+      <RetroGrid />
+
+      <h2 className="px-4 text-center text-2xl font-bold uppercase text-neutral-800 md:text-5xl font-bebas">
+        <TextAnimate animation="blurInUp" by="character" once>
+          Brands I've worked with
+        </TextAnimate>
+      </h2>
+
+      <div className="relative z-10 mt-8 overflow-hidden">
+        <div
+          className="flex w-max gap-20 pr-20"
+          style={{ animation: "marquee 16s linear infinite" }}
+        >
+          {Array.from({ length: 4 }).flatMap((_, ci) =>
+            brands.map((src, i) => (
+              <Image
+                key={`${ci}-${i}`}
+                src={src}
+                alt=""
+                width={100}
+                height={100}
+                className="rounded-full bg-white p-2.5"
+              />
+            )),
+          )}
         </div>
       </div>
 
-      <style>{`
+      <style jsx>{`
         @keyframes marquee {
-          0%   { transform: translateX(0); }
-          100% { transform: translateX(-50%); }
+          from {
+            transform: translateX(0);
+          }
+          to {
+            transform: translateX(-50%);
+          }
         }
       `}</style>
-    </>
+    </section>
   );
 }

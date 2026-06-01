@@ -3,6 +3,7 @@ import { motion } from "motion/react";
 import { Separator } from "../ui/separator";
 import Image from "next/image";
 import { Meteors } from "../ui/meteors";
+import { BorderBeam } from "../ui/border-beam";
 export default function Contact() {
   return (
     <section className="relative w-full overflow-hidden flex justify-center items-center flex-row py-20  scroll-mt-20">
@@ -47,7 +48,7 @@ export default function Contact() {
             href="https://wa.me/918348890844"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex justify-center items-center gap-3 rounded-xl border p-4 hover:bg-green-50 transition max-w-xs mx-auto w-64 border-white shadow-md"
+            className="relative flex justify-center items-center gap-3 rounded-xl p-4 hover:bg-green-100 transition max-w-xs mx-auto w-64 bg-white shadow-sm"
           >
             <Image
               width="10"
@@ -57,6 +58,7 @@ export default function Contact() {
               className="w-6 h-6"
             />
             <span className="font-medium">Chat on WhatsApp</span>
+            <BorderBeam duration={6} size={50} />
           </motion.a>
 
           {/* Phone Button */}
@@ -66,7 +68,7 @@ export default function Contact() {
             transition={{ duration: 0.8, delay: 0.5 }}
             viewport={{ once: true }}
             href="tel:+918348890844"
-            className="flex justify-center items-center gap-3 rounded-xl border p-4 hover:bg-blue-50 transition max-w-xs mx-auto w-64 border-white shadow-md"
+            className="relative flex justify-center items-center gap-3 rounded-xl p-4 hover:bg-blue-100 transition max-w-xs mx-auto w-64 bg-white shadow-sm"
           >
             <Image
               width="10"
@@ -76,6 +78,7 @@ export default function Contact() {
               className="w-6 h-6"
             />
             <span className="font-medium">Call Now</span>
+            <BorderBeam duration={6} size={50} />
           </motion.a>
 
           {/* Email Button */}
@@ -87,7 +90,7 @@ export default function Contact() {
             href="https://mail.google.com/mail/?view=cm&fs=1&to=rupam1624@gmail.com&su=Project%20Inquiry&body=Hi%20Rupam,%20I%20would%20like%20to%20discuss%20a%20project%20with%20you."
             target="_blank"
             rel="noopener noreferrer"
-            className="flex justify-center items-center gap-3 rounded-xl border p-4 hover:bg-purple-50 transition max-w-xs mx-auto w-64 border-white shadow-md"
+            className="relative flex justify-center items-center gap-3 rounded-xl p-4 hover:bg-red-100 transition max-w-xs mx-auto w-64 bg-white shadow-sm"
           >
             <Image
               width="10"
@@ -97,6 +100,7 @@ export default function Contact() {
               className="w-6 h-6"
             />
             <span className="font-medium">Send an Email</span>
+            <BorderBeam duration={6} size={50} />
           </motion.a>
         </div>
       </section>

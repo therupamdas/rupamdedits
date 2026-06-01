@@ -7,6 +7,7 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 // 1. Import your new interactive background
 import SpotlightBackground from "@/components/layout/SpotlightBackground"; 
+import { Pointer } from "@/components/ui/pointer";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -52,7 +53,7 @@ export default function RootLayout({
         </main>
         
         <Footer />
-        
+        <Pointer className="fill-green-500" />
       </body>
     </html>
   )
