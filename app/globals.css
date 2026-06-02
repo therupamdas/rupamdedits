@@ -3,6 +3,17 @@
 
 @custom-variant dark (&:is(.dark *));
 
+*,
+*::before,
+*::after {
+  cursor: none !important;
+}
+
+input,
+textarea,
+[contenteditable="true"] {
+  cursor: text !important;
+}
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);

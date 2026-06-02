@@ -5,6 +5,7 @@ import { Play, Sparkles, Mail, ArrowRight } from "lucide-react";
 import { BorderBeam } from "../ui/border-beam";
 import { AuroraText } from "../ui/aurora-text";
 import { NumberTicker } from "../ui/number-ticker";
+import Link from "next/link";
 
 export default function Hero() {
   return (
@@ -41,9 +42,9 @@ export default function Hero() {
             variant="outline"
             className="w-36 h-12 rounded-md bg-white dark:bg-slate-900 text-black dark:text-white border-neutral-200 dark:border-slate-800"
           >
-            <a className="flex items-center flex-row" href="#work">
+            <Link className="flex items-center flex-row" href="#work">
               <Play className="h-5 w-5  pr-1" /> See work
-            </a>
+            </Link>
           </Button>
           <BorderBeam duration={3} size={50} />
         </div>
@@ -69,7 +70,7 @@ export default function Hero() {
         className="text-5xl font-medium tracking-tighter whitespace-pre-wrap text-black dark:text-white"
       />
       <p className="text-5xl font-medium tracking-tighter whitespace-pre-wrap text-black dark:text-white">
-        + Videos made till now.
+        + Videos delivered.
       </p>
       </div>
       <div className="flex flex-rows"><NumberTicker
@@ -78,7 +79,7 @@ export default function Hero() {
         className="text-5xl font-medium tracking-tighter whitespace-pre-wrap text-black dark:text-white"
       />
       <p className="text-5xl font-medium tracking-tighter whitespace-pre-wrap text-black dark:text-white">
-        + Brands.
+        + Brand Partnerships.
       </p>
       </div>
     </section>
