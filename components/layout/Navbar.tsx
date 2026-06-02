@@ -10,14 +10,20 @@ import {
 import { Menu } from "lucide-react";
 import { motion } from "framer-motion";
 
-
 export default function Navbar() {
   return (
     <>
       <header className="sticky top-0 z-50 bg-white border-b">
         <div className="ml-10 px-4 py-3 flex items-center justify-between">
           {/* Logo */}
-          <a href="#home" className="cursor-none font-semibold tracking-tight text-xl">
+          <a
+            href="#"
+            onClick={(e) => {
+              e.preventDefault();
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            }}
+            className="font-semibold tracking-tight text-xl"
+          >
             rupamedits<span className="text-neutral-400">.com</span>
           </a>
           <nav className="hidden md:flex items-center gap-6 text-sm">
@@ -96,8 +102,6 @@ export default function Navbar() {
           </Sheet>
         </div>
       </header>
-
-      
     </>
   );
 }

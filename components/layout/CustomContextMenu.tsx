@@ -3,7 +3,9 @@
 import {
   ContextMenu,
   ContextMenuContent,
+  ContextMenuGroup,
   ContextMenuItem,
+  ContextMenuRadioItem,
   ContextMenuSeparator,
   ContextMenuTrigger,
 } from "@/components/ui/context-menu";
@@ -14,38 +16,30 @@ export default function CustomContextMenu({
   children: React.ReactNode;
 }) {
   return (
-    <ContextMenu>
+    <ContextMenu modal={false}>
       <ContextMenuTrigger asChild>
-        <div className="min-h-screen">
-          {children}
-        </div>
+        <div className="min-h-screen">{children}</div>
       </ContextMenuTrigger>
 
-      <ContextMenuContent className="w-56">
-        <ContextMenuItem
-          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-        >
-          Go to Top
-        </ContextMenuItem>
+      <ContextMenuContent className="bg-transparent backdrop-blur-sm flex items-center justify-center w-64">
+        <ContextMenuGroup>
+          <ContextMenuItem className="flex items-center justify-center w-62">
+            <a
+              href="#"
+              onClick={(e) => {
+                e.preventDefault();
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              }}
+              className="flex items-center justify-center w-62  tracking-tight"
+            >
+              <p>Hi, welcome to</p>
 
-        <ContextMenuItem
-          onClick={() =>
-            window.scrollTo({
-              top: document.body.scrollHeight,
-              behavior: "smooth",
-            })
-          }
-        >
-          Go to Bottom
-        </ContextMenuItem>
-
-        <ContextMenuSeparator />
-
-        <ContextMenuItem
-          onClick={() => location.reload()}
-        >
-          Reload Page
-        </ContextMenuItem>
+              <p className="ml-1 font-semibold">
+                rupamedits<span className="text-neutral-400">.com</span>
+              </p>
+            </a>
+          </ContextMenuItem>
+        </ContextMenuGroup>
       </ContextMenuContent>
     </ContextMenu>
   );
