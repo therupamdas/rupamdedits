@@ -21,16 +21,16 @@ export default function CustomContextMenu({
         <div className="min-h-screen">{children}</div>
       </ContextMenuTrigger>
 
-      <ContextMenuContent className="bg-transparent backdrop-blur-sm flex items-center justify-center w-64">
+      <ContextMenuContent className="bg-transparent backdrop-blur-sm flex items-center justify-center rounded-full h-35 w-35">
         <ContextMenuGroup>
-          <ContextMenuItem className="flex items-center justify-center w-62">
+          <ContextMenuItem className="flex items-center justify-center w-33 h-33 rounded-full">
             <a
               href="#"
               onClick={(e) => {
                 e.preventDefault();
                 window.scrollTo({ top: 0, behavior: "smooth" });
               }}
-              className="flex items-center justify-center w-62  tracking-tight"
+              className="flex flex-col items-center justify-center w-33  tracking-tight"
             >
               <p>Hi, welcome to</p>
 
