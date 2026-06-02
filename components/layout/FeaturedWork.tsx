@@ -8,8 +8,8 @@ import { TextAnimate } from "../ui/text-animate";
 
 export default function FeaturedWork() {
   return (
-    <section id="work" className="scroll-mt-20 mx-15 px-4 py-10">
-      <div className="flex items-end justify-between">
+    <section id="work" className="scroll-mt-20 mx-5 md:mx-15 px-4 py-10">
+      <div className="flex justify-between">
         <h2 className="text-2xl md:text-5xl text-neutral-800 font-bebas uppercase font-bold">
           <TextAnimate animation="blurInUp" by="character" once>
             Featured Work

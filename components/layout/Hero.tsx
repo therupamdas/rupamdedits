@@ -1,94 +1,154 @@
 "use client";
+
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Play, Sparkles, Mail, ArrowRight } from "lucide-react";
+import { Play, Sparkles, Mail } from "lucide-react";
 import { BorderBeam } from "../ui/border-beam";
 import { AuroraText } from "../ui/aurora-text";
 import { NumberTicker } from "../ui/number-ticker";
 import Link from "next/link";
-import { Android } from "../ui/android";
 import { Iphone } from "../ui/iphone";
 
 export default function Hero() {
   return (
-    <section className="mx-15 mt-4 px-5 sm:px-7 flex flex-row mb-6 sm:mb-9 p-4 sm:p-5 md:mb-14 overflow-hidden">
-      <div>
-      <Badge
-        variant="secondary"
-        className="rounded-full drop-shadow-2xl mb-4 sm:mb-6 flex bg-white p-3 items-center gap-1 text-xs sm:text-sm"
-      >
-        <Sparkles className="h-3 w-3 sm:h-3.5 sm:w-3.5" /> Minimal. Precise.
-        On-brand.
-      </Badge>
-      <h1 className="flex flex-col text-3xl sm:text-4xl md:text-6xl  font-bebas font-bold leading-snug sm:leading-tight tracking-tight text-neutral-800 drop-shadow text-left">
-        <span>
-          Video <AuroraText>Editing</AuroraText> for
-        </span>
-        <span>Creators and Brands</span>
-      </h1>
+    <section
+      className="
+        mx-4
+        sm:mx-7
+        md:mx-15
 
-      <p className="flex flex-col md:flex mt-4 sm:mt-6 text-neutral-600 max-w-full sm:max-w-xl text-sm sm:text-base">
-        <span>
-          I craft tight, story-first edits that boost watch time, clicks, and
-          conversions.
-        </span>
-        <span>
-          Short-form, YouTube, ads, and event highlights delivered with
-          agency-level polish.
-        </span>
-      </p>
-      <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-3">
-        <div className="rounded-md relative overflow-hidden bg-white text-black text-sm hover:shadow-[4px_4px_0px_0px_rgba(0,0,0)] transition duration-200">
-          <Button
-            asChild
-            variant="outline"
-            className="w-36 h-12 rounded-md bg-white dark:bg-slate-900 text-black dark:text-white border-neutral-200 dark:border-slate-800"
-          >
-            <Link className="flex items-center flex-row" href="#work">
-              <Play className="h-5 w-5  pr-1" /> See work
-            </Link>
-          </Button>
-          <BorderBeam duration={3} size={50} />
-        </div>
-        <div className="rounded-md relative overflow-hidden bg-white text-black text-sm hover:shadow-[4px_4px_0px_0px_rgba(0,0,0)] transition duration-200">
-          <Button
-            asChild
-            variant="outline"
-            className=" w-36 h-12 rounded-md bg-white dark:bg-slate-900 text-black dark:text-white border-neutral-200 dark:border-slate-800"
-          >
-            <a className="flex items-center flex-row" href="#contact">
-              <Mail className="h-5 w-5  pr-1" /> Get a quote
-            </a>
-          </Button>
-          <BorderBeam duration={3} size={50} />
-        </div>
-      </div>
-      <p className="mt-4 sm:mt-8 text-xs sm:text-xs text-neutral-500">
-        48h turnaround options • NDA-friendly • Remote worldwide
-      </p>
-      <div className="flex flex-rows">
-        <NumberTicker
-          value={147}
-          startValue={80}
-          className="text-5xl font-medium tracking-tighter whitespace-pre-wrap text-black dark:text-white"
-        />
-        <p className="text-5xl font-medium tracking-tighter whitespace-pre-wrap text-black dark:text-white">
-          + Videos delivered.
+        mt-4
+
+        px-5
+        sm:px-7
+
+        flex
+        flex-col
+        lg:flex-row
+
+        items-center
+        lg:items-start
+
+        gap-10
+        lg:gap-0
+
+        mb-6
+        sm:mb-9
+        md:mb-14
+
+        p-4
+        sm:p-5
+
+        overflow-hidden
+      "
+    >
+      {/* Content */}
+      <div className="w-full">
+        <Badge
+          variant="secondary"
+          className="mb-4 flex items-center gap-1 rounded-full bg-white p-3 text-xs drop-shadow-2xl sm:mb-6 sm:text-sm"
+        >
+          <Sparkles className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
+          Minimal. Precise. On-brand.
+        </Badge>
+
+        <h1 className="flex flex-col text-left font-bebas text-3xl font-bold tracking-tight text-neutral-800 drop-shadow sm:text-4xl md:text-6xl">
+          <span>
+            Video <AuroraText>Editing</AuroraText> for
+          </span>
+          <span>Creators and Brands</span>
+        </h1>
+
+        <p className="mt-4 flex flex-col text-sm text-neutral-600 sm:mt-6 sm:max-w-xl sm:text-base">
+          <span>
+            I craft tight, story-first edits that boost watch time, clicks, and
+            conversions.
+          </span>
+          <span>
+            Short-form, YouTube, ads, and event highlights delivered with
+            agency-level polish.
+          </span>
         </p>
-      </div>
-      <div className="flex flex-rows">
-        <NumberTicker
-          value={17}
-          startValue={7}
-          className="text-5xl font-medium tracking-tighter whitespace-pre-wrap text-black dark:text-white"
-        />
-        <p className="text-5xl font-medium tracking-tighter whitespace-pre-wrap text-black dark:text-white">
-          + Brand Partnerships.
+
+        {/* CTA Buttons */}
+        <div className="mt-6 flex flex-col gap-2 sm:mt-8 sm:flex-row sm:items-center sm:gap-3">
+          <div className="relative overflow-hidden rounded-md bg-white text-sm text-black transition duration-200 hover:shadow-[4px_4px_0px_0px_rgba(0,0,0)]">
+            <Button
+              asChild
+              variant="outline"
+              className="h-12 w-full sm:w-36 rounded-md border-neutral-200 bg-white text-black dark:border-slate-800 dark:bg-slate-900 dark:text-white"
+            >
+              <Link href="#work" className="flex items-center">
+                <Play className="mr-1 h-5 w-5" />
+                See work
+              </Link>
+            </Button>
+
+            <BorderBeam duration={3} size={50} />
+          </div>
+
+          <div className="relative overflow-hidden rounded-md bg-white text-sm text-black transition duration-200 hover:shadow-[4px_4px_0px_0px_rgba(0,0,0)]">
+            <Button
+              asChild
+              variant="outline"
+              className="h-12 w-full sm:w-36 rounded-md border-neutral-200 bg-white text-black dark:border-slate-800 dark:bg-slate-900 dark:text-white"
+            >
+              <a href="#contact" className="flex items-center">
+                <Mail className="mr-1 h-5 w-5" />
+                Get a quote
+              </a>
+            </Button>
+
+            <BorderBeam duration={3} size={50} />
+          </div>
+        </div>
+
+        <p className="mt-4 text-xs text-neutral-500 sm:mt-8">
+          48h turnaround options • NDA-friendly • Remote worldwide
         </p>
+
+        {/* Stats */}
+        <div className="mt-4 flex flex-row items-center gap-2">
+          <NumberTicker
+            value={150}
+            startValue={111}
+            className="whitespace-pre-wrap text-3xl font-medium tracking-tighter text-black dark:text-white sm:text-4xl md:text-5xl"
+          />
+          <p className="text-3xl font-medium tracking-tighter text-black dark:text-white sm:text-4xl md:text-5xl">
+            + Videos delivered.
+          </p>
+        </div>
+
+        <div className="flex flex-row items-center gap-2">
+          <NumberTicker
+            value={20}
+            startValue={3}
+            className="whitespace-pre-wrap text-3xl font-medium tracking-tighter text-black dark:text-white sm:text-4xl md:text-5xl"
+          />
+          <p className="text-3xl font-medium tracking-tighter text-black dark:text-white sm:text-4xl md:text-5xl">
+            + Brand Partnerships.
+          </p>
+        </div>
       </div>
-      </div>
-      <div className="ml-120 items-center flex pt-5  w-66">
-        <Iphone  videoSrc="/Drinklapse.mp4" />
+
+      {/* Phone */}
+      <div
+        className="
+          flex
+          justify-center
+
+          w-full
+          lg:w-140
+          ml-0
+          lg:ml-120
+
+          pt-2
+          lg:pt-5
+        "
+      >
+        <div className="w-full max-w-60 sm:max-w-70 md:max-w-[320px] lg:max-w-none">
+          <Iphone videoSrc="/Drinklapse.mp4" />
+        </div>
       </div>
     </section>
   );

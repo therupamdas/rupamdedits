@@ -30,23 +30,12 @@ export default function Services() {
       description:
         "Professional edits for training, presentations, and internal communications with clarity and polish.",
     },
-    {
-      id: "s5",
-      title: "Music Videos",
-      description:
-        "Dynamic storytelling and rhythm-synced visuals that bring music to life.",
-    },
-    {
-      id: "s6",
-      title: "Color Grading",
-      description:
-        "Enhancing mood, tone, and consistency with professional color correction and grading.",
-    },
+
   ];
 
   return (
-    <section id="services" className="mx-15 scroll-mt-20 px-4 py-10">
-      <div className="flex items-end justify-between">
+    <section id="services" className="mx-5 md:mx-15 scroll-mt-20 px-4 py-10">
+      <div className="flex justify-between">
         <h2 className="text-2xl md:text-5xl  text-neutral-800 font-bebas uppercase font-bold">
           <TextAnimate animation="blurInUp" by="character" once>
             Services

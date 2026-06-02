@@ -41,11 +41,11 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} ${bebasNeue.variable}`}>
       <body className="min-h-screen flex flex-col antialiased text-neutral-900 bg-transparent select-none">
-        <CustomContextMenu> <SpotlightBackground />
-        <Navbar />
-        <main className="grow flex flex-col relative z-10">{children}</main>
-        <Footer />
-        
+        <CustomContextMenu>
+          <SpotlightBackground />
+          <Navbar />
+          <main className="grow flex flex-col relative z-10">{children}</main>
+          <Footer />
         </CustomContextMenu>
         <Pointer className="fill-green-500" />
       </body>

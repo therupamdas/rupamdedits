@@ -25,7 +25,7 @@ export function NumberTicker({
   const ref = useRef<HTMLSpanElement>(null)
   const motionValue = useMotionValue(direction === "down" ? value : startValue)
   const springValue = useSpring(motionValue, {
-    damping: 60,
+    damping: 40,
     stiffness: 100,
   })
   const isInView = useInView(ref, { once: true, margin: "0px" })
@@ -36,7 +36,7 @@ export function NumberTicker({
     if (isInView) {
       timer = setTimeout(() => {
         motionValue.set(direction === "down" ? startValue : value)
-      }, delay * 1000)
+      }, delay * 10)
     }
 
     return () => {

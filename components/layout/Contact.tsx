@@ -2,14 +2,16 @@
 import { motion } from "motion/react";
 import { Separator } from "../ui/separator";
 import Image from "next/image";
-import { Meteors } from "../ui/meteors";
 import { BorderBeam } from "../ui/border-beam";
+
 export default function Contact() {
   return (
-    <section className="relative w-full overflow-hidden flex justify-center items-center flex-row py-20  scroll-mt-20">
-      
-      <section id="contact" className="w-1/3 m-20  px-4 py-16">
-      
+    <section className="relative w-full overflow-hidden flex flex-col md:flex-row justify-center items-center md:items-stretch py-12 md:py-20 scroll-mt-20 gap-10 md:gap-0">
+      {/* 2. Changed w-1/3 to w-full for mobile, md:w-1/3 for desktop. Replaced m-20 with responsive margins. */}
+      <section
+        id="contact"
+        className="w-full md:w-1/3 px-6 py-8 md:m-10 md:py-16"
+      >
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -39,7 +41,7 @@ export default function Contact() {
         </motion.div>
 
         <div className="flex flex-col gap-4 justify-center items-center max-w-4xl mx-auto px-4">
-          {/* WhatsApp Button preload */}
+          {/* WhatsApp Button */}
           <motion.a
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -48,11 +50,11 @@ export default function Contact() {
             href="https://wa.me/918348890844"
             target="_blank"
             rel="noopener noreferrer"
-            className="relative flex justify-center items-center gap-3 rounded-xl p-4 hover:bg-green-100 transition max-w-xs mx-auto w-64 bg-white shadow-sm"
+            className="relative flex justify-center items-center gap-3 rounded-xl p-4 hover:bg-green-100 transition max-w-xs mx-auto w-full sm:w-64 bg-white shadow-sm"
           >
             <Image
-              width="10"
-              height="10"
+              width={24}
+              height={24}
               src="https://cdn-icons-png.flaticon.com/512/733/733585.png"
               alt="WhatsApp"
               className="w-6 h-6"
@@ -68,11 +70,11 @@ export default function Contact() {
             transition={{ duration: 0.8, delay: 0.5 }}
             viewport={{ once: true }}
             href="tel:+918348890844"
-            className="relative flex justify-center items-center gap-3 rounded-xl p-4 hover:bg-blue-100 transition max-w-xs mx-auto w-64 bg-white shadow-sm"
+            className="relative flex justify-center items-center gap-3 rounded-xl p-4 hover:bg-blue-100 transition max-w-xs mx-auto w-full sm:w-64 bg-white shadow-sm"
           >
             <Image
-              width="10"
-              height="10"
+              width={24}
+              height={24}
               src="https://cdn-icons-png.flaticon.com/512/724/724664.png"
               alt="Phone"
               className="w-6 h-6"
@@ -90,11 +92,11 @@ export default function Contact() {
             href="https://mail.google.com/mail/?view=cm&fs=1&to=rupam1624@gmail.com&su=Project%20Inquiry&body=Hi%20Rupam,%20I%20would%20like%20to%20discuss%20a%20project%20with%20you."
             target="_blank"
             rel="noopener noreferrer"
-            className="relative flex justify-center items-center gap-3 rounded-xl p-4 hover:bg-red-100 transition max-w-xs mx-auto w-64 bg-white shadow-sm"
+            className="relative flex justify-center items-center gap-3 rounded-xl p-4 hover:bg-red-100 transition max-w-xs mx-auto w-full sm:w-64 bg-white shadow-sm"
           >
             <Image
-              width="10"
-              height="10"
+              width={24}
+              height={24}
               src="https://cdn-icons-png.flaticon.com/512/732/732200.png"
               alt="Email"
               className="w-6 h-6"
@@ -104,14 +106,18 @@ export default function Contact() {
           </motion.a>
         </div>
       </section>
-      <section id="about" className="relative overflow-hidden w-2/3 scroll-mt-20 m-20 px-4 py-16">
-      {/* <Meteors number={30} /> */}
+
+      {/* 3. Changed w-2/3 to w-full for mobile, md:w-2/3 for desktop. Fixed margins. */}
+      <section
+        id="about"
+        className="relative overflow-hidden w-full md:w-2/3 scroll-mt-20 px-6 py-8 md:m-10 md:py-16"
+      >
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="text-2xl md:text-3xl text-neutral-800 font-bebas uppercase font-bold text-center"
+          className="text-2xl md:text-3xl text-neutral-800 font-bebas uppercase font-bold text-center md:text-left"
         >
           About
         </motion.h2>
@@ -120,7 +126,7 @@ export default function Contact() {
           whileInView={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.2 }}
           viewport={{ once: true }}
-          className="text-neutral-500 text-center mt-2"
+          className="text-neutral-500 text-center md:text-left mt-2"
         >
           Hi, I am Rupam
         </motion.p>
@@ -129,7 +135,7 @@ export default function Contact() {
           whileInView={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.2 }}
           viewport={{ once: true }}
-          className="my-6"
+          className="my-6 md:hidden"
         >
           <Separator className="max-w-md mx-auto" />
         </motion.div>
@@ -138,7 +144,7 @@ export default function Contact() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.3 }}
           viewport={{ once: true }}
-          className="prose prose-neutral max-w-3xl mx-auto text-left"
+          className="prose prose-neutral max-w-3xl mx-auto md:mx-0 text-left mt-6 md:mt-10"
         >
           <p>
             I am Rupam, a dedicated video editor who thrives on transforming raw

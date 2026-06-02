@@ -14,7 +14,7 @@ export default function Navbar() {
   return (
     <>
       <header className="sticky top-0 z-50 bg-white border-b">
-        <div className="ml-10 px-4 py-3 flex items-center justify-between">
+        <div className="ml-5 md:ml-10 px-4 py-3 flex items-center justify-between">
           {/* Logo */}
           <a
             href="#"
@@ -56,50 +56,6 @@ export default function Navbar() {
             </a>
           </nav>
 
-          {/* Mobile Nav */}
-          <Sheet>
-            <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" className="md:hidden">
-                <Menu className="h-5 w-5" />
-              </Button>
-            </SheetTrigger>
-
-            <SheetContent side="left" className="p-6">
-              <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
-
-              <nav className="flex flex-col gap-4">
-                <SheetClose asChild>
-                  <a href="#work">Work</a>
-                </SheetClose>
-                <SheetClose asChild>
-                  <a href="#services">Services</a>
-                </SheetClose>
-                <SheetClose asChild>
-                  <a href="#about">About</a>
-                </SheetClose>
-                <SheetClose asChild>
-                  <motion.div
-                    initial={{ scale: 1 }}
-                    animate={{ scale: [1, 1.05, 1] }}
-                    transition={{
-                      repeat: Infinity,
-                      duration: 1.5,
-                      ease: "easeInOut",
-                    }}
-                  >
-                    <Button
-                      asChild
-                      className="rounded-md font-semibold shadow-md hover:shadow-xl
-             bg-linear-to-r from-pink-500 via-red-500 to-yellow-500
-             text-white hover:brightness-110 transition-all duration-200"
-                    >
-                      <a href="#contact">Book a call</a>
-                    </Button>
-                  </motion.div>
-                </SheetClose>
-              </nav>
-            </SheetContent>
-          </Sheet>
         </div>
       </header>
     </>
