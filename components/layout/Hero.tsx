@@ -6,10 +6,13 @@ import { BorderBeam } from "../ui/border-beam";
 import { AuroraText } from "../ui/aurora-text";
 import { NumberTicker } from "../ui/number-ticker";
 import Link from "next/link";
+import { Android } from "../ui/android";
+import { Iphone } from "../ui/iphone";
 
 export default function Hero() {
   return (
-    <section className="mx-15 mt-4 px-5 sm:px-7  mb-6 sm:mb-9 p-4 sm:p-5 md:mb-14 overflow-hidden">
+    <section className="mx-15 mt-4 px-5 sm:px-7 flex flex-row mb-6 sm:mb-9 p-4 sm:p-5 md:mb-14 overflow-hidden">
+      <div>
       <Badge
         variant="secondary"
         className="rounded-full drop-shadow-2xl mb-4 sm:mb-6 flex bg-white p-3 items-center gap-1 text-xs sm:text-sm"
@@ -18,7 +21,6 @@ export default function Hero() {
         On-brand.
       </Badge>
       <h1 className="flex flex-col text-3xl sm:text-4xl md:text-6xl  font-bebas font-bold leading-snug sm:leading-tight tracking-tight text-neutral-800 drop-shadow text-left">
-        
         <span>
           Video <AuroraText>Editing</AuroraText> for
         </span>
@@ -64,23 +66,29 @@ export default function Hero() {
       <p className="mt-4 sm:mt-8 text-xs sm:text-xs text-neutral-500">
         48h turnaround options • NDA-friendly • Remote worldwide
       </p>
-      <div className="flex flex-rows"><NumberTicker
-        value={147}
-        startValue={80}
-        className="text-5xl font-medium tracking-tighter whitespace-pre-wrap text-black dark:text-white"
-      />
-      <p className="text-5xl font-medium tracking-tighter whitespace-pre-wrap text-black dark:text-white">
-        + Videos delivered.
-      </p>
+      <div className="flex flex-rows">
+        <NumberTicker
+          value={147}
+          startValue={80}
+          className="text-5xl font-medium tracking-tighter whitespace-pre-wrap text-black dark:text-white"
+        />
+        <p className="text-5xl font-medium tracking-tighter whitespace-pre-wrap text-black dark:text-white">
+          + Videos delivered.
+        </p>
       </div>
-      <div className="flex flex-rows"><NumberTicker
-        value={17}
-        startValue={7}
-        className="text-5xl font-medium tracking-tighter whitespace-pre-wrap text-black dark:text-white"
-      />
-      <p className="text-5xl font-medium tracking-tighter whitespace-pre-wrap text-black dark:text-white">
-        + Brand Partnerships.
-      </p>
+      <div className="flex flex-rows">
+        <NumberTicker
+          value={17}
+          startValue={7}
+          className="text-5xl font-medium tracking-tighter whitespace-pre-wrap text-black dark:text-white"
+        />
+        <p className="text-5xl font-medium tracking-tighter whitespace-pre-wrap text-black dark:text-white">
+          + Brand Partnerships.
+        </p>
+      </div>
+      </div>
+      <div className="ml-120 items-center flex pt-5  w-66">
+        <Iphone  videoSrc="/Drinklapse.mp4" />
       </div>
     </section>
   );
