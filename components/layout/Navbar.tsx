@@ -9,6 +9,8 @@ import {
 } from "@/components/ui/sheet";
 import { Menu } from "lucide-react";
 import { motion } from "framer-motion";
+import Link from "next/link";
+import { BorderBeam } from "../ui/border-beam";
 
 export default function Navbar() {
   return (
@@ -27,35 +29,62 @@ export default function Navbar() {
             rupamedits<span className="text-neutral-400">.com</span>
           </a>
           <nav className="hidden md:flex items-center gap-6 text-sm">
-            <a
-              href="#work"
-              className="cursor-none px-6 py-2 rounded-sm text-lg font-semibold text-neutral-800 hover:bg-neutral-100 transition-colors duration-200"
-            >
-              Work
-            </a>
+            <div className="relative overflow-hidden rounded-md bg-white text-sm text-black 
+              transition duration-200 hover:shadow-[4px_4px_0px_0px_rgba(0,0,0)]">
+              <Button
+                asChild
+                variant="outline"
+                className="h-12  sm:w-26 border-white bg-white text-black dark:border-slate-800 dark:bg-slate-900 dark:text-white px-6 py-2 rounded-sm text-lg font-semibold transition-colors duration-200"
+              >
+                <Link href="#work" className="flex items-center">
+                  Work
+                </Link>
+              </Button>
+              <BorderBeam duration={3} size={50} />
+            </div>
 
-            <a
-              href="#services"
-              className="cursor-none px-6 py-2 rounded-sm text-lg font-semibold text-neutral-800 hover:bg-neutral-100 transition-colors duration-200"
-            >
-              Services
-            </a>
+            <div className="relative overflow-hidden rounded-md bg-white text-sm text-black 
+              transition duration-200 hover:shadow-[4px_4px_0px_0px_rgba(0,0,0)]">
+              <Button
+                asChild
+                variant="outline"
+                className="h-12  sm:w-26 border-white bg-white text-black dark:border-slate-800 dark:bg-slate-900 dark:text-white px-6 py-2 rounded-sm text-lg font-semibold transition-colors duration-200"
+              >
+                <Link href="#services" className="flex items-center">
+                  Services
+                </Link>
+              </Button>
+              <BorderBeam duration={3} size={50} />
+            </div>
 
-            <a
-              href="#about"
-              className=" cursor-none px-6 py-2 rounded-sm text-lg font-semibold text-neutral-800 hover:bg-neutral-100 transition-colors duration-200"
-            >
-              About
-            </a>
+            <div className="relative overflow-hidden rounded-md bg-white text-sm text-black 
+              transition duration-200 hover:shadow-[4px_4px_0px_0px_rgba(0,0,0)]">
+              <Button
+                asChild
+                variant="outline"
+                className="h-12  sm:w-26 border-white bg-white text-black dark:border-slate-800 dark:bg-slate-900 dark:text-white px-6 py-2 rounded-sm text-lg font-semibold transition-colors duration-200"
+              >
+                <Link href="#about" className="flex items-center">
+                  About
+                </Link>
+              </Button>
+              <BorderBeam duration={3} size={50} />
+            </div>
 
-            <a
-              href="#contact"
-              className=" cursor-none px-6 py-2 rounded-sm text-lg font-semibold text-neutral-800 hover:bg-neutral-100 transition-colors duration-200"
-            >
-              Book a Call
-            </a>
+            <div className="relative overflow-hidden rounded-md bg-white text-sm text-black 
+              transition duration-200 hover:shadow-[4px_4px_0px_0px_rgba(0,0,0)]">
+              <Button
+                asChild
+                variant="outline"
+                className="h-12  sm:w-26 border-white bg-white text-black dark:border-slate-800 dark:bg-slate-900 dark:text-white px-6 py-2 rounded-sm text-lg font-semibold transition-colors duration-200"
+              >
+                <Link href="#contact" className="flex items-center">
+                  Contact
+                </Link>
+              </Button>
+              <BorderBeam duration={3} size={50} />
+            </div>
           </nav>
-
         </div>
       </header>
     </>

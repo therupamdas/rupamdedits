@@ -16,31 +16,22 @@ export default function Hero() {
         mx-4
         sm:mx-7
         md:mx-15
-
         mt-4
-
         px-5
         sm:px-7
-
         flex
         flex-col
         lg:flex-row
-
         items-center
         lg:items-start
-
         gap-10
         lg:gap-0
-
         mb-6
         sm:mb-9
         md:mb-14
-
         p-4
         sm:p-5
-
-        overflow-hidden
-      "
+        overflow-hidden"
     >
       {/* Content */}
       <div className="w-full">
@@ -93,7 +84,7 @@ export default function Hero() {
               variant="outline"
               className="h-12 w-full sm:w-36 rounded-md border-neutral-200 bg-white text-black dark:border-slate-800 dark:bg-slate-900 dark:text-white"
             >
-              <a href="#contact" className="flex items-center">
+              <a href="#services" className="flex items-center">
                 <Mail className="mr-1 h-5 w-5" />
                 Get a quote
               </a>

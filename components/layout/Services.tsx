@@ -3,34 +3,17 @@ import { Separator } from "@/components/ui/separator";
 import { ArrowRight } from "lucide-react";
 import { BorderBeam } from "../ui/border-beam";
 import { TextAnimate } from "../ui/text-animate";
+import { Button } from "../ui/button";
+import Link from "next/link";
 
 export default function Services() {
   const services = [
     {
       id: "s1",
-      title: "Commercial Editing",
-      description:
-        "High-quality edits for ads, brand films, and promotional content that engage and convert.",
-    },
-    {
-      id: "s2",
-      title: "Event Highlights",
-      description:
-        "Cinematic highlight reels for weddings, concerts, and events that capture emotions and memories.",
-    },
-    {
-      id: "s3",
       title: "Short-form Content",
       description:
         "Trendy, fast-paced edits for reels, YouTube Shorts, and TikToks that boost reach and engagement.",
     },
-    {
-      id: "s4",
-      title: "Corporate Videos",
-      description:
-        "Professional edits for training, presentations, and internal communications with clarity and polish.",
-    },
-
   ];
 
   return (
@@ -41,12 +24,19 @@ export default function Services() {
             Services
           </TextAnimate>
         </h2>
-        <a
-          href="#contact"
-          className="text-sm hover:opacity-70 flex items-center "
-        >
-          Get a quote <ArrowRight className="h-4 w-4 ml-1" />
-        </a>
+        <div className="h-8 rounded-md relative">
+          <Button
+            asChild
+            variant="outline"
+            className=" relative h-8 overflow-hidden rounded-md bg-white text-sm text-black transition duration-200
+            hover:shadow-[4px_4px_0px_0px_rgba(0,0,0)]  sm:w-36  border-neutral-200 dark:border-slate-800 dark:bg-slate-900 dark:text-white"
+          >
+            <Link href="#contact" className="flex items-center">
+              Get a Quote <ArrowRight className="h-4 w-4 ml-1" />
+            </Link>
+          </Button>
+          <BorderBeam duration={3} size={60} />
+        </div>
       </div>
       <Separator className="my-6" />
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
@@ -56,31 +46,16 @@ export default function Services() {
             initial="hidden"
             whileInView="show"
             viewport={{ once: true }}
-            whileHover={{ y: -4 }}
-            className="
-    group
-    relative
-    overflow-hidden
-    rounded-xl
-    border
-    border-neutral-200
-    bg-white
-    transition-all
-    duration-100
-    hover:shadow-xl
-    hover:border-neutral-300
-  "
+            className="group relative rounded-md border bg-white transition-all duration-100 hover:shadow-[6px_6px_0px_0px] hover:shadow-neutral-800 "
           >
-            <div className="relative p-6">
+            <div className="relative rounded-md p-6">
               {/* Price */}
               <div className="mb-4 flex items-center justify-between">
                 <span className="text-xs uppercase tracking-widest text-neutral-500">
                   Starting at
                 </span>
 
-                <span className="text-lg font-semibold text-black">
-                  ₹4,999+
-                </span>
+                <span className="text-lg font-semibold text-black">₹400/-</span>
               </div>
 
               {/* Service */}
@@ -107,26 +82,15 @@ export default function Services() {
                   Custom pricing available
                 </span>
 
-                <span
-                  className="
-          text-sm
-          font-medium
-          transition-transform
-          duration-300
-          group-hover:translate-x-1
-        "
-                >
+                <span className="text-sm font-medium transition-transform duration-300">
                   Learn more →
                 </span>
               </div>
-
-              {/* Border Beams */}
               <BorderBeam
                 duration={6}
                 size={150}
                 className="from-transparent via-emerald-500 to-transparent"
               />
-
               <BorderBeam
                 duration={6}
                 delay={3}
