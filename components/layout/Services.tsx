@@ -12,7 +12,7 @@ export default function Services() {
       id: "s1",
       title: "Short-form Content",
       description:
-        "Trendy, fast-paced edits for reels, YouTube Shorts, and TikToks that boost reach and engagement.",
+        "Trendy, fast-paced edits for your Instagram Reels and YouTube Shorts  that boost reach and engagement.",
     },
   ];
 
@@ -55,7 +55,7 @@ export default function Services() {
                   Starting at
                 </span>
 
-                <span className="text-lg font-semibold text-black">₹400/-</span>
+                <span className="text-lg font-semibold text-black">₹400/-* only</span>
               </div>
 
               {/* Service */}
