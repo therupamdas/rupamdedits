@@ -23,7 +23,7 @@ export default function BrandMarquee() {
           "linear-gradient(to bottom, black 0%, black 75%, transparent 100%)",
       }}
     >
-      <RetroGrid />
+      <RetroGrid  opacity={0.3} />
 
       <h2 className="px-4 text-center text-2xl font-bold uppercase text-neutral-800 md:text-5xl font-bebas">
         <TextAnimate animation="blurInUp" by="character" once>
@@ -33,10 +33,10 @@ export default function BrandMarquee() {
 
       <div className="relative z-10 mt-8 overflow-hidden">
         <div
-          className="flex w-max gap-20 pr-20"
-          style={{ animation: "marquee 16s linear infinite" }}
+          className="flex w-max gap-5 pr-20"
+          style={{ animation: "marquee 32s linear infinite" }}
         >
-          {Array.from({ length: 4 }).flatMap((_, ci) =>
+          {Array.from({ length: 8 }).flatMap((_, ci) =>
             brands.map((src, i) => (
               <Image
                 key={`${ci}-${i}`}

@@ -65,7 +65,7 @@ export default function SpotlightBackground() {
           h-212.5
           w-212.5
           rounded-full
-          bg-emerald-500/15
+          bg-emerald-500/20
           blur-[220px]
           opacity-50
         "
@@ -95,7 +95,7 @@ export default function SpotlightBackground() {
           h-175
           w-175
           rounded-full
-          bg-cyan-500/15
+          bg-blue-500/25
           blur-[200px]
           opacity-50
         "
