@@ -4,6 +4,7 @@ import { Separator } from "../ui/separator";
 import Image from "next/image";
 import { BorderBeam } from "../ui/border-beam";
 import { Button } from "../ui/button";
+import { Buttonx } from "./Buttonx";
 
 export default function Contact() {
   return (
@@ -41,109 +42,91 @@ export default function Contact() {
           <Separator className="max-w-md mx-auto" />
         </motion.div>
 
-        <div className="flex flex-col gap-4 justify-center items-center max-w-4xl mx-auto px-4">
+        <div className="flex flex-col gap-4 justify-center items-center px-4">
           {/* WhatsApp Button */}
-          <motion.a
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            viewport={{ once: true }}
-            href="https://wa.me/918348890844"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="relative "
-          >
-            <div
-              className="relative overflow-hidden rounded-md bg-white text-sm text-black transition duration-200
-             hover:shadow-[4px_4px_0px_0px] hover:shadow-green-600"
-            >
-              <Button
-                asChild
-                variant="outline"
-                className="h-12 w-full sm:w-70 rounded-md border-neutral-200 bg-white text-black dark:border-slate-800 dark:bg-slate-900 dark:text-white"
-              >
-                <div className="flex items-center">
-                  <Image
-                    width={24}
-                    height={24}
-                    src="https://cdn-icons-png.flaticon.com/512/733/733585.png"
-                    alt="WhatsApp"
-                    className="w-6 h-6"
-                  />
-                  Message on Whatsapp
-                </div>
-              </Button>
-              <BorderBeam duration={3} size={50} />
-            </div>
-          </motion.a>
-
-          {/* Phone Button */}
-          <motion.a
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.5 }}
-            viewport={{ once: true }}
-            href="tel:+918348890844"
-            className="relative"
-          >
-            <div
-              className="relative overflow-hidden rounded-md bg-white text-sm text-black transition duration-200
-             hover:shadow-[4px_4px_0px_0px] hover:shadow-blue-500"
-            >
-              <Button
-                asChild
-                variant="outline"
-                className="h-12 w-full sm:w-70 rounded-md border-neutral-200 bg-white text-black dark:border-slate-800 dark:bg-slate-900 dark:text-white"
-              >
-                <div className="flex items-center">
-                  <Image
-                    width={24}
-                    height={24}
-                    src="https://cdn-icons-png.flaticon.com/512/724/724664.png"
-                    alt="Phone"
-                    className="w-6 h-6"
-                  />
-                  Call Now
-                </div>
-              </Button>
-              <BorderBeam duration={3} size={50} />
-            </div>
-          </motion.a>
-
-          {/* Email Button */}
-          <motion.a
+          <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
             viewport={{ once: true }}
-            href="https://mail.google.com/mail/?view=cm&fs=1&to=rupam1624@gmail.com&su=Project%20Inquiry&body=Hi%20Rupam,%20I%20would%20like%20to%20discuss%20a%20project%20with%20you."
-            target="_blank"
             rel="noopener noreferrer"
-            className="relative"
           >
-            <div
-              className="relative overflow-hidden rounded-md bg-white text-sm text-black transition duration-200
-             hover:shadow-[4px_4px_0px_0px] hover:shadow-red-500"
+            <Buttonx
+              buttonClassName="h-12 text-sm w-full sm:w-70"
+              wrapperClassName="shadow-green-600"
+              beamDuration={3}
+              beamDelay={2}
+              beamSize={70}
+              href="https://wa.me/918348890844"
             >
-              <Button
-                asChild
-                variant="outline"
-                className="h-12 w-full sm:w-70 rounded-md border-neutral-200 bg-white text-black dark:border-slate-800 dark:bg-slate-900 dark:text-white"
-              >
-                <div className="flex items-center">
-                  <Image
-                    width={24}
-                    height={24}
-                    src="https://cdn-icons-png.flaticon.com/512/732/732200.png"
-                    alt="Email"
-                    className="w-6 h-6"
-                  />
-                  Send an Email
-                </div>
-              </Button>
-              <BorderBeam duration={3} size={50} />
-            </div>
-          </motion.a>
+              <div className="w-full sm:w-70 flex justify-center items-center">
+                <Image
+                  width={24}
+                  height={24}
+                  src="https://cdn-icons-png.flaticon.com/512/733/733585.png"
+                  alt="WhatsApp"
+                  className="w-6 h-6 mr-2"
+                />
+                Message on Whatsapp
+              </div>
+            </Buttonx>
+          </motion.div>
+          {/* Phone Button */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.6 }}
+            viewport={{ once: true }}
+            rel="noopener noreferrer"
+          >
+            <Buttonx
+              buttonClassName="h-12 text-sm w-full sm:w-70"
+              wrapperClassName="shadow-blue-600"
+              beamDuration={3}
+              beamDelay={2}
+              beamSize={70}
+              href="tel:+918348890844"
+            >
+              <div className="w-full sm:w-70 flex justify-center items-center">
+                <Image
+                  width={24}
+                  height={24}
+                  src="https://cdn-icons-png.flaticon.com/512/724/724664.png"
+                  alt="Phone"
+                  className="w-6 h-6 mr-2"
+                />
+                Call Now
+              </div>
+            </Buttonx>
+          </motion.div>
+          {/* Email Button */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.6 }}
+            viewport={{ once: true }}
+            rel="noopener noreferrer"
+          >
+            <Buttonx
+              buttonClassName="h-12 text-sm w-full sm:w-70"
+              wrapperClassName="shadow-red-600"
+              beamDuration={3}
+              beamDelay={2}
+              beamSize={70}
+              href="https://mail.google.com/mail/?view=cm&fs=1&to=rupam1624@gmail.com&su=Project%20Inquiry&body=Hi%20Rupam,%20I%20would%20like%20to%20discuss%20a%20project%20with%20you."
+            >
+              <div className="w-full sm:w-70 flex justify-center items-center">
+                <Image
+                  width={24}
+                  height={24}
+                  src="https://cdn-icons-png.flaticon.com/512/732/732200.png"
+                  alt="Email"
+                  className="w-6 h-6 mr-2"
+                />
+                Send an Email
+              </div>
+            </Buttonx>
+          </motion.div>
         </div>
       </section>
 

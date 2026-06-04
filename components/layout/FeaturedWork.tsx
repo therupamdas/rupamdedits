@@ -1,12 +1,9 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { Skeleton } from "@/components/ui/skeleton";
 import { ArrowRight } from "lucide-react";
 import { Separator } from "../ui/separator";
 import { TextAnimate } from "../ui/text-animate";
-import Link from "next/link";
-import { BorderBeam } from "../ui/border-beam";
+import { Buttonx } from "./Buttonx";
 
 export default function FeaturedWork() {
   return (
@@ -17,19 +14,17 @@ export default function FeaturedWork() {
             Featured Work
           </TextAnimate>
         </h2>
-        <div className="h-8 rounded-md relative">
-          <Button
-            asChild
-            variant="outline"
-            className=" relative h-8 overflow-hidden rounded-md bg-white text-sm text-black transition duration-200
-            hover:shadow-[4px_4px_0px_0px_rgba(0,0,0)]  sm:w-36  border-neutral-200 dark:border-slate-800 dark:bg-slate-900 dark:text-white"
-          >
-            <Link href="#work" className="flex items-center">
-              Full portfolio <ArrowRight className="h-4 w-4 ml-1" />
-            </Link>
-          </Button>
-          <BorderBeam duration={3} size={60} />
-        </div>
+        
+        <Buttonx
+          buttonClassName="h-8 w-full sm:w-36 text-sm border-neutral-200"
+          wrapperClassName="h-8"
+          beamDuration={3}
+          beamDelay={4}
+          beamSize={60}
+          href="/projectsubmission"
+        >
+          Full portfolio <ArrowRight className="h-4 w-4 ml-1" />
+        </Buttonx>
       </div>
       <Separator className="my-6" />
       <main className="mx-auto grid grid-cols-2 md:grid-cols-5 gap-2 items-start grid-flow-dense">

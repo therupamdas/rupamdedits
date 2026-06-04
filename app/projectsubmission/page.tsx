@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { Plus, Minus, Trash2, PlusCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { BorderBeam } from "@/components/ui/border-beam";
+import { Buttonx } from "@/components/layout/Buttonx";
 
 // 1. Define the shape of our VideoBatch object
 interface VideoBatch {
@@ -158,21 +159,17 @@ export default function ProjectSubmissionForm() {
             </div>
           ))}
 
-          <div className="h-8 rounded-md relative">
-            <Button
-              onClick={addVideoBatch}
-              asChild
-              variant="outline"
-              className=" relative h-8 border-green-500 overflow-hidden rounded-md bg-white text-sm transition duration-200
-            hover:shadow-[4px_4px_0px_0px] shadow-green-500 text-green-500 hover:text-green-500 sm:w-full 0 dark:border-slate-800 dark:bg-slate-900 dark:text-white"
-            >
-              <div className="w-full text-green-500 hover:text-green-500 flex items-center">
-                <PlusCircle size={15} />
-                Add another video type
-              </div>
-            </Button>
-            <BorderBeam duration={3} size={60} />
-          </div>
+          <Buttonx
+            onClick={addVideoBatch}
+            buttonClassName="h-8 w-full border-1 border-neutral-200 text-sm text-green-500 hover:text-green-500"
+            wrapperClassName="shadow-green-500"
+            beamDuration={6}
+            beamDelay={2}
+            beamSize={50}
+          >
+            <PlusCircle size={15} />
+            Add another video type
+          </Buttonx>
         </div>
 
         <div className="mb-4 md:mb-6 space-y-4">
@@ -225,7 +222,7 @@ export default function ProjectSubmissionForm() {
       {/* 3rd section */}
       {/* 3rd section */}
       {/* 3rd section */}
-      <div className="flex flex-row items-end justify-between gap-6 pt-2">
+      <div className="flex flex-row items-end justify-between pt-2">
         <div className="w-full">
           <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider">
             Estimated Budget
@@ -234,22 +231,16 @@ export default function ProjectSubmissionForm() {
             ₹{calculateTotal()}
           </p>
         </div>
-
-        <div
-          className="relative rounded-md bg-white text-sm text-black transition duration-200
-          hover:shadow-[4px_4px_0px_0px_rgba(0,0,0)]"
+        <Buttonx
+          buttonClassName="h-12 border-1 border-neutral-200 text-sm"
+          beamDuration={3}
+          beamDelay={2}
+          beamSize={40}
+          href="/submit"
         >
-          <Button
-            asChild
-            variant="outline"
-            className="h-12 w-40 rounded-md flex items-center border-neutral-200 bg-white text-black dark:border-slate-800 dark:bg-slate-900 dark:text-white"
-          >
-            <p className="flex justify-center items-center">Submit Request</p>
-          </Button>
-          <BorderBeam duration={3} size={50} />
-        </div>
+          Submit Request
+        </Buttonx>
       </div>
-      
     </div>
   );
 }

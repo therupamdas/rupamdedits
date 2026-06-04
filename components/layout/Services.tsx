@@ -3,8 +3,7 @@ import { Separator } from "@/components/ui/separator";
 import { ArrowRight } from "lucide-react";
 import { BorderBeam } from "../ui/border-beam";
 import { TextAnimate } from "../ui/text-animate";
-import { Button } from "../ui/button";
-import Link from "next/link";
+import { Buttonx } from "./Buttonx";
 
 export default function Services() {
   const services = [
@@ -24,19 +23,17 @@ export default function Services() {
             Services
           </TextAnimate>
         </h2>
-        <div className="h-8 rounded-md relative">
-          <Button
-            asChild
-            variant="outline"
-            className=" relative h-8 overflow-hidden rounded-md bg-white text-sm text-black transition duration-200
-            hover:shadow-[4px_4px_0px_0px_rgba(0,0,0)]  sm:w-36  border-neutral-200 dark:border-slate-800 dark:bg-slate-900 dark:text-white"
+        
+        <Buttonx
+            buttonClassName="h-8 w-full sm:w-36 text-sm border-neutral-200"
+            wrapperClassName="h-8"
+            beamDuration={3}
+            beamDelay={4}
+            beamSize={60}
+            href="/projectsubmission"
           >
-            <Link href="#contact" className="flex items-center">
-              Get a Quote <ArrowRight className="h-4 w-4 ml-1" />
-            </Link>
-          </Button>
-          <BorderBeam duration={3} size={60} />
-        </div>
+            Get a Quote <ArrowRight className="h-4 w-4 ml-1" />
+          </Buttonx>
       </div>
       <Separator className="my-6" />
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">

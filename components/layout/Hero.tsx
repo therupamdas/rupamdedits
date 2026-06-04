@@ -1,13 +1,11 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Play, Sparkles, Mail } from "lucide-react";
-import { BorderBeam } from "../ui/border-beam";
 import { AuroraText } from "../ui/aurora-text";
 import { NumberTicker } from "../ui/number-ticker";
-import Link from "next/link";
 import { Iphone } from "../ui/iphone";
+import { Buttonx } from "./Buttonx";
 
 export default function Hero() {
   return (
@@ -63,35 +61,26 @@ export default function Hero() {
 
         {/* CTA Buttons */}
         <div className="mt-6 flex flex-col gap-2 sm:mt-8 sm:flex-row sm:items-center sm:gap-3">
-          <div className="relative overflow-hidden rounded-md bg-white text-sm text-black transition duration-200 hover:shadow-[4px_4px_0px_0px_rgba(0,0,0)]">
-            <Button
-              asChild
-              variant="outline"
-              className="h-12 w-full sm:w-36 rounded-md border-neutral-200 bg-white text-black dark:border-slate-800 dark:bg-slate-900 dark:text-white"
-            >
-              <Link href="#work" className="flex items-center">
-                <Play className="mr-1 h-5 w-5" />
-                See work
-              </Link>
-            </Button>
-
-            <BorderBeam duration={3} size={50} />
-          </div>
-
-          <div className="relative overflow-hidden rounded-md bg-white text-sm text-black transition duration-200 hover:shadow-[4px_4px_0px_0px_rgba(0,0,0)]">
-            <Button
-              asChild
-              variant="outline"
-              className="h-12 w-full sm:w-36 rounded-md border-neutral-200 bg-white text-black dark:border-slate-800 dark:bg-slate-900 dark:text-white"
-            >
-              <a href="#services" className="flex items-center">
-                <Mail className="mr-1 h-5 w-5" />
-                Get a quote
-              </a>
-            </Button>
-
-            <BorderBeam duration={3} size={50} />
-          </div>
+          <Buttonx
+            buttonClassName="h-12 w-full sm:w-36 text-sm border-neutral-200"
+            beamDuration={6}
+            beamDelay={3}
+            beamSize={36}
+            href="#work"
+          >
+            <Play className="mr-1 h-5 w-5" />
+            See work
+          </Buttonx>
+          <Buttonx
+            buttonClassName="h-12 w-full sm:w-36 text-sm border-neutral-200"
+            beamDuration={6}
+            beamDelay={3}
+            beamSize={36}
+            href="#services"
+          >
+            <Mail className="mr-1 h-5 w-5" />
+            Get a quote
+          </Buttonx>
         </div>
 
         <p className="mt-4 text-xs text-neutral-500 sm:mt-8">
