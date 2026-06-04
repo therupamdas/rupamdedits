@@ -16,7 +16,7 @@ export default function Services() {
   ];
 
   return (
-    <section id="services" className="mx-5 md:mx-15 scroll-mt-20 px-4 py-10">
+    <section id="services" className="mx-5 md:mx-80 scroll-mt-20 px-4 py-10">
       <div className="flex justify-between">
         <h2 className="text-2xl md:text-5xl  text-neutral-800 font-bebas uppercase font-bold">
           <TextAnimate animation="blurInUp" by="character" once>
@@ -36,7 +36,7 @@ export default function Services() {
           </Buttonx>
       </div>
       <Separator className="my-6" />
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
         {services.map((s) => (
           <motion.div
             key={s.id}
@@ -68,8 +68,8 @@ export default function Services() {
               {/* Deliverables */}
               <ul className="mt-5 space-y-2 text-sm text-neutral-700">
                 <li>✓ Professional editing</li>
-                <li>✓ Color grading</li>
-                <li>✓ Sound design</li>
+                {/* <li>✓ Color grading</li>
+                <li>✓ Sound design</li> */}
                 <li>✓ Fast turnaround</li>
               </ul>
 

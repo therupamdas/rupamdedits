@@ -9,6 +9,7 @@ import {
   ContextMenuSeparator,
   ContextMenuTrigger,
 } from "@/components/ui/context-menu";
+import Link from "next/link";
 
 export default function CustomContextMenu({
   children,
@@ -24,12 +25,8 @@ export default function CustomContextMenu({
       <ContextMenuContent className="bg-transparent backdrop-blur-sm flex items-center justify-center rounded-full h-35 w-35">
         <ContextMenuGroup>
           <ContextMenuItem className="flex items-center justify-center w-33 h-33 rounded-full">
-            <a
-              href="#"
-              onClick={(e) => {
-                e.preventDefault();
-                window.scrollTo({ top: 0, behavior: "smooth" });
-              }}
+            <Link
+              href="/"
               className="flex flex-col items-center justify-center w-33  tracking-tight"
             >
               <p>Hi, welcome to</p>
@@ -37,7 +34,7 @@ export default function CustomContextMenu({
               <p className="ml-1 font-semibold">
                 rupamedits<span className="text-neutral-400">.com</span>
               </p>
-            </a>
+            </Link>
           </ContextMenuItem>
         </ContextMenuGroup>
       </ContextMenuContent>

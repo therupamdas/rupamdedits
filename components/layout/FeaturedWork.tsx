@@ -7,7 +7,7 @@ import { Buttonx } from "./Buttonx";
 
 export default function FeaturedWork() {
   return (
-    <section id="work" className="scroll-mt-20 mx-5 md:mx-15 px-4 py-10">
+    <section id="work" className="scroll-mt-20 mx-5  md:mx-80 px-4 py-10">
       <div className="flex items-center justify-between">
         <h2 className="text-2xl md:text-5xl text-neutral-800 font-bebas uppercase font-bold">
           <TextAnimate animation="blurInUp" by="character" once>
@@ -27,7 +27,7 @@ export default function FeaturedWork() {
         </Buttonx>
       </div>
       <Separator className="my-6" />
-      <main className="mx-auto grid grid-cols-2 md:grid-cols-5 gap-2 items-start grid-flow-dense">
+      <main className="mx-auto grid grid-cols-2 md:grid-cols-5 gap-2 items-start  grid-flow-dense">
         <div className="group relative rounded-md overflow-hidden col-span-1 aspect-9/16 w-full bg-white/0 shadow-xl transition-transform ">
           <video
             src="./portrait (1).mp4"
