@@ -11,7 +11,7 @@ export default function Contact() {
       {/* 2. Changed w-1/3 to w-full for mobile, md:w-1/3 for desktop. Replaced m-20 with responsive margins. */}
       <section
         id="contact"
-        className="w-full md:w-1/3 px-6 py-8 md:m-10 md:py-16"
+        className="w-full md:w-1/3 px-6 py-8 md:m-10 scroll-mt-20  md:py-16"
       >
         <motion.h2
           initial={{ opacity: 0, y: 20 }}

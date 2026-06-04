@@ -1,14 +1,5 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import {
-  Sheet,
-  SheetClose,
-  SheetContent,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
-import { Menu } from "lucide-react";
-import { motion } from "framer-motion";
 import Link from "next/link";
 import { BorderBeam } from "../ui/border-beam";
 

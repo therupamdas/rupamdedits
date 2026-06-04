@@ -81,18 +81,23 @@ export default function ProjectSubmissionForm() {
   };
 
   return (
-    <div className="m-12 p-6  md:p-8 bg-white border border-gray-100 rounded-lg shadow-sm">
-      <div className="mb-8">
+    <div className="m-3 md:m-12 p-6  md:p-8 bg-white border border-gray-100 rounded-lg shadow-sm">
+      {/* 1st section */}
+      {/* 1st section */}
+      {/* 1st section */}
+      <div className="mb-2 md:mb-6">
         <h2 className="text-3xl font-extrabold text-gray-900 tracking-tight uppercase">
           Start Your Project
         </h2>
-        <p className="text-gray-500 mt-2">
-          Tell us what you need, and get an instant estimate.
+        <p className="text-gray-500 mt-0">
+          Tell me what you need,and get an instant estimate.
         </p>
       </div>
-
-      <div className="space-x-8 flex flex-row">
-        <div className="space-y-4">
+      {/* 2nd section */}
+      {/* 2nd section */}
+      {/* 2nd section */}
+      <div className="md:space-x-8 flex justify-center flex-col md:flex-row">
+        <div className="mb-4 md:mb-6 space-y-4">
           <label className="block text-sm font-semibold text-gray-900 uppercase tracking-wider">
             Video Requirements
           </label>
@@ -161,7 +166,7 @@ export default function ProjectSubmissionForm() {
               className=" relative h-8 border-green-500 overflow-hidden rounded-md bg-white text-sm transition duration-200
             hover:shadow-[4px_4px_0px_0px] shadow-green-500 text-green-500 hover:text-green-500 sm:w-full 0 dark:border-slate-800 dark:bg-slate-900 dark:text-white"
             >
-              <div className="text-green-500 hover:text-green-500 flex items-center">
+              <div className="w-full text-green-500 hover:text-green-500 flex items-center">
                 <PlusCircle size={15} />
                 Add another video type
               </div>
@@ -170,7 +175,7 @@ export default function ProjectSubmissionForm() {
           </div>
         </div>
 
-        <div className="space-y-4">
+        <div className="mb-4 md:mb-6 space-y-4">
           <label className="block text-sm font-semibold text-gray-900 uppercase tracking-wider">
             Number of Revisions
           </label>
@@ -202,7 +207,7 @@ export default function ProjectSubmissionForm() {
           </p>
         </div>
 
-        <div className="w-full space-y-4">
+        <div className="mr-0 w-full space-y-4">
           <label className="block  text-sm font-semibold text-gray-900 uppercase tracking-wider">
             Project Details
           </label>
@@ -217,8 +222,11 @@ export default function ProjectSubmissionForm() {
 
         <hr className="border-gray-100" />
       </div>
-      <div className="flex flex-col md:flex-row items-end justify-between gap-6 pt-2">
-        <div>
+      {/* 3rd section */}
+      {/* 3rd section */}
+      {/* 3rd section */}
+      <div className="flex flex-row items-end justify-between gap-6 pt-2">
+        <div className="w-full">
           <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider">
             Estimated Budget
           </p>
@@ -227,17 +235,21 @@ export default function ProjectSubmissionForm() {
           </p>
         </div>
 
-        <div className="relative overflow-hidden rounded-md bg-white text-sm text-black transition duration-200 hover:shadow-[4px_4px_0px_0px_rgba(0,0,0)]">
+        <div
+          className="relative rounded-md bg-white text-sm text-black transition duration-200
+          hover:shadow-[4px_4px_0px_0px_rgba(0,0,0)]"
+        >
           <Button
             asChild
             variant="outline"
-            className="h-12 w-full sm:w-36 rounded-md border-neutral-200 bg-white text-black dark:border-slate-800 dark:bg-slate-900 dark:text-white"
+            className="h-12 w-40 rounded-md flex items-center border-neutral-200 bg-white text-black dark:border-slate-800 dark:bg-slate-900 dark:text-white"
           >
-            <a className="flex items-center">Submit Request</a>
+            <p className="flex justify-center items-center">Submit Request</p>
           </Button>
           <BorderBeam duration={3} size={50} />
         </div>
       </div>
+      
     </div>
   );
 }
