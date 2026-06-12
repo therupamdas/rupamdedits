@@ -7,6 +7,7 @@ import Footer from "@/components/layout/Footer";
 import CustomContextMenu from "@/components/layout/CustomContextMenu";
 import SpotlightBackground from "@/components/layout/SpotlightBackground";
 import { Pointer } from "@/components/ui/pointer";
+import { HideAuth } from "@/components/layout/HideAuth";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -46,9 +47,13 @@ export default function RootLayout({
       <body className="font-sans flex flex-col antialiased text-neutral-900 bg-transparent select-none">
         <CustomContextMenu>
           <SpotlightBackground />
-          <Navbar />
+          <HideAuth>
+            <Navbar />
+          </HideAuth>
           <main className="grow flex flex-col relative z-10">{children}</main>
-          <Footer />
+          <HideAuth>
+            <Footer />
+          </HideAuth>
         </CustomContextMenu>
         <Pointer className="fill-green-500" />
       </body>

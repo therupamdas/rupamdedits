@@ -1,8 +1,8 @@
 import React, { ReactNode } from "react";
 import Link from "next/link";
 // Adjust these imports to match your project structure
-import { Button } from "@/components/ui/button"; 
-import { BorderBeam } from "../ui/border-beam"; 
+import { Button } from "@/components/ui/button";
+import { BorderBeam } from "../ui/border-beam";
 
 interface ButtonxProps {
   href?: string; // Made optional
@@ -13,6 +13,8 @@ interface ButtonxProps {
   beamDuration?: number;
   beamSize?: number;
   beamDelay?: number;
+  type?: string;
+  disabled?: boolean;
 }
 
 export function Buttonx({
@@ -23,9 +25,10 @@ export function Buttonx({
   buttonClassName = "",
   beamDuration = 3,
   beamSize = 50,
-  beamDelay = 5
+  beamDelay = 5,
+  type = "",
+  disabled = false,
 }: ButtonxProps) {
-  
   // Extracted styles to keep the conditional rendering clean
   const combinedButtonClasses = `h-12 text-center border-white bg-white text-black dark:border-slate-800 dark:bg-slate-900 dark:text-white px-6 py-2 rounded-sm text-md font-semibold transition-colors duration-200 ${buttonClassName}`;
 
@@ -35,11 +38,7 @@ export function Buttonx({
     >
       {/* If an href is provided, render as a Next.js Link */}
       {href ? (
-        <Button
-          asChild
-          variant="outline"
-          className={combinedButtonClasses}
-        >
+        <Button asChild type="submit" disabled={false}  variant="outline" className={combinedButtonClasses}>
           <Link href={href} className="flex justify-center items-center">
             {children}
           </Link>
@@ -49,11 +48,11 @@ export function Buttonx({
         <Button
           variant="outline"
           onClick={onClick}
+          type="submit"
+          disabled={false}
           className={combinedButtonClasses}
         >
-          <span className="flex justify-center items-center">
-            {children}
-          </span>
+          <span className="flex justify-center items-center">{children}</span>
         </Button>
       )}
 
