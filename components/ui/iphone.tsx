@@ -58,9 +58,10 @@ export function Iphone({
             src={videoSrc}
             autoPlay
             loop
+            poster="./poster.png"
             muted={muted}
             playsInline
-            preload="metadata"
+            preload="none"
           />
           <button
             onClick={() => setMuted(!muted)}

@@ -19,7 +19,7 @@ export default function CustomContextMenu({
   return (
     <ContextMenu modal={false}>
       <ContextMenuTrigger asChild>
-        <div className="min-h-screen">{children}</div>
+        <div className=" ">{children}</div>
       </ContextMenuTrigger>
 
       <ContextMenuContent className="bg-transparent backdrop-blur-sm flex items-center justify-center rounded-full h-35 w-35">

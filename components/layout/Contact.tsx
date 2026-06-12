@@ -2,8 +2,7 @@
 import { motion } from "motion/react";
 import { Separator } from "../ui/separator";
 import Image from "next/image";
-import { BorderBeam } from "../ui/border-beam";
-import { Button } from "../ui/button";
+
 import { Buttonx } from "./Buttonx";
 
 export default function Contact() {

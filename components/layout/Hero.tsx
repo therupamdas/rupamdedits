@@ -66,7 +66,7 @@ export default function Hero() {
             beamDuration={6}
             beamDelay={3}
             beamSize={36}
-            href="#work"
+            href="./portfolio"
           >
             <Play className="mr-1 h-5 w-5" />
             See work
@@ -76,7 +76,7 @@ export default function Hero() {
             beamDuration={6}
             beamDelay={3}
             beamSize={36}
-            href="#services"
+            href="./projectsubmission"
           >
             <Mail className="mr-1 h-5 w-5" />
             Get a quote

@@ -27,7 +27,7 @@ export function Buttonx({
 }: ButtonxProps) {
   
   // Extracted styles to keep the conditional rendering clean
-  const combinedButtonClasses = `h-12 text-center border-white bg-white text-black dark:border-slate-800 dark:bg-slate-900 dark:text-white px-6 py-2 rounded-sm text-lg font-semibold transition-colors duration-200 ${buttonClassName}`;
+  const combinedButtonClasses = `h-12 text-center border-white bg-white text-black dark:border-slate-800 dark:bg-slate-900 dark:text-white px-6 py-2 rounded-sm text-md font-semibold transition-colors duration-200 ${buttonClassName}`;
 
   return (
     <div

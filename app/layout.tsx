@@ -11,13 +11,16 @@ import { Pointer } from "@/components/ui/pointer";
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
+  display: "swap", // <-- Added swap here so paragraphs paint instantly
 });
 
 const bebasNeue = Bebas_Neue({
   weight: "400",
   subsets: ["latin"],
   variable: "--font-bebas",
+  display: "swap",
 });
+// (Deleted the duplicate 'bebas' initialization!)
 
 export const metadata: Metadata = {
   title: "Rupam Edits",
@@ -40,7 +43,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${inter.variable} ${bebasNeue.variable}`}>
-      <body className="min-h-screen flex flex-col antialiased text-neutral-900 bg-transparent select-none">
+      <body className="font-sans flex flex-col antialiased text-neutral-900 bg-transparent select-none">
         <CustomContextMenu>
           <SpotlightBackground />
           <Navbar />
