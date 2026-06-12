@@ -56,7 +56,7 @@ export default function Services() {
               </div>
 
               {/* Service */}
-              <h3 className="text-xl font-semibold tracking-tight text-black">
+              <h3 className="text-xl font-semibold tracking-normal text-black">
                 {s.title}
               </h3>
 

@@ -91,7 +91,7 @@ export default function ProjectSubmissionForm() {
       
       {/* Header section */}
       <div className="mb-6 md:mb-8">
-        <h2 className="text-3xl font-extrabold text-gray-900 tracking-tight uppercase">
+        <h2 className="text-3xl font-extrabold text-gray-900 tracking-normal uppercase">
           Start Your Project
         </h2>
         <p className="text-gray-500 mt-0">

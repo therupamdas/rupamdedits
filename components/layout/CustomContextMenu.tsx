@@ -27,7 +27,7 @@ export default function CustomContextMenu({
           <ContextMenuItem className="flex items-center justify-center w-33 h-33 rounded-full">
             <Link
               href="/"
-              className="flex flex-col items-center justify-center w-33  tracking-tight"
+              className="flex flex-col items-center justify-center w-33  tracking-normal"
             >
               <p>Hi, welcome to</p>
 

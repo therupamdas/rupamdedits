@@ -6,11 +6,15 @@ import { usePathname } from "next/navigation";
 import { motion, useScroll, type MotionProps } from "motion/react";
 import { cn } from "@/lib/utils";
 import { Buttonx } from "./Buttonx";
+import { Button } from "../ui/button";
+import Image from "next/image";
 
 // --- Types & Constants ---
 
-interface ScrollProgressProps
-  extends Omit<React.HTMLAttributes<HTMLElement>, keyof MotionProps> {
+interface ScrollProgressProps extends Omit<
+  React.HTMLAttributes<HTMLElement>,
+  keyof MotionProps
+> {
   ref?: React.Ref<HTMLDivElement>;
 }
 
@@ -34,7 +38,7 @@ function ScrollProgressBar({ className, ref, ...props }: ScrollProgressProps) {
       className={cn(
         // Changed to absolute so it perfectly aligns with the top of the sticky header
         "absolute inset-x-0 top-0 z-50 h-0.5 origin-left bg-linear-to-r from-[#A97CF8] via-[#F38CB8] to-[#FDCC92]",
-        className
+        className,
       )}
       style={{
         scaleX: scrollYProgress,
@@ -75,18 +79,18 @@ export default function Navbar() {
               window.scrollTo({ top: 0, behavior: "smooth" });
             }
           }}
-          className="font-semibold tracking-tight text-xl"
+          className="font-semibold normaltight text-xl"
         >
           rupamedits<span className="text-neutral-400">.com</span>
         </Link>
-        
+
         <nav className="hidden md:flex items-center gap-6 text-sm">
           <Buttonx
             buttonClassName="w-28"
             beamDuration={4}
             beamDelay={2}
             beamSize={0}
-            href="#work"
+            href="/#work"
           >
             Work
           </Buttonx>
@@ -95,7 +99,7 @@ export default function Navbar() {
             beamDuration={4}
             beamDelay={2}
             beamSize={0}
-            href="#services"
+            href="/#services"
           >
             Services
           </Buttonx>
@@ -104,7 +108,7 @@ export default function Navbar() {
             beamDuration={4}
             beamDelay={2}
             beamSize={0}
-            href="#contact"
+            href="/#contact"
           >
             Contact
           </Buttonx>
@@ -114,10 +118,35 @@ export default function Navbar() {
             beamDuration={4}
             beamDelay={2}
             beamSize={0}
-            href="#about"
+            href="/#about"
           >
             About
           </Buttonx>
+          <Buttonx
+            buttonClassName="w-28"
+            wrapperClassName="relative overflow-hidden"
+            beamDuration={4}
+            beamDelay={2}
+            beamSize={0}
+            href="/dashboard"
+          >
+            Dashboard
+          </Buttonx>
+          <Button
+            variant="outline"
+            className="h-12 w-12 py-0 p-0 rounded-sm border-0 hover:shadow-[4px_4px_0px_0px] dark:border-slate-800 dark:bg-slate-900 dark:text-white"
+          >
+            <Link href="/profile" className="flex justify-center items-center">
+            <Image
+              src="/rupam.png"
+              alt=""
+              width={50}
+              height={50}
+              className="rounded-sm aspect-square object-fill bg-white py-0 p-0"
+            />
+          </Link>
+            
+          </Button>
         </nav>
       </div>
 
@@ -131,7 +160,7 @@ export default function Navbar() {
             {[...Array(4)].flatMap((_, ci) =>
               MARQUEE_ITEMS.map((item, i) => (
                 <CarouselItem key={`${ci}-${i}`} text={item} />
-              ))
+              )),
             )}
           </div>
         </div>

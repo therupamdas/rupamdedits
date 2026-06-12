@@ -30,10 +30,12 @@ export function Pointer({
   const containerRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    const parentElement =
-      typeof window !== "undefined"
-        ? (containerRef.current?.parentElement ?? null)
-        : null
+    // 1. SAFETY CHECK: Abort immediately if on a server or a touch device (no fine pointer)
+    if (typeof window === "undefined" || !window.matchMedia("(pointer: fine)").matches) {
+      return
+    }
+
+    const parentElement = containerRef.current?.parentElement ?? null
 
     const handleMouseMove = (e: MouseEvent) => {
       x.set(e.clientX)

@@ -41,7 +41,7 @@ export default function Hero() {
           Minimal. Precise. On-brand.
         </Badge>
 
-        <h1 className="flex flex-col text-left font-bebas text-3xl font-bold tracking-tight text-neutral-800 drop-shadow sm:text-4xl md:text-6xl">
+        <h1 className="flex flex-col text-left font-bebas text-5xl font-bold tracking-normal text-neutral-800 drop-shadow md:text-7xl">
           <span>
             Video <AuroraText>Editing</AuroraText> for
           </span>
@@ -88,24 +88,24 @@ export default function Hero() {
         </p>
 
         {/* Stats */}
-        <div className="mt-4 flex flex-row items-center gap-2">
+        <div className="mt-4 flex flex-row items-center">
           <NumberTicker
             value={150}
             startValue={111}
             className="whitespace-pre-wrap text-3xl font-medium tracking-tighter text-black dark:text-white sm:text-4xl md:text-5xl"
           />
-          <p className="text-3xl font-medium tracking-tighter text-black dark:text-white sm:text-4xl md:text-5xl">
+          <p className="text-3xl font-medium tracking-normal text-black dark:text-white sm:text-4xl md:text-5xl">
             + Videos delivered.
           </p>
         </div>
 
-        <div className="flex flex-row items-center gap-2">
+        <div className="flex flex-row items-center ">
           <NumberTicker
             value={20}
-            startValue={3}
+            startValue={12}
             className="whitespace-pre-wrap text-3xl font-medium tracking-tighter text-black dark:text-white sm:text-4xl md:text-5xl"
           />
-          <p className="text-3xl font-medium tracking-tighter text-black dark:text-white sm:text-4xl md:text-5xl">
+          <p className="text-3xl font-medium tracking-normal text-black dark:text-white sm:text-4xl md:text-5xl">
             + Brand Partnerships.
           </p>
         </div>
