@@ -44,7 +44,7 @@ export function Iphone({
     >
       {hasVideo && (
         <div
-          className="shadow-[15px_15px_15px_0_rgba(0,0,0,0.25)] absolute z-0 overflow-hidden"
+          className="shadow-[-3px_8px_15px_0_rgba(0,0,0,0.45)] md:shadow-[15px_15px_15px_0_rgba(0,0,0,0.25)] absolute z-0 overflow-hidden"
           style={{
             left: `${LEFT_PCT}%`,
             top: `${TOP_PCT}%`,

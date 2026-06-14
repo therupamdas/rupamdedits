@@ -24,7 +24,7 @@ export default function Hero() {
         lg:items-start
         gap-10
         lg:gap-0
-        mb-6
+        mb-1
         sm:mb-9
         md:mb-14
         p-4
@@ -41,11 +41,11 @@ export default function Hero() {
           Minimal. Precise. On-brand.
         </Badge>
 
-        <h1 className="flex flex-col text-left font-bebas text-5xl font-bold tracking-normal text-neutral-800 drop-shadow md:text-7xl">
-          <span>
+        <h1 className="flex flex-col text-left font-bebas font-bold  text-neutral-800 drop-shadow">
+          <span className="md:text-8xl text-6xl tracking-normal">
             Video <AuroraText>Editing</AuroraText> for
           </span>
-          <span>Creators and Brands</span>
+          <span className="md:text-7xl text-5xl tracking:normal md:tracking-wide">Creators and Brands</span>
         </h1>
 
         <p className="mt-4 flex flex-col text-sm text-neutral-600 sm:mt-6 sm:max-w-xl sm:text-base">
@@ -62,8 +62,8 @@ export default function Hero() {
         {/* CTA Buttons */}
         <div className="mt-6 flex flex-col gap-2 sm:mt-8 sm:flex-row sm:items-center sm:gap-3">
           <Buttonx
-            buttonClassName="h-12 w-full sm:w-36 text-sm border-neutral-200"
-            beamDuration={6}
+            buttonClassName="h-12 w-full sm:w-36 text-sm bg-green-300 border-neutral-200"
+            beamDuration={4}
             beamDelay={3}
             beamSize={36}
             href="./portfolio"
@@ -72,8 +72,8 @@ export default function Hero() {
             See work
           </Buttonx>
           <Buttonx
-            buttonClassName="h-12 w-full sm:w-36 text-sm border-neutral-200"
-            beamDuration={6}
+            buttonClassName="h-12 w-full sm:w-36 text-sm bg-blue-300 border-neutral-200"
+            beamDuration={4}
             beamDelay={3}
             beamSize={36}
             href="./projectsubmission"
@@ -114,20 +114,28 @@ export default function Hero() {
       {/* Phone */}
       <div
         className="
-          flex
+          md:flex
           justify-center
-
-          w-full
-          lg:w-140
+          md:w-80
           ml-0
-          lg:ml-120
-
+          md:ml-full
+          md:rotate-0 
+          md:pt-5
+          md:static
+          md:h-full
+          w-40
+          
+          relative
+          h-36
+          -left-26
+          rotate-270
           pt-2
-          lg:pt-5
-        "
+          hidden
+          
+                  "
       >
-        <div className="w-full max-w-60 sm:max-w-70 md:max-w-[320px] lg:max-w-none">
-          <Iphone videoSrc="/Drinklapse.mp4" />
+        <div className=" w-full max-w-60 sm:max-w-70 md:max-w-[320px] lg:max-w-none ">
+          <Iphone className=" " videoSrc="/Drinklapse.mp4" />
         </div>
       </div>
     </section>

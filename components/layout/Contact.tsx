@@ -51,23 +51,21 @@ export default function Contact() {
             rel="noopener noreferrer"
           >
             <Buttonx
-              buttonClassName="h-12 text-sm w-full sm:w-70"
+              buttonClassName="h-12 text-sm w-70 sm:w-70 border-1 border-neutral-200"
               wrapperClassName="shadow-green-600"
               beamDuration={3}
               beamDelay={2}
               beamSize={70}
               href="https://wa.me/918348890844"
             >
-              <div className="w-full sm:w-70 flex justify-center items-center">
-                <Image
-                  width={24}
-                  height={24}
-                  src="https://cdn-icons-png.flaticon.com/512/733/733585.png"
-                  alt="WhatsApp"
-                  className="w-6 h-6 mr-2"
-                />
-                Message on Whatsapp
-              </div>
+              <Image
+                width={24}
+                height={24}
+                src="https://cdn-icons-png.flaticon.com/512/733/733585.png"
+                alt="WhatsApp"
+                className="w-6 h-6 mr-2"
+              />
+              <p>Message on Whatsapp</p>
             </Buttonx>
           </motion.div>
           {/* Phone Button */}
@@ -79,23 +77,21 @@ export default function Contact() {
             rel="noopener noreferrer"
           >
             <Buttonx
-              buttonClassName="h-12 text-sm w-full sm:w-70"
+              buttonClassName="h-12 text-sm w-70 sm:w-70 border-1 border-neutral-200"
               wrapperClassName="shadow-blue-600"
               beamDuration={3}
               beamDelay={2}
               beamSize={70}
               href="tel:+918348890844"
             >
-              <div className="w-full sm:w-70 flex justify-center items-center">
-                <Image
-                  width={24}
-                  height={24}
-                  src="https://cdn-icons-png.flaticon.com/512/724/724664.png"
-                  alt="Phone"
-                  className="w-6 h-6 mr-2"
-                />
-                Call Now
-              </div>
+              <Image
+                width={24}
+                height={24}
+                src="https://cdn-icons-png.flaticon.com/512/724/724664.png"
+                alt="Phone"
+                className="w-6 h-6 mr-2"
+              />
+              <p>Call Now</p>
             </Buttonx>
           </motion.div>
           {/* Email Button */}
@@ -107,23 +103,21 @@ export default function Contact() {
             rel="noopener noreferrer"
           >
             <Buttonx
-              buttonClassName="h-12 text-sm w-full sm:w-70"
+              buttonClassName="h-12 text-sm w-70 border-1 border-neutral-200 sm:w-70"
               wrapperClassName="shadow-red-600"
               beamDuration={3}
               beamDelay={2}
               beamSize={70}
               href="https://mail.google.com/mail/?view=cm&fs=1&to=rupam1624@gmail.com&su=Project%20Inquiry&body=Hi%20Rupam,%20I%20would%20like%20to%20discuss%20a%20project%20with%20you."
             >
-              <div className="w-full sm:w-70 flex justify-center items-center">
-                <Image
-                  width={24}
-                  height={24}
-                  src="https://cdn-icons-png.flaticon.com/512/732/732200.png"
-                  alt="Email"
-                  className="w-6 h-6 mr-2"
-                />
-                Send an Email
-              </div>
+              <Image
+                width={24}
+                height={24}
+                src="https://cdn-icons-png.flaticon.com/512/732/732200.png"
+                alt="Email"
+                className="w-6 h-6 mr-2"
+              />
+              <p>Send an Email</p>
             </Buttonx>
           </motion.div>
         </div>

@@ -61,8 +61,8 @@ export function OptimizedVideo({
         onClick={toggleMute}
         className="
           absolute
-          bottom-3
-          right-3
+          bottom-1
+          right-1
           z-50
           flex
           items-center
@@ -90,7 +90,7 @@ export function OptimizedVideo({
         )}
       </button>
       <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent group-hover:opacity-100 transition-opacity duration-300 flex items-end px-3 py-1.5">
-        <h3 className="text-md md:text-sm font-bold text-white">
+        <h3 className="text-xs md:text-sm font-bold text-white">
           {videocaption}
         </h3>
       </div>

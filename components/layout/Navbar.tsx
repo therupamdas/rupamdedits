@@ -136,7 +136,7 @@ export default function Navbar() {
             variant="outline"
             className="h-12 w-12 py-0 p-0 rounded-sm border-0 hover:shadow-[4px_4px_0px_0px] dark:border-slate-800 dark:bg-slate-900 dark:text-white"
           >
-            <Link href="/profile" className="flex justify-center items-center">
+            <Link href="/dashboard/profile" className="flex justify-center items-center">
             <Image
               src="/rupam.png"
               alt=""
