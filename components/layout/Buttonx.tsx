@@ -30,7 +30,7 @@ export function Buttonx({
   disabled = false,
 }: ButtonxProps) {
   // Extracted styles to keep the conditional rendering clean
-  const combinedButtonClasses = `h-12 text-center border-white bg-white text-black dark:border-slate-800 dark:bg-slate-900 dark:text-white px-6 py-2 rounded-sm text-md font-semibold transition-colors duration-200 ${buttonClassName}`;
+  const combinedButtonClasses = `h-12 bg-red-600 text-center border-white bg-white text-black dark:border-slate-800 dark:bg-slate-900 dark:text-white px-6 py-2 rounded-sm text-md font-semibold transition-colors duration-200 ${buttonClassName}`;
 
   return (
     <div
@@ -39,7 +39,7 @@ export function Buttonx({
       {/* If an href is provided, render as a Next.js Link */}
       {href ? (
         <Button asChild type="submit" disabled={false}  variant="outline" className={combinedButtonClasses}>
-          <Link href={href} className="flex justify-center items-center">
+          <Link href={href} className="flex justify-center  items-center">
             {children}
           </Link>
         </Button>

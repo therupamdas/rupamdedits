@@ -7,12 +7,11 @@ import { Buttonx } from "./Buttonx";
 
 export default function Contact() {
   return (
-    <section className="relative w-full overflow-hidden flex flex-col md:flex-row justify-center items-center md:items-stretch pb-5 scroll-mt-20 gap-10 md:gap-0">
-      {/* 2. Changed w-1/3 to w-full for mobile, md:w-1/3 for desktop. Replaced m-20 with responsive margins. */}
-      <section
-        id="contact"
-        className="w-full md:w-1/3 px-6 pb-8 md:m-10 scroll-mt-20  md:pb-16 md:mt-0"
-      >
+    <section
+      id="contact"
+      className="w-full overflow-hidden flex flex-col md:flex-row justify-center items-center md:items-stretch pb-5 scroll-mt-20 gap-10 md:gap-0"
+    >
+      <section className="w-full md:w-1/3 px-6 pb-8 md:m-10 scroll-mt-20  md:pb-16">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -123,10 +122,7 @@ export default function Contact() {
         </div>
       </section>
 
-      <section
-        id="about"
-        className="relative overflow-hidden w-full md:w-2/3 scroll-mt-20 px-6 pb-8 md:m-10 md:pb-16 md:mt-0"
-      >
+      <section className="relative overflow-hidden w-full md:w-2/3 scroll-mt-20 px-6 pb-8 md:m-10 md:pb-16">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}

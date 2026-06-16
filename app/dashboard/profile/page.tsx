@@ -93,6 +93,7 @@ export default function ProfilePage() {
             <div className="flex flex-col sm:flex-row gap-3">
               <Buttonx
                 buttonClassName="
+                w-full
                   h-12
                   px-6
                   bg-white
@@ -108,6 +109,7 @@ export default function ProfilePage() {
 
               <Buttonx
                 buttonClassName="
+                w-full
                   h-12
                   px-6
                   bg-green-300

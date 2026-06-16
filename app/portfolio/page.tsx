@@ -15,15 +15,14 @@ export default function Portfolio() {
           </TextAnimate>
         </h2>
       </div>
-      
+
       <div className="my-6" />
-      
+
       {/* Removed 'items-start' to allow natural grid alignment */}
-      <main className="mx-auto grid grid-cols-2 md:grid-cols-5 gap-2 grid-flow-dense">
-        
+      <main className="grid grid-cols-3 gap-2 grid-flow-dense">
         {/* Item 1: Portrait */}
         {/* Changed aspect-9/16 to h-64 md:h-80 */}
-        <div className="group relative rounded-md overflow-hidden col-span-1 h-64 md:h-80 w-full bg-neutral-900 shadow-xl transition-transform">
+        <div className="group relative rounded-md overflow-hidden col-span-1 h-50 md:h-80 w-full bg-neutral-900 shadow-xl transition-transform">
           <OptimizedVideo
             src="./portrait (1).mp4"
             poster="./poster.png"
@@ -31,18 +30,8 @@ export default function Portfolio() {
           />
         </div>
 
-        {/* Item 2: Landscape */}
-        {/* Changed aspect-video to h-64 md:h-80 */}
-        <div className="group relative rounded-md overflow-hidden col-span-2 md:col-span-3 h-64 md:h-80 w-full bg-neutral-900 shadow-xl transition-transform">
-          <OptimizedVideo
-            src="./vdo_Landscape (01).mp4"
-            poster="./poster.png"
-            videocaption="Restaurant Tour"
-          />
-        </div>
-
         {/* Item 3: Portrait */}
-        <div className="group relative rounded-md overflow-hidden col-span-1 h-64 md:h-80 w-full bg-neutral-900 shadow-xl transition-transform">
+        <div className="group relative rounded-md overflow-hidden col-span-1 h-50 md:h-80 w-full bg-neutral-900 shadow-xl transition-transform">
           <OptimizedVideo
             src="./portrait (3).mp4"
             poster="./poster.png"
@@ -50,17 +39,8 @@ export default function Portfolio() {
           />
         </div>
 
-        {/* Item 4: Landscape */}
-        <div className="group relative rounded-md overflow-hidden col-span-3 h-64 md:h-80 w-full bg-neutral-900 shadow-xl transition-transform">
-          <OptimizedVideo
-            src="./vdo_Landscape (02).mp4"
-            poster="./poster.png"
-            videocaption="Fashion Outlook"
-          />
-        </div>
-
         {/* Item 5: Portrait */}
-        <div className="group relative rounded-md overflow-hidden col-span-1 h-64 md:h-80 w-full bg-neutral-900 shadow-xl transition-transform">
+        <div className="group relative rounded-md overflow-hidden col-span-1 h-50 md:h-80 w-full bg-neutral-900 shadow-xl transition-transform">
           <OptimizedVideo
             src="./portrait (4).mp4"
             poster="./poster.png"
@@ -69,7 +49,7 @@ export default function Portfolio() {
         </div>
 
         {/* Item 6: Portrait */}
-        <div className="group relative rounded-md overflow-hidden col-span-1 h-64 md:h-80 w-full bg-neutral-900 shadow-xl transition-transform">
+        <div className="group relative rounded-md overflow-hidden col-span-1 h-50 md:h-80 w-full bg-neutral-900 shadow-xl transition-transform">
           <OptimizedVideo
             src="./portrait (5).mp4"
             poster="./poster.png"

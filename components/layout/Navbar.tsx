@@ -8,7 +8,16 @@ import { cn } from "@/lib/utils";
 import { Buttonx } from "./Buttonx";
 import { Button } from "../ui/button";
 import Image from "next/image";
-
+import { Menu } from "lucide-react";
+import {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
+import { BorderBeam } from "../ui/border-beam";
 // --- Types & Constants ---
 
 interface ScrollProgressProps extends Omit<
@@ -79,23 +88,23 @@ export default function Navbar() {
               window.scrollTo({ top: 0, behavior: "smooth" });
             }
           }}
-          className="font-semibold normaltight text-xl"
+          className="font-semibold normal tight text-xl"
         >
           rupamedits<span className="text-neutral-400">.com</span>
         </Link>
 
         <nav className="hidden md:flex items-center gap-6 text-sm">
           <Buttonx
-            buttonClassName="w-28"
+            buttonClassName="w-28 font-normal"
             beamDuration={4}
             beamDelay={2}
             beamSize={0}
             href="/#work"
           >
-            Work
+            Portfolio
           </Buttonx>
           <Buttonx
-            buttonClassName="w-28"
+            buttonClassName="w-28 font-normal"
             beamDuration={4}
             beamDelay={2}
             beamSize={0}
@@ -104,7 +113,7 @@ export default function Navbar() {
             Services
           </Buttonx>
           <Buttonx
-            buttonClassName="w-28"
+            buttonClassName="w-28 font-normal"
             beamDuration={4}
             beamDelay={2}
             beamSize={0}
@@ -113,17 +122,7 @@ export default function Navbar() {
             Contact
           </Buttonx>
           <Buttonx
-            buttonClassName="w-28"
-            wrapperClassName="relative overflow-hidden"
-            beamDuration={4}
-            beamDelay={2}
-            beamSize={0}
-            href="/#about"
-          >
-            About
-          </Buttonx>
-          <Buttonx
-            buttonClassName="w-28"
+            buttonClassName="w-28 font-normal"
             wrapperClassName="relative overflow-hidden"
             beamDuration={4}
             beamDelay={2}
@@ -136,18 +135,94 @@ export default function Navbar() {
             variant="outline"
             className="h-12 w-12 py-0 p-0 rounded-sm border-0 hover:shadow-[4px_4px_0px_0px] dark:border-slate-800 dark:bg-slate-900 dark:text-white"
           >
-            <Link href="/dashboard/profile" className="flex justify-center items-center">
-            <Image
-              src="/rupam.png"
-              alt=""
-              width={50}
-              height={50}
-              className="rounded-sm aspect-square object-fill bg-white py-0 p-0"
-            />
-          </Link>
-            
+            <Link
+              href="/dashboard/profile"
+              className="flex justify-center items-center"
+            >
+              <Image
+                src="/rupam.png"
+                alt=""
+                width={50}
+                height={50}
+                className="rounded-sm aspect-square object-fill bg-white py-0 p-0"
+              />
+            </Link>
           </Button>
         </nav>
+        <div className="md:hidden">
+          <Sheet>
+            <SheetTrigger asChild>
+              <Button
+                variant="ghost"
+                size="icon"
+                className="h-10 w-10 text-neutral-900"
+              >
+                <Menu className="h-6 w-6" />
+                <span className="sr-only">Toggle menu</span>
+              </Button>
+            </SheetTrigger>
+            <SheetContent side="right" className="w-75 sm:w-100 bg-white">
+              <SheetHeader>
+                <SheetTitle className="text-left font-bebas text-3xl uppercase tracking-wide">
+                  rupamedits<span className="text-neutral-400">.com</span>
+                </SheetTitle>
+              </SheetHeader>
+              <div className="border-t border-neutral-300"></div>
+              <div className="flex flex-col gap-1">
+                {/* Wrapping each in SheetClose so the menu closes on click */}
+                <SheetClose asChild>
+                  <Link
+                    className="w-full pl-2 pt-2 h-12 text-lg text-left text-neutral-600 font-normal"
+                    href="/#work"
+                  >
+                    Portfolio
+                  </Link>
+                </SheetClose>
+                <SheetClose asChild>
+                  <Link
+                    className="w-full pl-2 pt-2 h-12 text-lg text-left text-neutral-600 font-normal"
+                    href="/#services"
+                  >
+                    Services
+                  </Link>
+                </SheetClose>
+
+                <SheetClose asChild>
+                  <Link
+                    className="w-full pl-2 pt-2 h-12 text-lg text-left text-neutral-900 font-medium"
+                    href="/dashboard"
+                  >
+                    Dashboard
+                  </Link>
+                </SheetClose>
+
+                <div className="my-4 mx-3 border-t border-neutral-300"></div>
+
+                <SheetClose asChild>
+                  <Link
+                    href="/dashboard/profile"
+                    className=" relative flex items-center bg-green-100 gap-4 p-4 ml-1.5 mr-3 rounded-md hover:bg-neutral-50 transition-colors"
+                  >
+                    <Image
+                      src="/rupam.png"
+                      alt="Profile"
+                      width={48}
+                      height={48}
+                      className="rounded-sm aspect-square object-cover bg-white shadow-sm"
+                    />
+                    <div>
+                      <p className="font-semibold text-neutral-900">
+                        My Profile
+                      </p>
+                      <p className="text-xs text-neutral-500">Manage account</p>
+                    </div>
+                    <BorderBeam />
+                  </Link>
+                </SheetClose>
+              </div>
+            </SheetContent>
+          </Sheet>
+        </div>
       </div>
 
       {/* 3. Marquee Ticker */}

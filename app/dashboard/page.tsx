@@ -1,204 +1,47 @@
-"use client";
+// app/dashboard/page.tsx
+import { redirect } from "next/navigation";
+import { createClient } from "@/lib/server";
+import DashboardClientView from "./DashboardClientView";
 
-import { useRouter } from "next/navigation";
-import { Buttonx } from "@/components/layout/Buttonx";
-import { TextAnimate } from "@/components/ui/text-animate";
-import { OnboardingModal } from "@/components/layout/OnboardingModal";
-import Link from "next/link";
-// ==========================================
-// 1. SMALL COMPONENT: The Project Row
-// ==========================================
-type Project = {
-  id: string;
-  title: string;
-  status: string;
-  date: string;
-  videos: number;
-};
-const needsOnboarding = true; // <-- HARDCODED TO TRUE FOR TESTING
+export default async function DashboardPage() {
+  const supabase = await createClient();
 
-function ProjectRow({ project }: { project: Project }) {
-  const router = useRouter()
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case "received":
-        return "bg-neutral-200 text-neutral-700";
-      case "editing":
-        return "bg-blue-100 text-blue-700";
-      case "review":
-        return "bg-yellow-100 text-yellow-700";
-      case "delivered":
-        return "bg-green-100 text-green-700";
-      default:
-        return "bg-neutral-100 text-neutral-600";
-    }
-  };
+  const { data: { user }, error: authError } = await supabase.auth.getUser();
+  if (authError || !user) redirect("/login");
 
-  return (
-    // Notice: No rounded corners, no outer border, no background color!
-    // It inherits everything from the parent container.
-    <div className="p-5 hover:bg-white/50 transition-colors flex flex-col md:flex-row md:items-center justify-between gap-4">
-      {/* Left Side: Status & Details */}
-      <div className="flex flex-col md:flex-row md:items-center gap-4 lg:gap-6">
-        <span
-          className={`px-3 py-1.5 text-xs font-semibold uppercase tracking-wider rounded-md w-fit md:w-28 text-center ${getStatusColor(project.status)}`}
-        >
-          {project.status}
-        </span>
+  const { data: profile } = await supabase
+    .from('profiles')
+    .select('full_name, role')
+    .eq('id', user.id)
+    .single();
 
-        <div>
-          <h3 className="text-xl font-bold text-neutral-900 leading-tight">
-            {project.title}
-          </h3>
-          <div className="flex items-center gap-2 text-sm text-neutral-500 mt-1">
-            <span>
-              {project.videos} {project.videos === 1 ? "Video" : "Videos"}
-            </span>
-            <span className="w-1 h-1 rounded-full bg-neutral-300"></span>
-            <span>Requested on {project.date}</span>
-          </div>
-        </div>
-      </div>
+  const isAdmin = profile?.role === 'admin';
 
-      {/* Right Side: Actions */}
-      <div className="flex items-center gap-3 w-full md:w-auto mt-2 md:mt-0 pt-4 md:pt-0 border-t md:border-t-0 border-neutral-100">
-        {project.status === "delivered" && (
-          <Buttonx beamSize={30} buttonClassName="px-4 h-10 bg-white text-neutral-900 border border-neutral-200 hover:bg-neutral-50 flex items-center justify-center rounded-md transition-colors shadow-sm">
-            <svg
-              className="w-4 h-4"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              strokeWidth={2}
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
-              />
-            </svg>
-          </Buttonx>
-        )}
-        <Buttonx  onClick={() => router.push(`/dashboard/projectdetails/${project.id}`)} buttonClassName="flex-1 md:flex-none px-6 h-10 bg-green-400 text-white border-0 hover:bg-green-500 flex items-center justify-center rounded-md text-sm transition-colors">
-          View Details
-        </Buttonx>
-      </div>
-    </div>
-  );
-}
+  let query = supabase
+    .from("client_projects")
+    .select("*")
+    .order("created_at", { ascending: false });
 
-// ==========================================
-// 2. MAIN COMPONENT: The Dashboard Page
-// ==========================================
-export default function DashboardPage() {
-  const router = useRouter();
+  if (!isAdmin) {
+    query = query.eq("client_id", user.id);
+  }
 
-  const mockProjects: Project[] = [
-    {
-      id: "1",
-      title: "Summer Commercial Reel",
-      status: "editing",
-      date: "Oct 24, 2024",
-      videos: 3,
-    },
-    {
-      id: "2",
-      title: "TikTok Vertical Cuts",
-      status: "review",
-      date: "Oct 28, 2024",
-      videos: 5,
-    },
-    {
-      id: "3",
-      title: "Corporate Event Highlights",
-      status: "delivered",
-      date: "Nov 02, 2024",
-      videos: 1,
-    },
-  ];
+  const { data: projects } = await query;
+
+  // ✅ FIX: Map the database columns to the UI's expected types
+  const formattedProjects = (projects ?? []).map((p: any) => ({
+    id: p.id,
+    title: p.project_title, 
+    status: p.status,
+    date: new Date(p.created_at).toLocaleDateString(), // Formats the timestamp to a clean string
+    videos: p.expected_video_count || 0, 
+  }));
 
   return (
-    <div className="relative min-h-screen p-4 md:p-8 overflow-hidden bg-neutral-50/50">
-      {/* BACKGROUND ORBS */}
-      <div className="fixed top-[-10%] left-[-10%] w-125 h-125 z-0 bg-green-200 rounded-full mix-blend-multiply filter blur-[120px] opacity-60"></div>
-      <div className="fixed bottom-[-10%] right-[-10%] w-125 h-125 z-0 bg-blue-200 rounded-full mix-blend-multiply filter blur-[120px] opacity-60"></div>
-
-      {/* MAIN CONTAINER */}
-      <div className="relative z-10 max-w-5xl mx-auto w-full space-y-8 mt-12">
-        {/* HEADER */}
-        <div className="bg-white/80 backdrop-blur-md border border-white/60 rounded-md shadow-[0_8px_30px_rgb(0,0,0,0.04)] p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-          <div>
-            <h1 className="text-4xl font-bebas uppercase font-bold text-neutral-900">
-              <TextAnimate animation="blurInUp" by="character" once>
-                Welcome Back, Client
-              </TextAnimate>
-            </h1>
-            <p className="text-neutral-500 mt-2 text-lg">
-              Here is the current status of your video projects.
-            </p>
-          </div>
-
-          <Buttonx
-            onClick={() => console.log("Open new project modal")}
-            buttonClassName="h-12 bg-green-300 text-neutral-900 border-0 hover:bg-green-400 flex items-center justify-center rounded-md font-semibold shadow-sm transition-all"
-          >
-            <svg
-              className="w-5 h-5 mr-2"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              strokeWidth={2}
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M12 4v16m8-8H4"
-              />
-            </svg>
-            New Request
-          </Buttonx>
-        </div>
-
-        {/* ========================================== */}
-        {/* SEAMLESS UNIFIED PROJECTS LIST CONTAINER */}
-        {/* ========================================== */}
-        <div className="flex flex-col bg-white/80 backdrop-blur-md border border-white/60 rounded-2xl shadow-[0_4px_20px_rgb(0,0,0,0.03)] overflow-hidden divide-y divide-neutral-200/60">
-          {mockProjects.map((project) => (
-            <ProjectRow key={project.id} project={project} />
-          ))}
-
-          {/* NEW PROJECT DROPZONE ROW */}
-          {/* Using a dashed top border here to separate it from the solid lines, but still part of the seamless block */}
-          <div
-            onClick={() => console.log("Open new project modal")}
-            className="p-6 flex flex-col sm:flex-row items-center justify-center gap-4 text-center cursor-pointer bg-neutral-50/30 hover:bg-white/60 transition-all border-t-2 border-dashed border-neutral-300/80"
-          >
-            <Link href="/projectsubmission" className="w-10 h-10 bg-white shadow-sm border border-neutral-200 rounded-full flex items-center justify-center hover:bg-green-100">
-              <svg
-                className="w-5 h-5 text-neutral-500"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth={2}
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M12 4v16m8-8H4"
-                />
-              </svg>
-            </Link>
-            <div>
-              <h3 className="text-lg font-bold text-neutral-900">
-                Start a new project
-              </h3>
-              <p className="text-sm text-neutral-500 hidden sm:block">
-                Need more videos edited? Submit a new request here.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <DashboardClientView
+      projects={formattedProjects}
+      userName={profile?.full_name ?? user.email ?? ''}
+      isAdmin={isAdmin}
+    />
   );
 }
