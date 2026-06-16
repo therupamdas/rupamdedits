@@ -52,7 +52,7 @@ export function Buttonx({
           disabled={false}
           className={combinedButtonClasses}
         >
-          <span className="flex justify-center items-center">{children}</span>
+          <span className="flex justify-center items-center ">{children}</span>
         </Button>
       )}
 

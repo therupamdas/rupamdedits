@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Bebas_Neue } from "next/font/google";
 import "./globals.css";
-
+import { createClient } from "@/lib/server"; // Your server client
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import CustomContextMenu from "@/components/layout/CustomContextMenu";
@@ -37,18 +37,20 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
   return (
     <html lang="en" className={`${inter.variable} ${bebasNeue.variable}`}>
       <body className="font-sans flex flex-col antialiased text-neutral-900 bg-transparent select-none">
         <CustomContextMenu>
           <SpotlightBackground />
           <HideAuth>
-            <Navbar />
+            <Navbar user={user} />
           </HideAuth>
           <main className="grow flex flex-col relative z-10">{children}</main>
           <HideAuth>
