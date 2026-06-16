@@ -172,7 +172,7 @@ export default function Navbar({ user }: { user?: any }) {
                 onClick={() => setIsProfileOpen(!isProfileOpen)}
                 beamDuration={4}
                 beamDelay={2}
-                beamSize={30}
+                beamSize={0}
                 buttonClassName="p-0 w-12 aspect-square border-0 h-12 rounded-md"
                 wrapperClassName="p-0 w-12 aspect-square border-0 h-12 rounded-md"
               >

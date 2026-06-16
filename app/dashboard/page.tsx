@@ -33,7 +33,7 @@ export default async function DashboardPage() {
     id: p.id,
     title: p.project_title, 
     status: p.status,
-    date: new Date(p.created_at).toLocaleDateString(), // Formats the timestamp to a clean string
+    date: new Date(p.created_at).toLocaleDateString("en-IN"), // Formats the timestamp to a clean string
     videos: p.expected_video_count || 0, 
   }));
 

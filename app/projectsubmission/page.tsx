@@ -4,20 +4,24 @@ import { useState } from "react";
 import { Plus, Minus, Trash2, PlusCircle } from "lucide-react";
 import { Buttonx } from "@/components/layout/Buttonx";
 import { Input } from "@/components/ui/input";
+import { useRouter } from "next/navigation";
+import { createClient } from "@/lib/client";
 
-// 1. Define the shape of rounded-sm VideoBatch object
 interface VideoBatch {
   id: number;
   count: number;
   duration: number;
 }
 
+// 🚨 REMOVED: userId prop requirement. We fetch it securely inside the component now.
 export default function ProjectSubmissionForm() {
+  const router = useRouter();
+  const supabase = createClient();
+
   const BASE_RATE_PER_30_SEC = 350;
   const RATE_PER_EXTRA_REVISION = 20;
   const FREE_REVISIONS = 1;
 
-  // 2. Tell useState that this array will hold VideoBatch objects
   const [videoBatches, setVideoBatches] = useState<VideoBatch[]>([
     { id: Date.now(), count: 1, duration: 30 },
   ]);
@@ -25,9 +29,11 @@ export default function ProjectSubmissionForm() {
   const [revisions, setRevisions] = useState<number>(1);
   const [description, setDescription] = useState<string>("");
   const [clientName, setClientName] = useState<string>("");
-  // Changed phone to string to fix TS error and preserve leading zeros
   const [phone, setPhone] = useState<string>("");
   const [email, setEmail] = useState<string>("");
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const addVideoBatch = () => {
     setVideoBatches([
@@ -36,14 +42,12 @@ export default function ProjectSubmissionForm() {
     ]);
   };
 
-  // 3. Type the 'id' parameter as a number
   const removeVideoBatch = (id: number) => {
     if (videoBatches.length > 1) {
       setVideoBatches(videoBatches.filter((batch) => batch.id !== id));
     }
   };
 
-  // 4. Type 'id', 'field', and 'delta'
   const updateBatch = (
     id: number,
     field: "count" | "duration",
@@ -67,29 +71,88 @@ export default function ProjectSubmissionForm() {
     );
   };
 
-  // 5. Type 'delta' as a number
   const updateRevisions = (delta: number) => {
     setRevisions(Math.max(0, revisions + delta));
   };
 
   const calculateTotal = (): number => {
     let total = 0;
-
     videoBatches.forEach((batch) => {
       const batchCost =
         BASE_RATE_PER_30_SEC * (batch.duration / 30) * batch.count;
       total += batchCost;
     });
-
     const extraRevisions = Math.max(0, revisions - FREE_REVISIONS);
     total += extraRevisions * RATE_PER_EXTRA_REVISION;
-
     return Math.round(total);
   };
 
+  const handleProjectSubmit = async () => {
+    // 🚨 STRICT VALIDATION CHECKS
+    setError(null); // Clear previous errors
+
+    if (!clientName.trim()) {
+      setError("Please enter your name.");
+      return;
+    }
+    
+    // Basic email regex (must have @ and .)
+    if (!email.trim() || !/^\S+@\S+\.\S+$/.test(email)) {
+      setError("Please enter a valid email address.");
+      return;
+    }
+    
+    // Phone validation (allows optional +, numbers, spaces, and dashes, 7-15 chars)
+    if (!phone.trim() || !/^\+?[0-9\s\-()]{7,15}$/.test(phone)) {
+      setError("Please enter a valid phone number.");
+      return;
+    }
+
+    if (!description.trim() || description.trim().length < 10) {
+      setError("Please provide a bit more detail about your project requirements.");
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    // 🚨 FETCH USER SECURELY RIGHT BEFORE INSERT
+    const { data: { user }, error: authError } = await supabase.auth.getUser();
+    
+    if (authError || !user) {
+      setError("Security error: You must be logged in to submit a project.");
+      setIsSubmitting(false);
+      return;
+    }
+
+    const totalVideoCount = videoBatches.reduce((sum, batch) => sum + batch.count, 0);
+
+    const { error: insertError } = await supabase
+      .from("client_projects")
+      .insert({
+        client_id: user.id,                    // 🚨 Safely applied from the auth check!
+        client_name: clientName.trim(),        
+        client_email: email.trim(),            
+        project_title: `${clientName.trim()}'s Project - ${new Date().toLocaleDateString("en-IN")}`, 
+        expected_video_count: totalVideoCount,
+        status: "review",                      
+        notes: description.trim(),             
+        agreed_price: calculateTotal(),        
+        revisions_requested: revisions,        
+        batch_details: videoBatches,           
+      });
+
+    if (insertError) {
+      console.error(insertError);
+      setError("Failed to submit project. Please try again.");
+      setIsSubmitting(false);
+    } else {
+      router.push("/dashboard/profile");
+      router.refresh();
+    }
+  };
+
   return (
-    <div className="m-3 md:m-12 p-6 md:p-8 bg-white/80 backdrop-blur-md border border-white/60 rounded-sm  shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
-      {/* Header section */}
+    <div className="m-3 md:m-12 p-6 md:p-8 bg-white/80 backdrop-blur-md border border-white/60 rounded-sm shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
       <div className="mb-6 md:mb-8">
         <h2 className="text-4xl font-bebas uppercase text-neutral-900">
           Start Your Project
@@ -99,31 +162,29 @@ export default function ProjectSubmissionForm() {
         </p>
       </div>
 
-      {/* Flexbox Layout Strategy:
-        - flex-col for mobile (stacked vertical rows)
-        - md:flex-row & md:flex-wrap for PC (boxes)
-        - md:w-1/3 forces exactly 3 items per line
-      */}
+      {error && (
+        <div className="mb-6 p-4 bg-red-50 border border-red-100 text-red-600 rounded-md text-sm">
+          {error}
+        </div>
+      )}
+
       <div className="flex flex-col md:flex-row md:flex-wrap md:mx-4 gap-y-6 md:gap-y-8">
         {/* --- ROW 1 --- */}
-
-        {/* 1. Name */}
         <div className="w-full md:w-1/3 md:px-4 flex flex-col">
           <label className="mb-3 block text-sm font-semibold text-neutral-700 uppercase tracking-wider">
-            Name
+            Name <span className="text-red-500">*</span>
           </label>
           <Input
             value={clientName}
             onChange={(e) => setClientName(e.target.value)}
             placeholder="Write your name here.."
-            className="w-full p-4 bg-neutral-50 border border-neutral-200 rounded-sm focus:ring-0   outline-none transition-all resize-none"
+            className="w-full p-4 bg-neutral-50 border border-neutral-200 rounded-sm focus:ring-0 outline-none transition-all resize-none"
           />
         </div>
 
-        {/* 2. Phone Number */}
         <div className="w-full md:w-1/3 md:px-4 flex flex-col">
           <label className="mb-3 block text-sm font-semibold text-neutral-700 uppercase tracking-wider">
-            Phone Number
+            Phone Number <span className="text-red-500">*</span>
           </label>
           <Input
             value={phone}
@@ -134,28 +195,24 @@ export default function ProjectSubmissionForm() {
           />
         </div>
 
-        {/* 3. Email Id */}
         <div className="w-full md:w-1/3 md:px-4 flex flex-col">
           <label className="mb-3 block text-sm font-semibold text-neutral-700 uppercase tracking-wider">
-            Email Id
+            Email Id <span className="text-red-500">*</span>
           </label>
           <Input
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             type="email"
             placeholder="Your Email Id"
-            className="w-full p-4 bg-neutral-50 border border-neutral-200 rounded-sm focus:ring-0   outline-none transition-all resize-none"
+            className="w-full p-4 bg-neutral-50 border border-neutral-200 rounded-sm focus:ring-0 outline-none transition-all resize-none"
           />
         </div>
 
         {/* --- ROW 2 --- */}
-
-        {/* 4. Video Requirements */}
         <div className="w-full md:w-1/3 md:px-4 flex flex-col space-y-4">
           <label className="block text-sm font-semibold text-neutral-700 uppercase tracking-wider">
             Video Requirements
           </label>
-
           <div className="flex-1 flex flex-col space-y-3">
             {videoBatches.map((batch) => (
               <div
@@ -227,7 +284,6 @@ export default function ProjectSubmissionForm() {
           </div>
         </div>
 
-        {/* 5. Number of Revisions */}
         <div className="w-full md:w-1/3 md:px-4 flex flex-col space-y-4">
           <label className="block text-sm font-semibold text-neutral-700 uppercase tracking-wider">
             Number of Revisions
@@ -262,10 +318,9 @@ export default function ProjectSubmissionForm() {
           </div>
         </div>
 
-        {/* 6. Project Details */}
         <div className="w-full md:w-1/3 md:px-4 flex flex-col space-y-4">
           <label className="block text-sm font-semibold text-neutral-700 uppercase tracking-wider">
-            Project Details
+            Project Details <span className="text-red-500">*</span>
           </label>
           <textarea
             value={description}
@@ -278,7 +333,6 @@ export default function ProjectSubmissionForm() {
 
       <hr className="border-neutral-200/60 my-8" />
 
-      {/* Footer / Total calculation */}
       <div className="flex flex-row items-end justify-between gap-6">
         <div className="w-full">
           <p className="text-xs font-semibold text-neutral-500 uppercase tracking-wider m-0">
@@ -289,15 +343,13 @@ export default function ProjectSubmissionForm() {
           </p>
         </div>
 
-        <Buttonx
-          buttonClassName="h-12 px-8 bg-green-300 text-neutral-900 border-0 hover:bg-green-400 rounded-sm text-sm whitespace-nowrap"
-          beamDuration={3}
-          beamDelay={2}
-          beamSize={40}
-          href="/submit"
+        <button
+          onClick={handleProjectSubmit}
+          disabled={isSubmitting}
+          className="h-12 px-8 bg-green-300 text-neutral-900 font-medium hover:bg-green-400 rounded-sm text-sm whitespace-nowrap disabled:opacity-50 transition-colors"
         >
-          Submit Request
-        </Buttonx>
+          {isSubmitting ? "Submitting..." : "Submit Request"}
+        </button>
       </div>
     </div>
   );
