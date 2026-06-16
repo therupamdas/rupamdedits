@@ -11,29 +11,31 @@ export default function Services() {
   const services = [
     {
       id: "s1",
-      title: "Short-form Content",
+      title: "Short form Content",
       description: "Trendy, fast-paced edits for your Instagram Reels and YouTube Shorts that boost reach and engagement.",
+      price: "400"
     },
     // Added a second one so your grid doesn't look lonely
     {
       id: "s2",
       title: "Talking Head Videos",
       description: "High-conversion video ads tailored for Facebook, Instagram, and LinkedIn ad platforms.",
+      price: "700"
     },
   ];
 
   return (
-    <section id="services" className="mx-5 md:mx-80 scroll-mt-20 px-4 py-10">
+    <section id="services" className="mx-5 md:mx-40 scroll-mt-20 px-4 py-10">
       <div className="flex justify-between items-center">
-        <h2 className="text-2xl md:text-5xl text-neutral-800 font-bebas uppercase font-bold">
+        <h2 className="text-2xl md:text-7xl text-neutral-800 font-bebas uppercase font-bold">
           <TextAnimate animation="blurInUp" by="character" once>
             Services
           </TextAnimate>
         </h2>
         
         <Buttonx
-          buttonClassName="h-8 w-full sm:w-36 text-sm border-neutral-200"
-          wrapperClassName="h-8"
+          buttonClassName="h-15 w-full sm:w-36 text-sm border-neutral-200"
+          wrapperClassName="h-15"
           beamDuration={3}
           beamDelay={4}
           beamSize={60}
@@ -58,7 +60,7 @@ export default function Services() {
             <div className="relative rounded-md p-6 overflow-hidden">
               <div className="mb-4 flex items-center justify-between">
                 <span className="text-xs uppercase tracking-widest text-neutral-500">Starting at</span>
-                <span className="text-lg font-semibold text-black">₹500/-</span>
+                <span className="text-lg font-semibold text-black">₹{s.price}/-</span>
               </div>
 
               <h3 className="text-xl font-semibold tracking-normal text-black">{s.title}</h3>

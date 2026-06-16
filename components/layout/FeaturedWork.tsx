@@ -8,17 +8,17 @@ import { OptimizedVideo } from "@/components/layout/OptimizedVideo"; // Adjust p
 
 export default function FeaturedWork() {
   return (
-    <section id="work" className="scroll-mt-20 mx-5  md:mx-80 px-4 py-5">
+    <section id="work" className="scroll-mt-20 mx-5  md:mx-40 px-4 py-5">
       <div className="flex items-center justify-between">
-        <h2 className="text-2xl md:text-5xl text-neutral-800 font-bebas uppercase font-bold">
+        <h2 className="text-2xl md:text-7xl text-neutral-800 font-bebas uppercase font-bold">
           <TextAnimate animation="blurInUp" by="character" once>
             Featured Work
           </TextAnimate>
         </h2>
 
         <Buttonx
-          buttonClassName="h-8 w-full sm:w-36 text-sm border-neutral-200"
-          wrapperClassName="h-8"
+          buttonClassName="h-15 w-full sm:w-36 text-sm border-neutral-200"
+          wrapperClassName="h-15"
           beamDuration={3}
           beamDelay={4}
           beamSize={60}
