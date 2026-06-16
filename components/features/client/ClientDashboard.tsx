@@ -34,7 +34,7 @@ export function ClientDashboard({ projects = [], userName }: ClientDashboardProp
           </div>
 
           <Buttonx
-            href="/dashboard/new"
+            href="/projectsubmission"
             buttonClassName="h-12 px-6 bg-green-300 text-neutral-900 border-0 hover:bg-green-400 flex items-center justify-center rounded-md font-semibold shadow-sm transition-all"
           >
             <svg className="w-5 h-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -59,7 +59,7 @@ export function ClientDashboard({ projects = [], userName }: ClientDashboardProp
 
           {/* NEW PROJECT DROPZONE ROW */}
           <div className="p-6 flex flex-col sm:flex-row items-center justify-center gap-4 text-center cursor-pointer bg-neutral-50/30 hover:bg-white/60 transition-all border-t-2 border-dashed border-neutral-300/80">
-            <Link href="/dashboard/new" className="w-10 h-10 bg-white shadow-sm border border-neutral-200 rounded-full flex items-center justify-center hover:bg-green-100 transition-colors">
+            <Link href="/projectsubmission" className="w-10 h-10 bg-white shadow-sm border border-neutral-200 rounded-full flex items-center justify-center hover:bg-green-100 transition-colors">
               <svg className="w-5 h-5 text-neutral-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
               </svg>

@@ -1,14 +1,17 @@
 // app/dashboard/page.tsx
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/server";
-import DashboardClientView from "./DashboardClientView";
+import { AdminDashboard } from "@/components/features/admin/AdminDashboard";
+import { ClientDashboard } from "@/components/features/client/ClientDashboard";
 
 export default async function DashboardPage() {
   const supabase = await createClient();
 
+  // 1. Authenticate
   const { data: { user }, error: authError } = await supabase.auth.getUser();
   if (authError || !user) redirect("/login");
 
+  // 2. Fetch Profile & Role
   const { data: profile } = await supabase
     .from('profiles')
     .select('full_name, role')
@@ -17,31 +20,28 @@ export default async function DashboardPage() {
 
   const isAdmin = profile?.role === 'admin';
 
+  // 3. Fetch Projects
   let query = supabase
     .from("client_projects")
     .select("*")
     .order("created_at", { ascending: false });
 
+  // If it's a client, restrict the query to only their projects
   if (!isAdmin) {
     query = query.eq("client_id", user.id);
   }
 
   const { data: projects } = await query;
 
-  // ✅ FIX: Map the database columns to the UI's expected types
-  const formattedProjects = (projects ?? []).map((p: any) => ({
-    id: p.id,
-    title: p.project_title, 
-    status: p.status,
-    date: new Date(p.created_at).toLocaleDateString("en-IN"), // Formats the timestamp to a clean string
-    videos: p.expected_video_count || 0, 
-  }));
+  // 4. Route directly to the new Feature Components
+  if (isAdmin) {
+    return <AdminDashboard projects={projects || []} />;
+  }
 
   return (
-    <DashboardClientView
-      projects={formattedProjects}
-      userName={profile?.full_name ?? user.email ?? ''}
-      isAdmin={isAdmin}
+    <ClientDashboard 
+      projects={projects || []} 
+      userName={profile?.full_name ?? user.email ?? 'Client'} 
     />
   );
 }

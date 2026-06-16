@@ -52,7 +52,7 @@ export function ClientProfile({ userEmail, profile, projects }: ClientProfilePro
               <Buttonx onClick={() => setIsEditing(!isEditing)} buttonClassName="w-full h-12 px-6 bg-white text-neutral-900 border border-neutral-200 hover:bg-neutral-50 rounded-md">
                 {isEditing ? "Cancel Edit" : "Edit Profile"}
               </Buttonx>
-              <Buttonx href="/dashboard/projectsubmission" buttonClassName="w-full h-12 px-6 bg-green-300 text-neutral-900 border-0 hover:bg-green-400 rounded-md">
+              <Buttonx href="/projectsubmission" buttonClassName="w-full h-12 px-6 bg-green-300 text-neutral-900 border-0 hover:bg-green-400 rounded-md">
                 New Request
               </Buttonx>
             </div>

@@ -109,7 +109,7 @@ export function ProfileSettingsForm({ profile, onCancel }: ProfileSettingsFormPr
           type="tel"
           value={phone}
           onChange={(e) => setPhone(e.target.value)}
-          placeholder="+1 (555) 000-0000"
+          placeholder="+91"
           className="w-full px-4 py-3 bg-neutral-50 border border-neutral-200 rounded-sm focus:ring-0 outline-none transition-all"
         />
       </div>

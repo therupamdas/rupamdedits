@@ -192,7 +192,7 @@ export function ProjectSubmissionForm() {
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
             type="tel"
-            placeholder="+1 (555) 000-000"
+            placeholder="+91"
             className="w-full p-4 bg-neutral-50 border border-neutral-200 rounded-sm focus:ring-0 outline-none transition-all"
           />
         </div>
