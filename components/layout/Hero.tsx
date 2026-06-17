@@ -79,7 +79,7 @@ export default function Hero() {
             href="./projectsubmission"
           >
             <Mail className="mr-1 h-5 w-5" />
-            Get a quote
+            Start Your Project
           </Buttonx>
         </div>
 
