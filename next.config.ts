@@ -22,10 +22,9 @@ const nextConfig: NextConfig = {
         port: '',
         pathname: '/**', 
       },
-      // ⚡ Added your Supabase storage domain here
-      {
+            {
         protocol: 'https',
-        hostname: 'lxydwbrppbqarfdlyrar.supabase.co',
+        hostname: 'ejjqmvuwghloocawooiw.supabase.co',
         port: '',
         pathname: '/storage/v1/object/public/**', 
       },

@@ -1,0 +1,108 @@
+-- ==========================================
+-- 1. TABLE CREATION WITH FOREIGN KEYS
+-- ==========================================
+
+-- PROFILES
+create table public.profiles (
+  id uuid references auth.users on delete cascade not null primary key,
+  full_name text null,
+  email text not null,
+  avatar_url text null,
+  phone_number text null,
+  role text not null default 'client'::text,
+  taking_orders boolean not null default true,
+  updated_at timestamp with time zone null default now()
+);
+
+-- CLIENT_PROJECTS
+create table public.client_projects (
+  id uuid not null default gen_random_uuid() primary key,
+  client_name text not null,
+  client_email text not null,
+  project_title text not null,
+  status text null default 'received'::text,
+  drive_link text null,
+  notes text null,
+  portal_token text null default (gen_random_uuid())::text,
+  created_at timestamp with time zone null default now(),
+  expected_video_count integer null default 1,
+  agreed_price numeric null,
+  deadline timestamp with time zone null,
+  client_id uuid references public.profiles(id) on delete set null,
+  batch_details jsonb null,
+  revisions_requested integer null default 1
+);
+
+-- CHANGE_REQUESTS
+create table public.change_requests (
+  id uuid not null default gen_random_uuid() primary key,
+  project_id uuid references public.client_projects(id) on delete cascade not null,
+  request_type text not null,
+  description text not null,
+  status text not null default 'pending'::text,
+  created_at timestamp with time zone null default now()
+);
+
+-- FEEDBACK
+create table public.feedback (
+  id uuid not null default gen_random_uuid() primary key,
+  client_project_id uuid references public.client_projects(id) on delete cascade null,
+  author text not null,
+  message text not null,
+  created_at timestamp with time zone null default now()
+);
+
+-- PROJECT_MESSAGES
+create table public.project_messages (
+  id uuid not null default gen_random_uuid() primary key,
+  project_id uuid references public.client_projects(id) on delete cascade null,
+  sender_id uuid references public.profiles(id) on delete set null,
+  sender_role text not null,
+  content text not null,
+  created_at timestamp with time zone null default timezone('utc'::text, now())
+);
+
+-- PROJECT_REVISIONS
+create table public.project_revisions (
+  id uuid not null default gen_random_uuid() primary key,
+  project_id uuid references public.client_projects(id) on delete cascade null,
+  revision_number integer not null,
+  status text not null,
+  video_url text null,
+  notes text null,
+  created_at timestamp with time zone null default timezone('utc'::text, now())
+);
+
+-- ==========================================
+-- 2. ENABLE ROW LEVEL SECURITY (RLS)
+-- ==========================================
+alter table public.profiles enable row level security;
+alter table public.client_projects enable row level security;
+alter table public.change_requests enable row level security;
+alter table public.feedback enable row level security;
+alter table public.project_messages enable row level security;
+alter table public.project_revisions enable row level security;
+
+-- ==========================================
+-- 3. CORE RLS POLICIES
+-- ==========================================
+
+-- ADMIN CONTROL: You have full access to everything
+create policy "Admin full access profiles" on public.profiles for all using (auth.role() = 'authenticated');
+create policy "Admin full access projects" on public.client_projects for all using (auth.role() = 'authenticated');
+create policy "Admin full access change requests" on public.change_requests for all using (auth.role() = 'authenticated');
+create policy "Admin full access feedback" on public.feedback for all using (auth.role() = 'authenticated');
+create policy "Admin full access messages" on public.project_messages for all using (auth.role() = 'authenticated');
+create policy "Admin full access revisions" on public.project_revisions for all using (auth.role() = 'authenticated');
+
+-- CLIENT ACCESS: Token-based read access for workspaces
+create policy "Clients can view their projects" on public.client_projects for select using (true);
+create policy "Clients can view their change requests" on public.change_requests for select using (true);
+create policy "Clients can view their feedback" on public.feedback for select using (true);
+create policy "Clients can view their messages" on public.project_messages for select using (true);
+create policy "Clients can view their revisions" on public.project_revisions for select using (true);
+
+-- CLIENT ACTIONS: Allow clients to submit requests and messages
+create policy "Clients can submit change requests" on public.change_requests for insert with check (true);
+create policy "Clients can submit feedback" on public.feedback for insert with check (true);
+create policy "Clients can send messages" on public.project_messages for insert with check (true);
