@@ -1,6 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // @ts-ignore - Keeping your existing custom dev origins
   allowedDevOrigins: [
     '192.168.0.100',
     '192.168.0.101',
@@ -19,11 +20,17 @@ const nextConfig: NextConfig = {
         protocol: 'https',
         hostname: 'cdn-icons-png.flaticon.com',
         port: '',
-        pathname: '/**', // This allows all paths from this domain
+        pathname: '/**', 
+      },
+      // ⚡ Added your Supabase storage domain here
+      {
+        protocol: 'https',
+        hostname: 'fmfzttzcnjxegfrpcjac.supabase.co',
+        port: '',
+        pathname: '/storage/v1/object/public/**', 
       },
     ],
   },
 };
 
 export default nextConfig;
-

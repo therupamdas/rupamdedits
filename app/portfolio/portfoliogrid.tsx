@@ -3,35 +3,41 @@
 import { OptimizedVideoHover } from "@/components/layout/OptimizedVideoHover";
 
 interface PortfolioItem {
-id: string;
-title: string;
-video_url: string;
+  id: string;
+  title: string;
+  video_url: string;
+  poster_url: string;
 }
 
 interface PortfolioGridProps {
-items: PortfolioItem[];
+  items: PortfolioItem[];
 }
 
-export default function PortfolioGrid({
-items,
-}: PortfolioGridProps) {
-if (!items.length) {
-return ( <div className="flex items-center justify-center py-32"> <p className="text-neutral-500 text-lg">
-No portfolio items available. </p> </div>
-);
-}
+export default function PortfolioGrid({ items }: PortfolioGridProps) {
+  if (!items.length) {
+    return (
+      <div className="flex items-center justify-center py-32">
+        {" "}
+        <p className="text-neutral-500 text-lg">
+          No portfolio items available.{" "}
+        </p>{" "}
+      </div>
+    );
+  }
 
-return ( <main
-   className="
+  return (
+    <main
+      className="
      grid
      grid-cols-3
      md:grid-cols-8
      gap-2
    "
- >
-{items.map((item) => ( <div
-       key={item.id}
-       className="
+    >
+      {items.map((item) => (
+        <div
+          key={item.id}
+          className="
          group
          relative
          col-span-1
@@ -41,13 +47,15 @@ return ( <main
          aspect-9/16
          bg-neutral-100
      "
-     > <OptimizedVideoHover
-         src={item.video_url}
-         videocaption={item.title}
-       />
-
-
-      {/* <div
+        >
+          {" "}
+          // Inside your PortfolioGrid component's map function:
+          <OptimizedVideoHover
+            src={item.video_url}
+            poster={item.poster_url} // ⚡ This is the critical connection!
+            videocaption={item.title}
+          />
+          {/* <div
         className="
           absolute
           inset-0
@@ -80,10 +88,8 @@ return ( <main
           </h3>
         </div>
       </div> */}
-    </div>
-  ))}
-</main>
-
-
-);
+        </div>
+      ))}
+    </main>
+  );
 }

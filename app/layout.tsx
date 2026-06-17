@@ -8,6 +8,7 @@ import CustomContextMenu from "@/components/layout/CustomContextMenu";
 import SpotlightBackground from "@/components/layout/SpotlightBackground";
 import { Pointer } from "@/components/ui/pointer";
 import { HideAuth } from "@/components/layout/HideAuth";
+import { Analytics } from "@vercel/analytics/next"
 
 const inter = Inter({
   subsets: ["latin"],
@@ -62,6 +63,7 @@ export default async function RootLayout({
             <Footer />
           </HideAuth>
         </CustomContextMenu>
+        <Analytics />
         <Pointer className="fill-green-500" />
       </body>
     </html>
