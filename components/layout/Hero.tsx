@@ -72,7 +72,7 @@ export default function Hero() {
             See work
           </Buttonx>
           <Buttonx
-            buttonClassName="h-12 w-full sm:w-36 text-sm bg-blue-300 border-neutral-200"
+            buttonClassName="h-12 w-full sm:w-44 text-sm bg-blue-300 border-neutral-200"
             beamDuration={4}
             beamDelay={3}
             beamSize={36}
