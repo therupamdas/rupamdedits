@@ -4,6 +4,15 @@ import { NextResponse, type NextRequest } from 'next/server'
 export async function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname
 
+  const isProtectedPath = 
+    pathname.startsWith('/dashboard') || 
+    pathname.startsWith('/admin') ||
+    pathname.startsWith('/projectsubmission')
+
+  if (!isProtectedPath) {
+    return NextResponse.next()
+  }
+
   let supabaseResponse = NextResponse.next({ request })
 
   const supabase = createServerClient(
@@ -33,25 +42,18 @@ export async function middleware(request: NextRequest) {
     return redirectResponse
   }
 
-  // ---------------------------------------------------------
-  // ⚡ THE SPEED OPTIMIZATION: Check Route Type First
-  // ---------------------------------------------------------
-  const isProtectedPath = pathname.startsWith('/dashboard') || pathname.startsWith('/admin')
 
-  if (isProtectedPath) {
-    // 🔒 SECURE PATHS: Make the slow, highly secure network request to Supabase
-    const { data: { user } } = await supabase.auth.getUser()
+  const { data: { user }, error } = await supabase.auth.getUser()
 
-    if (!user) return safeRedirect('/login')
-    
-    if (pathname.startsWith('/admin')) {
-      if (user.email !== process.env.ADMIN_EMAIL) return safeRedirect('/dashboard')
+  if (error || !user) {
+    return safeRedirect('/login')
+  }
+  
+  if (pathname.startsWith('/admin')) {
+    const adminEmail = process.env.ADMIN_EMAIL;
+    if (!adminEmail || user.email !== adminEmail) {
+      return safeRedirect('/dashboard')
     }
-  } else {
-    // 🌍 PUBLIC PATHS (Home, Portfolio): Do not block the render!
-    // getSession() decodes the local cookie instantly just to keep it refreshed, 
-    // taking 0 milliseconds.
-    await supabase.auth.getSession()
   }
 
   return supabaseResponse
