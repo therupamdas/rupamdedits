@@ -45,7 +45,7 @@ export function ClientProfile({ userEmail, profile, projects }: ClientProfilePro
                 </h1>
                 <p className="text-green-700 font-medium tracking-wide">Premium Client</p>
                 <p className="text-neutral-500 mt-2">{userEmail}</p>
-                <p className="text-neutral-400 text-sm mt-1">Client ID: {profile?.id.substring(0, 8)}...</p>
+                {/* <p className="text-neutral-400 text-sm mt-1">Client ID: {profile?.id.substring(0, 8)}...</p> */}
               </div>
             </div>
             <div className="flex flex-col sm:flex-row gap-3">

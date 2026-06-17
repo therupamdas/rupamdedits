@@ -68,8 +68,8 @@ export default function Navbar({ user }: { user?: any }) {
   const pathname = usePathname();
   const router = useRouter();
   const supabase = createClient();
-
-  // Dropdown State & Ref
+   const initials = user?.email ? user.email.substring(0, 2).toUpperCase() : "P";
+  console.log(user);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -168,7 +168,7 @@ export default function Navbar({ user }: { user?: any }) {
               Log In
             </Buttonx>
           ) : (
-            <div className="relative mt-2 group" ref={dropdownRef}>
+            <div className="relative mt-0 group" ref={dropdownRef}>
               <Buttonx
                 onClick={() => setIsProfileOpen(!isProfileOpen)}
                 beamDuration={4}
@@ -177,13 +177,14 @@ export default function Navbar({ user }: { user?: any }) {
                 buttonClassName="p-0 w-12 aspect-square border-0 h-12 rounded-md"
                 wrapperClassName="p-0 w-12 aspect-square border-0 h-12 rounded-md"
               >
-                <Image
+                <span className="text-xl text-neutral-900">{initials}</span>
+                {/* <Image
                   src="/rupam.png"
                   alt="Profile"
                   width={50}
                   height={50}
                   className="object-cover aspect-square border-0 rounded-md p-0"
-                />
+                /> */}
               </Buttonx>
 
               {/* 🚨 HYBRID DROPDOWN: Uses state (isProfileOpen) OR CSS (group-hover) */}
