@@ -1,18 +1,16 @@
 import PortfolioGrid from "./portfoliogrid";
 
 export default async function PortfolioPage() {
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-
-  // ⚡ Generate both the video and the ultra-fast poster image
+  // ⚡ Generate both the video and the ultra-fast poster image directly from the public folder
   const items = Array.from({ length: 11 }, (_, i) => {
     const n = i + 1;
 
     return {
       id: String(n),
       title: `Project ${n}`,
-      video_url: `${supabaseUrl}/storage/v1/object/public/P/videos/${n}.mp4`,
-      // Assuming you create a "posters" folder in your bucket next to "videos"
-      poster_url: `${supabaseUrl}/storage/v1/object/public/P/posters/${n}.webp`,
+      // Paths map directly to the public/videos and public/posters folders
+      video_url: `/videos/${n}.mp4`,
+      poster_url: `/posters/${n}.webp`,
     };
   });
 

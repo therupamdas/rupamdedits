@@ -135,7 +135,7 @@ export default function Hero() {
                   "
       >
         <div className=" w-full max-w-60 sm:max-w-70 md:max-w-[320px] lg:max-w-none ">
-          <Iphone className=" " videoSrc="/Drinklapse.mp4" />
+          <Iphone className=" " videoSrc="/videos/6.mp4" />
         </div>
       </div>
     </section>

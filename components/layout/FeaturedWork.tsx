@@ -31,7 +31,7 @@ export default function FeaturedWork() {
       <main className="mx-auto grid grid-cols-3 md:grid-cols-5 gap-2 items-start  grid-flow-dense">
         <div className="group relative rounded-md overflow-hidden col-span-1 aspect-9/16 w-full bg-white/0 shadow-xl transition-transform ">
           <OptimizedVideo
-            src="./portrait (1).mp4"
+            src="./videos/1.mp4"
             poster="./poster.png"
             videocaption="Tattoo Artist" // IMPORTANT: You need to create these!
           />
@@ -41,7 +41,7 @@ export default function FeaturedWork() {
         {/* Landscape 1 */}
         <div className="group relative rounded-md overflow-hidden col-span-2 h-full w-full bg-white/0 shadow-xl transition-transform ">
           <OptimizedVideo
-            src="./vdo_Landscape (01).mp4"
+            src="./videos/land (1).mp4"
             poster="./poster.png"
             videocaption="Restaurant Tour" // IMPORTANT: You need to create these!
           />
@@ -49,7 +49,7 @@ export default function FeaturedWork() {
 
         <div className="group relative rounded-md overflow-hidden col-span-1 aspect-9/16 w-full bg-white/0 shadow-xl transition-transform ">
           <OptimizedVideo
-            src="./portrait (2).mp4"
+            src="./videos/2.mp4"
             poster="./poster.png"
             videocaption="Preparation" // IMPORTANT: You need to create these!
           />
@@ -57,7 +57,7 @@ export default function FeaturedWork() {
 
         <div className="group relative rounded-md overflow-hidden col-span-1 aspect-9/16 w-full bg-white/0 shadow-xl transition-transform ">
           <OptimizedVideo
-            src="./portrait (3).mp4"
+            src="./videos/3.mp4"
             poster="./poster.png"
             videocaption="Product Ad" // IMPORTANT: You need to create these!
           />
@@ -65,7 +65,7 @@ export default function FeaturedWork() {
 
         <div className="group relative rounded-md overflow-hidden col-span-2 h-full w-full bg-white/0 shadow-xl transition-transform ">
           <OptimizedVideo
-            src="./vdo_Landscape (02).mp4"
+            src="./videos/land (2).mp4"
             poster="./poster.png"
             videocaption="Fashion Outlook" // IMPORTANT: You need to create these!
           />
@@ -73,7 +73,7 @@ export default function FeaturedWork() {
 
         <div className="group relative rounded-md overflow-hidden col-span-1 aspect-9/16 w-full bg-white/0 shadow-xl transition-transform ">
           <OptimizedVideo
-            src="./portrait (4).mp4"
+            src="./videos/4.mp4"
             poster="./poster.png"
             videocaption="Clothing Store" // IMPORTANT: You need to create these!
           />
@@ -81,7 +81,7 @@ export default function FeaturedWork() {
 
         <div className="group relative rounded-md overflow-hidden col-span-1 aspect-9/16 w-full bg-white/0 shadow-xl transition-transform ">
           <OptimizedVideo
-            src="./portrait (5).mp4"
+            src="./videos/5.mp4"
             poster="./poster.png"
             videocaption="Sports Montage" // IMPORTANT: You need to create these!
           />
@@ -89,7 +89,7 @@ export default function FeaturedWork() {
 
         <div className="hidden md:block group relative rounded-md overflow-hidden col-span-1 aspect-9/16 w-full bg-white/0 shadow-xl transition-transform ">
           <OptimizedVideo
-            src="./portrait (6).mp4"
+            src="./videos/12.mp4"
             poster="./poster.png"
             videocaption="Food Montage" // IMPORTANT: You need to create these!
           />

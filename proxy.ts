@@ -3,7 +3,7 @@ import { NextResponse, type NextRequest } from 'next/server'
 
 export async function proxy(request: NextRequest) {
   const pathname = request.nextUrl.pathname
-
+  console.log("hello")
   const isProtectedPath = 
     pathname.startsWith('/dashboard') || 
     pathname.startsWith('/admin') ||
