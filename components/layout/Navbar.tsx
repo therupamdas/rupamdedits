@@ -139,6 +139,7 @@ export default function Navbar({ user }: { user?: any }) {
             beamDelay={2}
             beamSize={0}
             href="/#contact"
+            
           >
             Contact
           </Buttonx>

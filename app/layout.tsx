@@ -43,7 +43,12 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
+  
+  // ⚡ SPEED FIX: Decode the local session instantly instead of pinging the Auth server.
+  // This completely unblocks your Root Layout rendering pipeline.
+  const { data: { session } } = await supabase.auth.getSession();
+  const user = session?.user;
+
   return (
     <html lang="en" className={`${inter.variable} ${bebasNeue.variable}`}>
       <body className="font-sans flex flex-col antialiased text-neutral-900 bg-transparent select-none">
