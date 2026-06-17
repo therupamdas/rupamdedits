@@ -34,7 +34,7 @@ const MARQUEE_ITEMS = [
   "Campaign",
   "Commercial",
   "Social",
-  "Documentary",
+  "Documentary", 
 ];
 
 // --- Sub-components ---
@@ -110,7 +110,7 @@ export default function Navbar({ user }: { user?: any }) {
           }}
           className="font-semibold normal tight text-xl"
         >
-          rupamedits<span className="text-neutral-400">.com</span>
+          rupamedits<span className="text-neutral-400">.in</span>
         </Link>
 
         {/* --- DESKTOP NAV --- */}
@@ -158,13 +158,13 @@ export default function Navbar({ user }: { user?: any }) {
           {/* 2. AUTHENTICATION CONDITIONAL RENDERING */}
           {!user ? (
             <Buttonx
-              buttonClassName="w-28 font-normal bg-neutral-900 text-white hover:bg-neutral-800"
+              buttonClassName="w-28 font-normal border-2 border-neutral-800"
               beamDuration={4}
               beamDelay={2}
               beamSize={0}
               href="/login"
             >
-              Sign In
+              Log In
             </Buttonx>
           ) : (
             <div className="relative mt-2 group" ref={dropdownRef}>
@@ -229,7 +229,7 @@ export default function Navbar({ user }: { user?: any }) {
             <SheetContent side="right" className="w-75 sm:w-100 bg-white">
               <SheetHeader>
                 <SheetTitle className="text-left font-bebas text-3xl uppercase tracking-wide">
-                  rupamedits<span className="text-neutral-400">.com</span>
+                  rupamedits<span className="text-neutral-400">.in</span>
                 </SheetTitle>
               </SheetHeader>
               <div className="border-t border-neutral-300"></div>

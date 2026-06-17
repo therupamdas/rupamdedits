@@ -32,7 +32,7 @@ export default function CustomContextMenu({
               <p>Hi, welcome to</p>
 
               <p className="ml-1 font-semibold">
-                rupamedits<span className="text-neutral-400">.com</span>
+                rupamedits<span className="text-neutral-400">.in</span>
               </p>
             </Link>
           </ContextMenuItem>
