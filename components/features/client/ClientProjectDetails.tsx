@@ -141,7 +141,7 @@ export function ClientProjectDetails({ project, revisions, feedback }: ClientPro
               <div className="p-4 bg-white border-t border-neutral-100">
                 <div className="flex gap-2">
                   <input type="text" placeholder="Type a message..." className="flex-1 bg-neutral-100 border-transparent rounded-lg px-4 py-2 text-sm focus:border-green-400 focus:ring-2 focus:ring-green-100 outline-none transition-all" />
-                  <Buttonx buttonClassName="bg-green-400 hover:bg-green-500 text-white p-2 rounded-lg aspect-square flex items-center justify-center">
+                  <Buttonx beamSize={0} buttonClassName="bg-green-400 hover:bg-green-500 text-white p-2 rounded-lg aspect-square flex items-center justify-center">
                     <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" /></svg>
                   </Buttonx>
                 </div>

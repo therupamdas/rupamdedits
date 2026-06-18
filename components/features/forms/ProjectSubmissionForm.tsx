@@ -17,7 +17,7 @@ export function ProjectSubmissionForm() {
   const router = useRouter();
   const supabase = createClient();
 
-  const BASE_RATE_PER_30_SEC = 350;
+  const BASE_RATE_PER_30_SEC = 400;
   const RATE_PER_EXTRA_REVISION = 20;
   const FREE_REVISIONS = 1;
 
@@ -53,12 +53,21 @@ export function ProjectSubmissionForm() {
     }
   };
 
-  const updateBatch = (id: number, field: "count" | "duration", delta: number) => {
+  const updateBatch = (
+    id: number,
+    field: "count" | "duration",
+    delta: number,
+  ) => {
     setVideoBatches((batches) =>
       batches.map((batch) => {
         if (batch.id === id) {
-          if (field === "count") return { ...batch, count: Math.max(1, batch.count + delta) };
-          if (field === "duration") return { ...batch, duration: Math.max(15, batch.duration + delta * 15) };
+          if (field === "count")
+            return { ...batch, count: Math.max(1, batch.count + delta) };
+          if (field === "duration")
+            return {
+              ...batch,
+              duration: Math.max(15, batch.duration + delta * 15),
+            };
         }
         return batch;
       }),
@@ -71,11 +80,36 @@ export function ProjectSubmissionForm() {
 
   const calculateTotal = (): number => {
     let total = 0;
+
     videoBatches.forEach((batch) => {
-      total += BASE_RATE_PER_30_SEC * (batch.duration / 30) * batch.count;
+      // 1. Calculate how many full 60-second chunks are in this video
+      const fullMinuteBlocks = Math.floor(batch.duration / 60);
+
+      // 2. Find out how many seconds are left over
+      const leftoverSeconds = batch.duration % 60;
+
+      // 3. Price the full minutes (700 each)
+      let batchCostPerVideo = fullMinuteBlocks * 700;
+
+      // 4. Add the cost for the leftover seconds using your specific tiers
+      if (leftoverSeconds > 0 && leftoverSeconds <= 15) {
+        batchCostPerVideo += 200;
+      } else if (leftoverSeconds > 15 && leftoverSeconds <= 30) {
+        batchCostPerVideo += 400;
+      } else if (leftoverSeconds > 30 && leftoverSeconds <= 45) {
+        batchCostPerVideo += 600;
+      } else if (leftoverSeconds > 45) {
+        batchCostPerVideo += 700;
+      }
+
+      // 5. Multiply by the number of videos in this batch
+      total += batchCostPerVideo * batch.count;
     });
+
+    // Revisions logic remains unchanged
     const extraRevisions = Math.max(0, revisions - FREE_REVISIONS);
     total += extraRevisions * RATE_PER_EXTRA_REVISION;
+
     return Math.round(total);
   };
 
@@ -92,14 +126,19 @@ export function ProjectSubmissionForm() {
       return;
     }
     if (!description.trim() || description.trim().length < 10) {
-      setError("Please provide a bit more detail about your project requirements.");
+      setError(
+        "Please provide a bit more detail about your project requirements.",
+      );
       return;
     }
 
     setIsSubmitting(true);
 
     // 2. Fetch User
-    const { data: { user }, error: authError } = await supabase.auth.getUser();
+    const {
+      data: { user },
+      error: authError,
+    } = await supabase.auth.getUser();
     if (authError || !user) {
       setError("Security error: You must be logged in to submit a project.");
       setIsSubmitting(false);
@@ -107,9 +146,12 @@ export function ProjectSubmissionForm() {
     }
 
     // 3. Prepare Data
-    const totalVideoCount = videoBatches.reduce((sum, batch) => sum + batch.count, 0);
+    const totalVideoCount = videoBatches.reduce(
+      (sum, batch) => sum + batch.count,
+      0,
+    );
     // Append phone number to notes since it's not a standalone column in your schema
-    const combinedNotes = `${description.trim()}${phone ? `\n\nClient Phone: ${phone}` : ''}`;
+    const combinedNotes = `${description.trim()}${phone ? `\n\nClient Phone: ${phone}` : ""}`;
 
     // 4. Database Insert
     const { error: insertError } = await supabase
@@ -150,14 +192,7 @@ export function ProjectSubmissionForm() {
         </p>
       </div>
 
-      {error && (
-        <div className="mb-6 p-4 bg-red-50 border border-red-100 text-red-600 rounded-md text-sm">
-          {error}
-        </div>
-      )}
-
       <div className="flex flex-col md:flex-row md:flex-wrap md:mx-4 gap-y-6 md:gap-y-8">
-        
         {/* --- ROW 1: PERSONAL INFO --- */}
         <div className="w-full md:w-1/3 md:px-4 flex flex-col">
           <label className="mb-3 block text-sm font-semibold text-neutral-700 uppercase tracking-wider">
@@ -247,11 +282,19 @@ export function ProjectSubmissionForm() {
                 className="flex flex-col xl:flex-row xl:items-center justify-between gap-2 p-3 bg-neutral-50 rounded-sm border border-neutral-200"
               >
                 <div className="flex items-center justify-between bg-white border border-neutral-200 rounded-sm px-2 py-1 shadow-sm">
-                  <button onClick={() => updateBatch(batch.id, "count", -1)} className="p-1 text-neutral-400 hover:text-neutral-900 transition-colors">
+                  <button
+                    onClick={() => updateBatch(batch.id, "count", -1)}
+                    className="p-1 text-neutral-400 hover:text-neutral-900 transition-colors"
+                  >
                     <Minus size={16} strokeWidth={3} />
                   </button>
-                  <div className="w-6 text-center font-bold text-neutral-900 select-none">{batch.count}</div>
-                  <button onClick={() => updateBatch(batch.id, "count", 1)} className="p-1 text-neutral-400 hover:text-neutral-900 transition-colors">
+                  <div className="w-6 text-center font-bold text-neutral-900 select-none">
+                    {batch.count}
+                  </div>
+                  <button
+                    onClick={() => updateBatch(batch.id, "count", 1)}
+                    className="p-1 text-neutral-400 hover:text-neutral-900 transition-colors"
+                  >
                     <Plus size={16} strokeWidth={3} />
                   </button>
                 </div>
@@ -261,17 +304,28 @@ export function ProjectSubmissionForm() {
                 </span>
 
                 <div className="flex items-center justify-between bg-white border border-neutral-200 rounded-sm px-2 py-1 shadow-sm">
-                  <button onClick={() => updateBatch(batch.id, "duration", -1)} className="p-1 text-neutral-400 hover:text-neutral-900 transition-colors">
+                  <button
+                    onClick={() => updateBatch(batch.id, "duration", -1)}
+                    className="p-1 text-neutral-400 hover:text-neutral-900 transition-colors"
+                  >
                     <Minus size={16} strokeWidth={3} />
                   </button>
-                  <div className="w-10 text-center font-bold text-neutral-900 select-none">{batch.duration}s</div>
-                  <button onClick={() => updateBatch(batch.id, "duration", 1)} className="p-1 text-neutral-400 hover:text-neutral-900 transition-colors">
+                  <div className="w-10 text-center font-bold text-neutral-900 select-none">
+                    {batch.duration}s
+                  </div>
+                  <button
+                    onClick={() => updateBatch(batch.id, "duration", 1)}
+                    className="p-1 text-neutral-400 hover:text-neutral-900 transition-colors"
+                  >
                     <Plus size={16} strokeWidth={3} />
                   </button>
                 </div>
 
                 {videoBatches.length > 1 && (
-                  <button onClick={() => removeVideoBatch(batch.id)} className="p-1 text-red-400 hover:text-red-600 transition-colors">
+                  <button
+                    onClick={() => removeVideoBatch(batch.id)}
+                    className="p-1 text-red-400 hover:text-red-600 transition-colors"
+                  >
                     <Trash2 size={16} />
                   </button>
                 )}
@@ -298,17 +352,29 @@ export function ProjectSubmissionForm() {
           </label>
           <div className="flex-1 p-4 border border-neutral-200 bg-neutral-50 rounded-sm flex flex-col justify-center items-center space-y-3">
             <div className="flex items-center w-full bg-white border border-neutral-200 rounded-sm px-2 py-2 shadow-sm">
-              <button onClick={() => updateRevisions(-1)} className="p-2 text-neutral-400 hover:text-neutral-900 transition-colors">
+              <button
+                onClick={() => updateRevisions(-1)}
+                className="p-2 text-neutral-400 hover:text-neutral-900 transition-colors"
+              >
                 <Minus size={16} strokeWidth={3} />
               </button>
-              <div className="flex-1 text-center text-lg font-bold text-neutral-900 select-none">{revisions}</div>
-              <button onClick={() => updateRevisions(1)} className="p-2 text-neutral-400 hover:text-neutral-900 transition-colors">
+              <div className="flex-1 text-center text-lg font-bold text-neutral-900 select-none">
+                {revisions}
+              </div>
+              <button
+                onClick={() => updateRevisions(1)}
+                className="p-2 text-neutral-400 hover:text-neutral-900 transition-colors"
+              >
                 <Plus size={16} strokeWidth={3} />
               </button>
             </div>
             <div className="text-center space-y-1">
-              <p className="text-xs text-neutral-500 m-0">Includes {FREE_REVISIONS} free revision.</p>
-              <p className="text-xs text-neutral-500 m-0">Extra revisions are ₹{RATE_PER_EXTRA_REVISION} each.</p>
+              <p className="text-xs text-neutral-500 m-0">
+                Includes {FREE_REVISIONS} free revision.
+              </p>
+              <p className="text-xs text-neutral-500 m-0">
+                Extra revisions are ₹{RATE_PER_EXTRA_REVISION} each.
+              </p>
             </div>
           </div>
         </div>
@@ -337,7 +403,11 @@ export function ProjectSubmissionForm() {
             ₹{calculateTotal()}
           </p>
         </div>
-
+        {error && (
+          <div className="p-4 text-red-600 rounded-md text-sm">
+            {error}
+          </div>
+        )}
         <button
           onClick={handleProjectSubmit}
           disabled={isSubmitting}
