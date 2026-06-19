@@ -29,6 +29,9 @@ export const metadata: Metadata = {
   description:
     "Premium video editing for creators, brands and campaigns. Based in Kolkata.",
   keywords: ["video editor", "kolkata", "reels", "commercial", "rupam edits"],
+  verification: {
+    google: "D0vRjV3ryfjRArZwa_7Q_8Y0dJSGPVihXdoBWIfDpD4",
+  },
   openGraph: {
     title: "Rupam Edits",
     description: "Premium video editing for creators and brands.",
