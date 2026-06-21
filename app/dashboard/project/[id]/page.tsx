@@ -42,9 +42,21 @@ export default async function ProjectPage({
     redirect("/dashboard"); 
   }
 
-  // 5. Placeholders for your future Chat & Revision features
-  const revisions: any[] = [];
-  const feedback: any[] = [];
+  // 5. Fetch Real-time Revisions & Chat Messages
+  const { data: revisionsData } = await supabase
+    .from("revisions")
+    .select("*")
+    .eq("project_id", id)
+    .order("created_at", { ascending: false });
+
+  const { data: messagesData } = await supabase
+    .from("project_messages")
+    .select("*")
+    .eq("project_id", id)
+    .order("created_at", { ascending: false });
+
+  const revisions = revisionsData || [];
+  const messages = messagesData || [];
 
   // 6. Route directly to the Feature Components!
   if (isAdmin) {
@@ -52,7 +64,7 @@ export default async function ProjectPage({
       <AdminProjectDetails 
         project={project} 
         revisions={revisions} 
-        feedback={feedback} 
+        messages={messages} 
       />
     );
   }
@@ -61,7 +73,7 @@ export default async function ProjectPage({
     <ClientProjectDetails 
       project={project} 
       revisions={revisions} 
-      feedback={feedback} 
+      messages={messages} 
     />
   );
 }

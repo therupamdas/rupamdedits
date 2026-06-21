@@ -11,7 +11,7 @@ export function StatusBadge({ status }: { status: string }) {
   };
 
   return (
-    <span className={`px-3 py-1.5 text-xs font-semibold uppercase tracking-wider rounded-md w-fit md:w-28 text-center ${getStatusColor(status)}`}>
+    <span className={`px-3 py-2 border border-neutral-200 text-xs font-semibold uppercase tracking-wider rounded-sm w-fit md:w-28 text-center ${getStatusColor(status)}`}>
       {status}
     </span>
   );

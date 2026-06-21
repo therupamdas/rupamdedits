@@ -1,10 +1,10 @@
 "use client";
 
-import { useState } from "react";
-import { Plus, Minus, Trash2, PlusCircle } from "lucide-react";
+import React, { useState } from "react";
+import { Plus, Minus, Trash2, PlusCircle, Calendar, MessageSquarePlus } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { Buttonx } from "@/components/layout/Buttonx";
 import { Input } from "@/components/ui/input";
-import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/client";
 
 interface VideoBatch {
@@ -13,64 +13,119 @@ interface VideoBatch {
   duration: number;
 }
 
+interface ProjectRequest {
+  id: number;
+  text: string;
+  date: string;
+  status: "sent" | "approved" | "rejected" | "completed";
+}
+
 export function ProjectSubmissionForm() {
   const router = useRouter();
   const supabase = createClient();
 
-  const BASE_RATE_PER_30_SEC = 400;
   const RATE_PER_EXTRA_REVISION = 20;
   const FREE_REVISIONS = 1;
 
-  // Form State
+  // --- RUSH PRICING & CALENDAR CONSTANTS ---
+  const RUSH_PREMIUMS: Record<number, number> = {
+    7: 0.0,  // Standard: 0% markup
+    5: 0.10, // 5 Days: 10% markup
+    3: 0.30, // 3 Days: 30% markup
+    2: 0.60, // 48 Hours: 60% markup
+    1: 1.0,  // 24 Hours: 100% markup
+  };
+
+  // Replace with actual dates you want to block off (YYYY-MM-DD)
+  const BLACKOUT_DATES = ["2026-12-25", "2026-01-01"];
+
+  // --- FORM STATE ---
   const [clientName, setClientName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [phone, setPhone] = useState<string>("");
 
   const [projectTitle, setProjectTitle] = useState<string>("");
   const [driveLink, setDriveLink] = useState<string>("");
-  const [deadline, setDeadline] = useState<string>("");
+  const [turnaroundDays, setTurnaroundDays] = useState<number>(7);
 
   const [videoBatches, setVideoBatches] = useState<VideoBatch[]>([
     { id: Date.now(), count: 1, duration: 30 },
   ]);
   const [revisions, setRevisions] = useState<number>(1);
-  const [description, setDescription] = useState<string>("");
+  
+  // Dynamic Project Details / Change Requests
+  const [projectRequests, setProjectRequests] = useState<ProjectRequest[]>([
+    { id: Date.now(), text: "", date: new Date().toISOString(), status: "sent" }
+  ]);
 
-  // UI State
+  // --- UI STATE ---
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  // --- HELPER FUNCTIONS ---
+
+  // Calculates delivery date skipping Sundays and Blackout Dates
+  const calculateDeliveryDate = (days: number): Date => {
+    let currentDate = new Date();
+    let addedDays = 0;
+
+    while (addedDays < days) {
+      currentDate.setDate(currentDate.getDate() + 1);
+      const dateString = currentDate.toISOString().split('T')[0];
+      const isSunday = currentDate.getDay() === 0;
+
+      if (!isSunday && !BLACKOUT_DATES.includes(dateString)) {
+        addedDays++;
+      }
+    }
+    return currentDate;
+  };
+
+  const calculateTotal = (): number => {
+    let baseTotal = 0;
+
+    videoBatches.forEach((batch) => {
+      const fullMinuteBlocks = Math.floor(batch.duration / 60);
+      const leftoverSeconds = batch.duration % 60;
+      let batchCostPerVideo = fullMinuteBlocks * 700;
+
+      if (leftoverSeconds > 0 && leftoverSeconds <= 15) batchCostPerVideo += 200;
+      else if (leftoverSeconds > 15 && leftoverSeconds <= 30) batchCostPerVideo += 400;
+      else if (leftoverSeconds > 30 && leftoverSeconds <= 45) batchCostPerVideo += 600;
+      else if (leftoverSeconds > 45) batchCostPerVideo += 700;
+
+      baseTotal += batchCostPerVideo * batch.count;
+    });
+
+    const extraRevisions = Math.max(0, revisions - FREE_REVISIONS);
+    baseTotal += extraRevisions * RATE_PER_EXTRA_REVISION;
+
+    // Apply Rush Premium
+    const multiplier = RUSH_PREMIUMS[turnaroundDays] || 0;
+    return Math.round(baseTotal + (baseTotal * multiplier));
+  };
+
+  // --- HANDLERS ---
+
   const addVideoBatch = () => {
-    setVideoBatches([
-      ...videoBatches,
-      { id: Date.now(), count: 1, duration: 30 },
-    ]);
+    setVideoBatches([...videoBatches, { id: Date.now(), count: 1, duration: 30 }]);
   };
 
   const removeVideoBatch = (id: number) => {
     if (videoBatches.length > 1) {
-      setVideoBatches(videoBatches.filter((batch) => batch.id !== id));
+      setVideoBatches(videoBatches.filter((b) => b.id !== id));
     }
   };
 
-  const updateBatch = (
-    id: number,
-    field: "count" | "duration",
-    delta: number,
-  ) => {
+  const updateBatch = (id: number, field: "count" | "duration", delta: number) => {
     setVideoBatches((batches) =>
       batches.map((batch) => {
         if (batch.id === id) {
-          if (field === "count")
-            return { ...batch, count: Math.max(1, batch.count + delta) };
-          if (field === "duration")
-            return {
-              ...batch,
-              duration: Math.max(15, batch.duration + delta * 15),
-            };
+          if (field === "count") return { ...batch, count: Math.max(1, batch.count + delta) };
+          if (field === "duration") return { ...batch, duration: Math.max(15, batch.duration + delta * 15) };
         }
         return batch;
-      }),
+      })
     );
   };
 
@@ -78,45 +133,24 @@ export function ProjectSubmissionForm() {
     setRevisions(Math.max(0, revisions + delta));
   };
 
-  const calculateTotal = (): number => {
-    let total = 0;
+  const addRequest = () => {
+    setProjectRequests([...projectRequests, { id: Date.now(), text: "", date: new Date().toISOString(), status: "sent" }]);
+  };
 
-    videoBatches.forEach((batch) => {
-      // 1. Calculate how many full 60-second chunks are in this video
-      const fullMinuteBlocks = Math.floor(batch.duration / 60);
+  const removeRequest = (id: number) => {
+    if (projectRequests.length > 1) {
+      setProjectRequests(projectRequests.filter((req) => req.id !== id));
+    }
+  };
 
-      // 2. Find out how many seconds are left over
-      const leftoverSeconds = batch.duration % 60;
-
-      // 3. Price the full minutes (700 each)
-      let batchCostPerVideo = fullMinuteBlocks * 700;
-
-      // 4. Add the cost for the leftover seconds using your specific tiers
-      if (leftoverSeconds > 0 && leftoverSeconds <= 15) {
-        batchCostPerVideo += 200;
-      } else if (leftoverSeconds > 15 && leftoverSeconds <= 30) {
-        batchCostPerVideo += 400;
-      } else if (leftoverSeconds > 30 && leftoverSeconds <= 45) {
-        batchCostPerVideo += 600;
-      } else if (leftoverSeconds > 45) {
-        batchCostPerVideo += 700;
-      }
-
-      // 5. Multiply by the number of videos in this batch
-      total += batchCostPerVideo * batch.count;
-    });
-
-    // Revisions logic remains unchanged
-    const extraRevisions = Math.max(0, revisions - FREE_REVISIONS);
-    total += extraRevisions * RATE_PER_EXTRA_REVISION;
-
-    return Math.round(total);
+  const updateRequestText = (id: number, text: string) => {
+    setProjectRequests(reqs => reqs.map(req => req.id === id ? { ...req, text } : req));
   };
 
   const handleProjectSubmit = async () => {
     setError(null);
 
-    // 1. Strict Validation
+    // 1. Validation
     if (!clientName.trim() || !projectTitle.trim()) {
       setError("Please fill out your Name and the Project Title.");
       return;
@@ -125,20 +159,18 @@ export function ProjectSubmissionForm() {
       setError("Please enter a valid email address.");
       return;
     }
-    if (!description.trim() || description.trim().length < 10) {
-      setError(
-        "Please provide a bit more detail about your project requirements.",
-      );
+    
+    // Filter out empty requests
+    const validRequests = projectRequests.filter(req => req.text.trim().length > 0);
+    if (validRequests.length === 0) {
+      setError("Please add at least one specific project detail or requirement.");
       return;
     }
 
     setIsSubmitting(true);
 
     // 2. Fetch User
-    const {
-      data: { user },
-      error: authError,
-    } = await supabase.auth.getUser();
+    const { data: { user }, error: authError } = await supabase.auth.getUser();
     if (authError || !user) {
       setError("Security error: You must be logged in to submit a project.");
       setIsSubmitting(false);
@@ -146,12 +178,12 @@ export function ProjectSubmissionForm() {
     }
 
     // 3. Prepare Data
-    const totalVideoCount = videoBatches.reduce(
-      (sum, batch) => sum + batch.count,
-      0,
-    );
-    // Append phone number to notes since it's not a standalone column in your schema
-    const combinedNotes = `${description.trim()}${phone ? `\n\nClient Phone: ${phone}` : ""}`;
+    const totalVideoCount = videoBatches.reduce((sum, batch) => sum + batch.count, 0);
+    const calculatedDeadline = calculateDeliveryDate(turnaroundDays);
+    
+    // Store the structured requests as a JSON string in the notes column 
+    // so the admin dashboard can parse and update their statuses later.
+    const structuredNotesJson = JSON.stringify(validRequests);
 
     // 4. Database Insert
     const { error: insertError } = await supabase
@@ -160,11 +192,13 @@ export function ProjectSubmissionForm() {
         client_id: user.id,
         client_name: clientName.trim(),
         client_email: email.trim(),
+        client_phone: phone.trim() || null, // Upgraded column
         project_title: projectTitle.trim(),
-        status: "received", // explicitly set to match schema CHECK constraint
+        status: "received",
         drive_link: driveLink.trim() || null,
-        deadline: deadline || null, // expects ISO string or null
-        notes: combinedNotes,
+        deadline: calculatedDeadline.toISOString(),
+        turnaround_speed: turnaroundDays, // Upgraded column
+        notes: structuredNotesJson, // Upgraded structured JSON string
         expected_video_count: totalVideoCount,
         agreed_price: calculateTotal(),
         revisions_requested: revisions,
@@ -182,54 +216,32 @@ export function ProjectSubmissionForm() {
   };
 
   return (
-    <div className="m-3 md:m-12 p-6 md:p-8 bg-white/80 backdrop-blur-md border border-white/60 rounded-sm shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
+    <div className="m-3 md:m-12 p-6 md:p-8 bg-white/80 backdrop-blur-md border border-neutral-200 rounded-sm shadow-xl font-sans text-neutral-900">
       <div className="mb-6 md:mb-8">
-        <h2 className="text-4xl font-bebas uppercase text-neutral-900">
-          Start Your Project
-        </h2>
-        <p className="text-neutral-500 mt-1">
-          Tell me what you need, and get an instant estimate.
-        </p>
+        <h2 className="text-4xl font-bold uppercase text-neutral-900">Start Your Project</h2>
+        <p className="text-neutral-500 mt-1">Configure your deliverables, requirements, and turnaround speed.</p>
       </div>
 
       <div className="flex flex-col md:flex-row md:flex-wrap md:mx-4 gap-y-6 md:gap-y-8">
+        
         {/* --- ROW 1: PERSONAL INFO --- */}
         <div className="w-full md:w-1/3 md:px-4 flex flex-col">
           <label className="mb-3 block text-sm font-semibold text-neutral-700 uppercase tracking-wider">
             Name <span className="text-red-500">*</span>
           </label>
-          <Input
-            value={clientName}
-            onChange={(e) => setClientName(e.target.value)}
-            placeholder="e.g. John Doe"
-            className="w-full p-4 bg-neutral-50 border border-neutral-200 rounded-sm focus:ring-0 outline-none transition-all"
-          />
+          <Input value={clientName} onChange={(e: any) => setClientName(e.target.value)} placeholder="e.g. John Doe" className="w-full p-4 bg-neutral-50 border border-neutral-200 rounded-sm focus:ring-0 outline-none transition-all" />
         </div>
 
         <div className="w-full md:w-1/3 md:px-4 flex flex-col">
           <label className="mb-3 block text-sm font-semibold text-neutral-700 uppercase tracking-wider">
             Email <span className="text-red-500">*</span>
           </label>
-          <Input
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            type="email"
-            placeholder="john@company.com"
-            className="w-full p-4 bg-neutral-50 border border-neutral-200 rounded-sm focus:ring-0 outline-none transition-all"
-          />
+          <Input value={email} onChange={(e: any) => setEmail(e.target.value)} type="email" placeholder="john@company.com" className="w-full p-4 bg-neutral-50 border border-neutral-200 rounded-sm focus:ring-0 outline-none transition-all" />
         </div>
 
         <div className="w-full md:w-1/3 md:px-4 flex flex-col">
-          <label className="mb-3 block text-sm font-semibold text-neutral-700 uppercase tracking-wider">
-            Phone Number
-          </label>
-          <Input
-            value={phone}
-            onChange={(e) => setPhone(e.target.value)}
-            type="tel"
-            placeholder="+91"
-            className="w-full p-4 bg-neutral-50 border border-neutral-200 rounded-sm focus:ring-0 outline-none transition-all"
-          />
+          <label className="mb-3 block text-sm font-semibold text-neutral-700 uppercase tracking-wider">Phone Number</label>
+          <Input value={phone} onChange={(e: any) => setPhone(e.target.value)} type="tel" placeholder="+91" className="w-full p-4 bg-neutral-50 border border-neutral-200 rounded-sm focus:ring-0 outline-none transition-all" />
         </div>
 
         {/* --- ROW 2: PROJECT INFO --- */}
@@ -237,158 +249,108 @@ export function ProjectSubmissionForm() {
           <label className="mb-3 block text-sm font-semibold text-neutral-700 uppercase tracking-wider">
             Project Title <span className="text-red-500">*</span>
           </label>
-          <Input
-            value={projectTitle}
-            onChange={(e) => setProjectTitle(e.target.value)}
-            placeholder="e.g. Summer Ad Campaign"
-            className="w-full p-4 bg-neutral-50 border border-neutral-200 rounded-sm focus:ring-0 outline-none transition-all"
-          />
+          <Input value={projectTitle} onChange={(e: any) => setProjectTitle(e.target.value)} placeholder="e.g. Summer Ad Campaign" className="w-full p-4 bg-neutral-50 border border-neutral-200 rounded-sm focus:ring-0 outline-none transition-all" />
         </div>
 
         <div className="w-full md:w-1/3 md:px-4 flex flex-col">
-          <label className="mb-3 block text-sm font-semibold text-neutral-700 uppercase tracking-wider">
-            Raw Assets Link
-          </label>
-          <Input
-            value={driveLink}
-            onChange={(e) => setDriveLink(e.target.value)}
-            type="url"
-            placeholder="Google Drive / Dropbox Link"
-            className="w-full p-4 bg-neutral-50 border border-neutral-200 rounded-sm focus:ring-0 outline-none transition-all"
-          />
+          <label className="mb-3 block text-sm font-semibold text-neutral-700 uppercase tracking-wider">Raw Assets Link</label>
+          <Input value={driveLink} onChange={(e: any) => setDriveLink(e.target.value)} type="url" placeholder="Google Drive / Dropbox" className="w-full p-4 bg-neutral-50 border border-neutral-200 rounded-sm focus:ring-0 outline-none transition-all" />
+          <p className="text-[10px] text-amber-600 mt-1 font-medium flex items-center">
+            <span className="mr-1">⚠️</span> Please set folder permissions to "Anyone with the link".
+          </p>
         </div>
 
+        {/* ⚡ NEW: DYNAMIC TURNAROUND SPEED */}
         <div className="w-full md:w-1/3 md:px-4 flex flex-col">
-          <label className="mb-3 block text-sm font-semibold text-neutral-700 uppercase tracking-wider">
-            Target Deadline
-          </label>
-          <Input
-            value={deadline}
-            onChange={(e) => setDeadline(e.target.value)}
-            type="date"
-            className="w-full p-4 bg-neutral-50 border border-neutral-200 rounded-sm focus:ring-0 outline-none transition-all text-neutral-600"
-          />
+          <label className="mb-3 block text-sm font-semibold text-neutral-700 uppercase tracking-wider">Turnaround Speed</label>
+          <select
+            value={turnaroundDays}
+            onChange={(e) => setTurnaroundDays(Number(e.target.value))}
+            className="w-full p-1.5 pl-3 bg-neutral-50 border border-neutral-200 rounded-sm outline-none cursor-pointer text-neutral-800 text-sm appearance-none"
+          >
+            <option value={5}>Standard (5 Working Days) [0%]</option>
+            <option value={3}>Rush (3 Working Days) [+10%]</option>
+            <option value={2}>48 Hours [+30%]</option>
+          </select>
+          <p className="text-xs text-neutral-500 mt-2 font-medium flex items-center gap-1">
+            <Calendar size={12}/> Target Delivery: <span className="text-green-600 font-bold">{calculateDeliveryDate(turnaroundDays).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' })}</span>
+          </p>
         </div>
 
         {/* --- ROW 3: TECHNICALS --- */}
         <div className="w-full md:w-1/3 md:px-4 flex flex-col space-y-4">
-          <label className="block text-sm font-semibold text-neutral-700 uppercase tracking-wider">
-            Video Requirements
-          </label>
+          <label className="block text-sm font-semibold text-neutral-700 uppercase tracking-wider">Video Requirements</label>
           <div className="flex-1 flex flex-col space-y-3">
             {videoBatches.map((batch) => (
-              <div
-                key={batch.id}
-                className="flex flex-col xl:flex-row xl:items-center justify-between gap-2 p-3 bg-neutral-50 rounded-sm border border-neutral-200"
-              >
+              <div key={batch.id} className="flex flex-col xl:flex-row xl:items-center justify-between gap-2 p-3 bg-neutral-50 rounded-sm border border-neutral-200">
                 <div className="flex items-center justify-between bg-white border border-neutral-200 rounded-sm px-2 py-1 shadow-sm">
-                  <button
-                    onClick={() => updateBatch(batch.id, "count", -1)}
-                    className="p-1 text-neutral-400 hover:text-neutral-900 transition-colors"
-                  >
-                    <Minus size={16} strokeWidth={3} />
-                  </button>
-                  <div className="w-6 text-center font-bold text-neutral-900 select-none">
-                    {batch.count}
-                  </div>
-                  <button
-                    onClick={() => updateBatch(batch.id, "count", 1)}
-                    className="p-1 text-neutral-400 hover:text-neutral-900 transition-colors"
-                  >
-                    <Plus size={16} strokeWidth={3} />
-                  </button>
+                  <button onClick={() => updateBatch(batch.id, "count", -1)} className="p-1 text-neutral-400 hover:text-neutral-900 transition-colors"><Minus size={16} strokeWidth={3} /></button>
+                  <div className="w-6 text-center font-bold text-neutral-900 select-none">{batch.count}</div>
+                  <button onClick={() => updateBatch(batch.id, "count", 1)} className="p-1 text-neutral-400 hover:text-neutral-900 transition-colors"><Plus size={16} strokeWidth={3} /></button>
                 </div>
-
-                <span className="text-xs font-medium text-neutral-500 whitespace-nowrap hidden xl:block">
-                  videos of
-                </span>
-
+                <span className="text-xs font-medium text-neutral-500 whitespace-nowrap hidden xl:block">videos of</span>
                 <div className="flex items-center justify-between bg-white border border-neutral-200 rounded-sm px-2 py-1 shadow-sm">
-                  <button
-                    onClick={() => updateBatch(batch.id, "duration", -1)}
-                    className="p-1 text-neutral-400 hover:text-neutral-900 transition-colors"
-                  >
-                    <Minus size={16} strokeWidth={3} />
-                  </button>
-                  <div className="w-10 text-center font-bold text-neutral-900 select-none">
-                    {batch.duration}s
-                  </div>
-                  <button
-                    onClick={() => updateBatch(batch.id, "duration", 1)}
-                    className="p-1 text-neutral-400 hover:text-neutral-900 transition-colors"
-                  >
-                    <Plus size={16} strokeWidth={3} />
-                  </button>
+                  <button onClick={() => updateBatch(batch.id, "duration", -1)} className="p-1 text-neutral-400 hover:text-neutral-900 transition-colors"><Minus size={16} strokeWidth={3} /></button>
+                  <div className="w-10 text-center font-bold text-neutral-900 select-none">{batch.duration}s</div>
+                  <button onClick={() => updateBatch(batch.id, "duration", 1)} className="p-1 text-neutral-400 hover:text-neutral-900 transition-colors"><Plus size={16} strokeWidth={3} /></button>
                 </div>
-
                 {videoBatches.length > 1 && (
-                  <button
-                    onClick={() => removeVideoBatch(batch.id)}
-                    className="p-1 text-red-400 hover:text-red-600 transition-colors"
-                  >
-                    <Trash2 size={16} />
-                  </button>
+                  <button onClick={() => removeVideoBatch(batch.id)} className="p-1 text-red-400 hover:text-red-600 transition-colors"><Trash2 size={16} /></button>
                 )}
               </div>
             ))}
-
-            <Buttonx
-              onClick={addVideoBatch}
-              buttonClassName="h-10 w-full bg-green-300 text-neutral-900 hover:bg-green-400 border-0 rounded-sm text-sm"
-              wrapperClassName="shadow-green-500"
-              beamDuration={6}
-              beamDelay={2}
-              beamSize={50}
-            >
-              <PlusCircle size={15} className="mr-2" />
-              Add another video type
+            <Buttonx onClick={addVideoBatch} buttonClassName="h-10 w-full bg-green-400 text-white font-medium hover:bg-green-500 border-0 rounded-sm text-sm flex items-center justify-center">
+              <PlusCircle size={15} className="mr-2" /> Add another video type
             </Buttonx>
           </div>
         </div>
 
         <div className="w-full md:w-1/3 md:px-4 flex flex-col space-y-4">
-          <label className="block text-sm font-semibold text-neutral-700 uppercase tracking-wider">
-            Number of Revisions
-          </label>
+          <label className="block text-sm font-semibold text-neutral-700 uppercase tracking-wider">Number of Revisions</label>
           <div className="flex-1 p-4 border border-neutral-200 bg-neutral-50 rounded-sm flex flex-col justify-center items-center space-y-3">
             <div className="flex items-center w-full bg-white border border-neutral-200 rounded-sm px-2 py-2 shadow-sm">
-              <button
-                onClick={() => updateRevisions(-1)}
-                className="p-2 text-neutral-400 hover:text-neutral-900 transition-colors"
-              >
-                <Minus size={16} strokeWidth={3} />
-              </button>
-              <div className="flex-1 text-center text-lg font-bold text-neutral-900 select-none">
-                {revisions}
-              </div>
-              <button
-                onClick={() => updateRevisions(1)}
-                className="p-2 text-neutral-400 hover:text-neutral-900 transition-colors"
-              >
-                <Plus size={16} strokeWidth={3} />
-              </button>
+              <button onClick={() => updateRevisions(-1)} className="p-2 text-neutral-400 hover:text-neutral-900 transition-colors"><Minus size={16} strokeWidth={3} /></button>
+              <div className="flex-1 text-center text-lg font-bold text-neutral-900 select-none">{revisions}</div>
+              <button onClick={() => updateRevisions(1)} className="p-2 text-neutral-400 hover:text-neutral-900 transition-colors"><Plus size={16} strokeWidth={3} /></button>
             </div>
             <div className="text-center space-y-1">
-              <p className="text-xs text-neutral-500 m-0">
-                Includes {FREE_REVISIONS} free revision.
-              </p>
-              <p className="text-xs text-neutral-500 m-0">
-                Extra revisions are ₹{RATE_PER_EXTRA_REVISION} each.
-              </p>
+              <p className="text-xs text-neutral-500 m-0">Includes {FREE_REVISIONS} free revision.</p>
+              <p className="text-xs text-neutral-500 m-0">Extra revisions are ₹{RATE_PER_EXTRA_REVISION} each.</p>
             </div>
           </div>
         </div>
 
+        {/* ⚡ NEW: STRUCTURED PROJECT DETAILS / CHANGE REQUESTS */}
         <div className="w-full md:w-1/3 md:px-4 flex flex-col space-y-4">
-          <label className="block text-sm font-semibold text-neutral-700 uppercase tracking-wider">
-            Project Details <span className="text-red-500">*</span>
+          <label className="text-sm font-semibold text-neutral-700 uppercase tracking-wider flex items-center justify-between">
+            <span>Project Requirements <span className="text-red-500">*</span></span>
           </label>
-          <textarea
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            placeholder="Tell us about the style, brand, and any reference videos..."
-            className="flex-1 w-full min-h-30 p-4 bg-neutral-50 border border-neutral-200 rounded-sm outline-none transition-all resize-none"
-          ></textarea>
+          <div className="flex-1 flex flex-col space-y-3 bg-neutral-50 p-3 rounded-sm border border-neutral-200 overflow-y-auto max-h-63">
+            {projectRequests.map((req, index) => (
+              <div key={req.id} className="relative flex items-start gap-2 bg-white p-2 border border-neutral-200 rounded-sm shadow-sm group">
+                <span className="text-[10px] font-bold text-neutral-400 mt-2 ml-1 w-4 shrink-0">{index + 1}.</span>
+                <textarea
+                  value={req.text}
+                  onChange={(e) => updateRequestText(req.id, e.target.value)}
+                  placeholder={index === 0 ? "Describe style, brand guidelines, etc..." : "Add another specific detail..."}
+                  className="flex-1 w-full min-h-10 text-sm p-1 outline-none resize-none bg-transparent text-neutral-800"
+                  rows={2}
+                />
+                {projectRequests.length > 1 && (
+                  <button onClick={() => removeRequest(req.id)} className="p-1.5 text-neutral-300 hover:text-red-500 transition-colors shrink-0">
+                    <Trash2 size={14} />
+                  </button>
+                )}
+              </div>
+            ))}
+            
+            <button 
+              onClick={addRequest}
+              className="w-full flex items-center justify-center gap-1.5 p-2 mt-1 border border-dashed border-neutral-300 rounded-sm text-xs font-medium text-neutral-500 hover:text-neutral-900 hover:border-neutral-400 hover:bg-neutral-100 transition-all"
+            >
+              <MessageSquarePlus size={14} /> Add specific requirement
+            </button>
+          </div>
         </div>
       </div>
 
@@ -396,25 +358,21 @@ export function ProjectSubmissionForm() {
 
       <div className="flex flex-col sm:flex-row items-center sm:items-end justify-between gap-6">
         <div className="w-full sm:w-auto text-center sm:text-left">
-          <p className="text-xs font-semibold text-neutral-500 uppercase tracking-wider m-0">
-            Estimated Budget
-          </p>
-          <p className="text-4xl mt-1 font-extrabold text-neutral-900">
-            ₹{calculateTotal()}
-          </p>
+          <p className="text-xs font-semibold text-neutral-500 uppercase tracking-wider m-0">Estimated Budget</p>
+          <p className="text-4xl mt-1 font-extrabold text-green-600">₹{calculateTotal()}</p>
         </div>
         {error && (
-          <div className="p-4 text-red-600 rounded-md text-sm">
+          <div className="p-4 bg-red-50 border border-red-100 text-red-600 rounded-md text-sm text-center">
             {error}
           </div>
         )}
-        <button
+        <Buttonx
           onClick={handleProjectSubmit}
           disabled={isSubmitting}
-          className="h-12 w-full sm:w-auto px-8 bg-green-300 text-neutral-900 font-medium hover:bg-green-400 rounded-sm text-sm whitespace-nowrap disabled:opacity-50 transition-colors"
+          className="h-12 w-full sm:w-auto px-8 bg-green-400 text-white font-bold hover:bg-green-500 rounded-sm text-sm whitespace-nowrap disabled:opacity-50 transition-colors"
         >
-          {isSubmitting ? "Submitting..." : "Submit Request"}
-        </button>
+          {isSubmitting ? "Submitting..." : "Submit Project Brief"}
+        </Buttonx>
       </div>
     </div>
   );
