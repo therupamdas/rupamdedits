@@ -229,19 +229,19 @@ export function ProjectSubmissionForm() {
           <label className="mb-3 block text-sm font-semibold text-neutral-700 uppercase tracking-wider">
             Name <span className="text-red-500">*</span>
           </label>
-          <Input value={clientName} onChange={(e: any) => setClientName(e.target.value)} placeholder="e.g. John Doe" className="w-full p-4 bg-neutral-50 border border-neutral-200 rounded-sm focus:ring-0 outline-none transition-all" />
+          <Input value={clientName} onChange={(e: any) => setClientName(e.target.value)} placeholder="Your Full Name" className="w-full p-4 bg-neutral-50 border border-neutral-200 rounded-sm focus:ring-0 outline-none transition-all" />
         </div>
 
         <div className="w-full md:w-1/3 md:px-4 flex flex-col">
           <label className="mb-3 block text-sm font-semibold text-neutral-700 uppercase tracking-wider">
             Email <span className="text-red-500">*</span>
           </label>
-          <Input value={email} onChange={(e: any) => setEmail(e.target.value)} type="email" placeholder="john@company.com" className="w-full p-4 bg-neutral-50 border border-neutral-200 rounded-sm focus:ring-0 outline-none transition-all" />
+          <Input value={email} onChange={(e: any) => setEmail(e.target.value)} type="email" placeholder="yourname123@gmail.com" className="w-full p-4 bg-neutral-50 border border-neutral-200 rounded-sm focus:ring-0 outline-none transition-all" />
         </div>
 
         <div className="w-full md:w-1/3 md:px-4 flex flex-col">
           <label className="mb-3 block text-sm font-semibold text-neutral-700 uppercase tracking-wider">Phone Number</label>
-          <Input value={phone} onChange={(e: any) => setPhone(e.target.value)} type="tel" placeholder="+91" className="w-full p-4 bg-neutral-50 border border-neutral-200 rounded-sm focus:ring-0 outline-none transition-all" />
+          <Input value={phone} onChange={(e: any) => setPhone(e.target.value)} type="tel" placeholder="+91 00000 00000" className="w-full p-4 bg-neutral-50 border border-neutral-200 rounded-sm focus:ring-0 outline-none transition-all" />
         </div>
 
         {/* --- ROW 2: PROJECT INFO --- */}
@@ -249,7 +249,7 @@ export function ProjectSubmissionForm() {
           <label className="mb-3 block text-sm font-semibold text-neutral-700 uppercase tracking-wider">
             Project Title <span className="text-red-500">*</span>
           </label>
-          <Input value={projectTitle} onChange={(e: any) => setProjectTitle(e.target.value)} placeholder="e.g. Summer Ad Campaign" className="w-full p-4 bg-neutral-50 border border-neutral-200 rounded-sm focus:ring-0 outline-none transition-all" />
+          <Input value={projectTitle} onChange={(e: any) => setProjectTitle(e.target.value)} placeholder="abc Advertising" className="w-full p-4 bg-neutral-50 border border-neutral-200 rounded-sm focus:ring-0 outline-none transition-all" />
         </div>
 
         <div className="w-full md:w-1/3 md:px-4 flex flex-col">
