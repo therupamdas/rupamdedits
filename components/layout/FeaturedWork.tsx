@@ -17,7 +17,7 @@ export default function FeaturedWork() {
         </h2>
 
         <Buttonx
-          buttonClassName="h-15 w-full sm:w-36 text-sm border-neutral-200"
+          buttonClassName="h-15 w-full sm:w-44 text-sm border-neutral-200"
           wrapperClassName="h-15"
           beamDuration={3}
           beamDelay={4}

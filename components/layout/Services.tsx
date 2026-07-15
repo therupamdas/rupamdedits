@@ -20,7 +20,7 @@ export default function Services() {
       id: "s2",
       title: "Talking Head Videos",
       description: "High-conversion video ads tailored for Facebook, Instagram, and LinkedIn ad platforms.",
-      price: "700"
+      price: "1000"
     },
   ];
 
@@ -34,7 +34,7 @@ export default function Services() {
         </h2>
         
         <Buttonx
-          buttonClassName="h-15 w-full sm:w-36 text-sm border-neutral-200"
+          buttonClassName="h-15 w-full sm:w-44 text-sm border-neutral-200"
           wrapperClassName="h-15"
           beamDuration={3}
           beamDelay={4}
