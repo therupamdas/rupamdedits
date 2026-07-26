@@ -2,7 +2,7 @@ import PortfolioGrid from "./portfoliogrid";
 
 export default async function PortfolioPage() {
   // ⚡ Generate both the video and the ultra-fast poster image directly from the public folder
-  const items = Array.from({ length: 11 }, (_, i) => {
+  const items = Array.from({ length: 18 }, (_, i) => {
     const n = i + 1;
 
     return {
