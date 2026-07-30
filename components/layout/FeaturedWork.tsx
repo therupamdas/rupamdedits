@@ -32,68 +32,56 @@ export default function FeaturedWork() {
         <div className="group relative rounded-md overflow-hidden col-span-1 aspect-9/16 w-full bg-white/0 shadow-xl transition-transform ">
           <OptimizedVideo
             src="./videos/1.mp4"
-            poster="./poster.png"
-            videocaption="Tattoo Artist" // IMPORTANT: You need to create these!
-          />
-
-        </div>
-
-        {/* Landscape 1 */}
-        <div className="group relative rounded-md overflow-hidden col-span-2 h-full w-full bg-white/0 shadow-xl transition-transform ">
-          <OptimizedVideo
-            src="./videos/land (1).mp4"
-            poster="./poster.png"
-            videocaption="Restaurant Tour" // IMPORTANT: You need to create these!
+            poster="./posters/1.webp"
+            videocaption=""
           />
         </div>
 
         <div className="group relative rounded-md overflow-hidden col-span-1 aspect-9/16 w-full bg-white/0 shadow-xl transition-transform ">
           <OptimizedVideo
             src="./videos/2.mp4"
-            poster="./poster.png"
-            videocaption="Preparation" // IMPORTANT: You need to create these!
+            poster="./posters/2.webp"
+            videocaption=""
           />
         </div>
 
         <div className="group relative rounded-md overflow-hidden col-span-1 aspect-9/16 w-full bg-white/0 shadow-xl transition-transform ">
           <OptimizedVideo
             src="./videos/3.mp4"
-            poster="./poster.png"
-            videocaption="Product Ad" // IMPORTANT: You need to create these!
+            poster="./posters/3.webp"
+            videocaption=""
           />
         </div>
-
-        <div className="group relative rounded-md overflow-hidden col-span-2 h-full w-full bg-white/0 shadow-xl transition-transform ">
-          <OptimizedVideo
-            src="./videos/land (2).mp4"
-            poster="./poster.png"
-            videocaption="Fashion Outlook" // IMPORTANT: You need to create these!
-          />
-        </div>
-
         <div className="group relative rounded-md overflow-hidden col-span-1 aspect-9/16 w-full bg-white/0 shadow-xl transition-transform ">
           <OptimizedVideo
-            src="./videos/4.mp4"
-            poster="./poster.png"
-            videocaption="Clothing Store" // IMPORTANT: You need to create these!
+            src="./videos/10.mp4"
+            poster="./posters/10.webp"
+            videocaption="" 
           />
         </div>
-
         <div className="group relative rounded-md overflow-hidden col-span-1 aspect-9/16 w-full bg-white/0 shadow-xl transition-transform ">
           <OptimizedVideo
-            src="./videos/5.mp4"
-            poster="./poster.png"
-            videocaption="Sports Montage" // IMPORTANT: You need to create these!
+            src="./videos/9.mp4"
+            poster="./posters/9.webp"
+            videocaption="" 
           />
         </div>
 
         <div className="hidden md:block group relative rounded-md overflow-hidden col-span-1 aspect-9/16 w-full bg-white/0 shadow-xl transition-transform ">
           <OptimizedVideo
             src="./videos/12.mp4"
-            poster="./poster.png"
-            videocaption="Food Montage" // IMPORTANT: You need to create these!
+            poster="./posters/12.webp"
+            videocaption=" " 
           />
         </div>
+        <div className="group relative rounded-md overflow-hidden col-span-1 aspect-9/16 w-full bg-white/0 shadow-xl transition-transform ">
+          <OptimizedVideo
+            src="./videos/5.mp4"
+            poster="./posters/5.webp"
+            videocaption="" 
+          />
+        </div>
+
       </main>
     </section>
   );
