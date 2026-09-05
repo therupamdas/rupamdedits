@@ -90,8 +90,8 @@ export default function Hero() {
         {/* Stats */}
         <div className="mt-4 flex flex-row items-center">
           <NumberTicker
-            value={150}
-            startValue={111}
+            value={250}
+            startValue={201}
             className="whitespace-pre-wrap text-3xl font-medium tracking-tighter text-black dark:text-white sm:text-4xl md:text-5xl"
           />
           <p className="text-3xl font-medium tracking-normal text-black dark:text-white sm:text-4xl md:text-5xl">
