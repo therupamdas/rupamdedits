@@ -4,7 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Play, Sparkles, Mail } from "lucide-react";
 import { AuroraText } from "../ui/aurora-text";
 import { NumberTicker } from "../ui/number-ticker";
-import { Iphone } from "../ui/iphone";
+import Image from "next/image";
 import { Buttonx } from "./Buttonx";
 
 export default function Hero() {
@@ -101,8 +101,8 @@ export default function Hero() {
 
         <div className="flex flex-row items-center ">
           <NumberTicker
-            value={20}
-            startValue={12}
+            value={30}
+            startValue={21}
             className="whitespace-pre-wrap text-3xl font-medium tracking-tighter text-black dark:text-white sm:text-4xl md:text-5xl"
           />
           <p className="text-3xl font-medium tracking-normal text-black dark:text-white sm:text-4xl md:text-5xl">
@@ -110,7 +110,13 @@ export default function Hero() {
           </p>
         </div>
       </div>
-
+      <Image
+      src="/bg.png"
+      width={630}
+      height={630}
+      
+      alt="Picture of the author"
+    />
       
     </section>
   );
