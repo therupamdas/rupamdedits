@@ -111,33 +111,7 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Phone */}
-      <div
-        className="
-          md:flex
-          justify-center
-          md:w-80
-          ml-0
-          md:ml-full
-          md:rotate-0 
-          md:pt-5
-          md:static
-          md:h-full
-          w-40
-          
-          relative
-          h-36
-          -left-26
-          rotate-270
-          pt-2
-          hidden
-          
-                  "
-      >
-        <div className=" w-full max-w-60 sm:max-w-70 md:max-w-[320px] lg:max-w-none ">
-          <Iphone className=" " videoSrc="/videos/6.mp4" />
-        </div>
-      </div>
+      
     </section>
   );
 }

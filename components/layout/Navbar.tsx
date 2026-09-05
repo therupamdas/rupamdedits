@@ -159,7 +159,7 @@ export default function Navbar({ user }: { user?: any }) {
           {/* 2. AUTHENTICATION CONDITIONAL RENDERING */}
           {!user ? (
             <Buttonx
-              buttonClassName="w-28 font-normal border-2 border-neutral-800"
+              buttonClassName="w-28 font-normal border-1 border-neutral-400"
               beamDuration={4}
               beamDelay={2}
               beamSize={0}
