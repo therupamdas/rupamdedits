@@ -174,8 +174,8 @@ export default function Navbar({ user }: { user?: any }) {
                 beamDuration={4}
                 beamDelay={2}
                 beamSize={0}
-                buttonClassName="p-0 w-12 aspect-square border-0 h-12 rounded-md"
-                wrapperClassName="p-0 w-12 aspect-square border-0 h-12 rounded-md"
+                buttonClassName="p-0 w-12 bg-green-200 aspect-square border-0 h-12 rounded-md"
+                wrapperClassName="p-0 w-12  bg-green-200 aspect-square border-0 h-12 rounded-md"
               >
                 <span className="text-xl bg-green-200 text-neutral-900">{initials}</span>
                 {/* <Image

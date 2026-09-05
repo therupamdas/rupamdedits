@@ -112,8 +112,8 @@ export default function Hero() {
       </div>
       <Image
       src="/bg.png"
-      width={630}
-      height={630}
+      width={900}
+      height={900}
       
       alt="Picture of the author"
     />
