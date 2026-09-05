@@ -68,7 +68,7 @@ export default function Navbar({ user }: { user?: any }) {
   const pathname = usePathname();
   const router = useRouter();
   const supabase = createClient();
-   const initials = user?.email ? user.email.substring(0, 2).toUpperCase() : "P";
+   const initials = user?.email ? user.email.substring(0, 1).toUpperCase() : "P";
   console.log(user);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -177,7 +177,7 @@ export default function Navbar({ user }: { user?: any }) {
                 buttonClassName="p-0 w-12 aspect-square border-0 h-12 rounded-md"
                 wrapperClassName="p-0 w-12 aspect-square border-0 h-12 rounded-md"
               >
-                <span className="text-xl text-neutral-900">{initials}</span>
+                <span className="text-xl bg-green-200 text-neutral-900">{initials}</span>
                 {/* <Image
                   src="/rupam.png"
                   alt="Profile"
